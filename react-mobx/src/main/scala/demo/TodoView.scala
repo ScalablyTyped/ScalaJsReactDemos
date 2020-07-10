@@ -1,33 +1,30 @@
 package demo
 
+import japgolly.scalajs.react.{Callback, CallbackTo}
+import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.window
 
-import slinky.core._
-import slinky.core.annotations.react
-import slinky.web.html._
+object TodoView {
 
-@react object TodoView {
+  case class Props(todo: Todo, toggle: Callback, rename: String => Callback)
 
-  case class Props(todo: Todo, toggle: () => Unit, rename: String => Unit)
-
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] {
+  val component = ObserverComponent[Props] {
     case Props(todo, toggle, rename) =>
-      val onRename = () =>
-        window.prompt("Task name", todo.task) match {
-          case e if e.isEmpty => ()
-          case task           => rename(task)
-        }
+      val onRename = CallbackTo(window.prompt("Task name", todo.task)) flatMap {
+        case e if e.isEmpty => Callback.empty
+        case task           => rename(task)
+      }
 
-      li(onDoubleClick := onRename)(
-        input(
-          `type` := "checkbox",
-          checked := todo.completed,
-          onChange := (() => toggle())
+      <.li(^.onDoubleClick --> onRename)(
+        <.input(
+          ^.`type` := "checkbox",
+          ^.checked := todo.completed,
+          ^.onChange --> toggle
         ),
         todo.task,
         todo.assignee match {
-          case Some(person) => small(person.name)
-          case None         => span()
+          case Some(person) => <.small(person.name)
+          case None         => <.span()
         }
       )
   }

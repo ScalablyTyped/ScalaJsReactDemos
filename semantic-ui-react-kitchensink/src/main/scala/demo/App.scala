@@ -1,37 +1,36 @@
 package demo
 
-import slinky.core._
-import slinky.core.annotations.react
-import slinky.core.facade.Hooks._
-import slinky.web.html._
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
+import japgolly.scalajs.react.vdom.html_<^._
+import typings.react.mod.useState
 import typings.react.reactStrings.submit
 import typings.semanticUiReact.genericMod.{SemanticICONS, SemanticSIZES, SemanticWIDTHSSTRING}
 import typings.semanticUiReact.semanticUiReactStrings.left
 import typings.semanticUiReact.{components => Sui}
 
 import scala.language.implicitConversions
+import scala.scalajs.js
 
-@react object App {
-  type Props = Unit
+object App {
 
-  val component = FunctionalComponent[Props] { _ =>
-    val (isModalVisible, updateIsModalVisible) = useState(false)
+  val component = ScalaFnComponent[Unit] { _ =>
+    val js.Tuple2(isModalVisible, updateIsModalVisible) = useState(false)
 
-    div(
+    <.div(
       Sui.Grid(
         Sui.GridColumn.width(SemanticWIDTHSSTRING.`1`),
         Sui.GridColumn.width(SemanticWIDTHSSTRING.`14`)(
           Sui.Divider.horizontal(true)(
             Sui.Header.as("h4")(Sui.Icon.name(SemanticICONS.tag), "Button and Icon")
           ),
-          p(Sui.Button.primary(true)("Primary")),
-          p(Sui.Icon.name(SemanticICONS.recycle)),
-          p(
+          <.p(Sui.Button.primary(true)("Primary")),
+          <.p(Sui.Icon.name(SemanticICONS.recycle)),
+          <.p(
             Sui.Button.icon(true)(
               Sui.Icon.name(SemanticICONS.recycle)
             )
           ),
-          p(
+          <.p(
             Sui.Button
               .labelPosition(left)
               .icon(true)(
@@ -47,19 +46,19 @@ import scala.language.implicitConversions
           ),
           Sui.Form(
             Sui.FormField(
-              label("First Name"),
-              input(placeholder := "First Name")
+              <.label("First Name"),
+              <.input(^.placeholder := "First Name")
             ),
             Sui.FormField(
-              label("Last Name"),
-              input(placeholder := "Last Name")
+              <.label("Last Name"),
+              <.input(^.placeholder := "Last Name")
             ),
             Sui.FormField(
-              Sui.Checkbox.labelReactElement("I agree to the Terms and Conditions")
+              Sui.Checkbox.labelVdomElement(<.span("I agree to the Terms and Conditions"))
             ),
             Sui.FormField(
               Sui.Checkbox
-                .labelReactElement("I agree to the Cookie Policy")
+                .labelVdomElement(<.span("I agree to the Cookie Policy"))
                 .toggle(true)
             ),
             Sui.Button.`type`(submit)("OK!")
@@ -75,22 +74,22 @@ import scala.language.implicitConversions
               .set("src", "https://react.semantic-ui.com/images/avatar/large/matthew.png"),
             Sui.CardContent(
               Sui.CardHeader("Matthew"),
-              Sui.CardMeta(span(className := "date")("Joined in 2015")),
+              Sui.CardMeta(<.span(^.className := "date")("Joined in 2015")),
               Sui.CardDescription("Matthew is a musician living in Nashville.")
             ),
             Sui.CardContent.extra(true)(
-              a(Sui.Icon.name(SemanticICONS.user), "22 Friends")
+              <.a(Sui.Icon.name(SemanticICONS.user), "22 Friends")
             )
           ),
           Sui.Divider.horizontal(true)(
             Sui.Header.as("h4")(Sui.Icon.name(SemanticICONS.tag), "Modal")
           ),
-          p(Sui.Button.primary(true).onClick((_, _) => updateIsModalVisible(true))("Show modal"))
+          <.p(Sui.Button.primary(true).onClick((_, _) => Callback(updateIsModalVisible(true)))("Show modal"))
         ),
         Sui.GridColumn.width(SemanticWIDTHSSTRING.`1`)
       ),
       Sui.Modal
-        .onClose((_, _) => updateIsModalVisible(false))
+        .onClose((_, _) => Callback(updateIsModalVisible(false)))
         .open(isModalVisible)(
           Sui.ModalHeader("Select a Photo"),
           Sui.ModalContent.image(true)(
@@ -101,8 +100,8 @@ import scala.language.implicitConversions
               .set("src", "https://react.semantic-ui.com/images/avatar/large/rachel.png"),
             Sui.ModalDescription(
               Sui.Header("Default Profile Image"),
-              p("We've found the following gravatar image associated with your e-mail address."),
-              p("Is it okay to use this photo?")
+              <.p("We've found the following gravatar image associated with your e-mail address."),
+              <.p("Is it okay to use this photo?")
             )
           )
         )

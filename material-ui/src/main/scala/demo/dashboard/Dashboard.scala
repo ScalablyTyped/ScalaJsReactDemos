@@ -2,10 +2,8 @@ package demo.dashboard
 
 import demo.StyleBuilder
 import org.scalablytyped.runtime.StringDictionary
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
-import slinky.core.facade.Hooks
-import slinky.web.html._
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.classnames.{mod => classNames}
 import typings.csstype.csstypeStrings._
 import typings.csstype.mod.OverflowXProperty
@@ -19,12 +17,13 @@ import typings.materialUiCore.typographyTypographyMod.Style
 import typings.materialUiIcons.{components => Icons}
 import typings.materialUiStyles.makeStylesMod.StylesHook
 import typings.materialUiStyles.withStylesMod.{CSSProperties, Styles}
+import typings.react.mod.useState
 
 import scala.scalajs.js
 
 // https://v3.material-ui.com/getting-started/page-layout-examples/dashboard/
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/Dashboard.js
-@react object Dashboard {
+object Dashboard {
 
   val drawerWidth = 240
 
@@ -121,17 +120,15 @@ import scala.scalajs.js
       .add("h5", theme => CSSProperties().setMarginBottom(theme.spacing.unit * 2))
       .hook
 
-  type Props = Unit
-
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] {
+  val component = ScalaFnComponent[Unit] {
     case () =>
       val classes = styles(js.undefined)
-      val (isOpen, setIsOpen) = Hooks.useState(true)
-      def handleDrawerOpen(): Unit = setIsOpen(true)
-      def handleDrawerClose(): Unit = setIsOpen(false)
+      val js.Tuple2(isOpen, setIsOpen) = useState(true)
+      val handleDrawerOpen = Callback(setIsOpen(true))
+      val handleDrawerClose = Callback(setIsOpen(false))
 
-      div(
-        className := classes("root"),
+      <.div(
+        ^.className := classes("root"),
         CssBaseline(),
         AppBar
           .position(absolute)
@@ -142,7 +139,7 @@ import scala.scalajs.js
                 IconButton
                   .color(PropTypes.Color.inherit)
                   .`aria-label`("Open drawer")
-                  .onClick(_ => handleDrawerOpen())
+                  .onClick(_ => handleDrawerOpen)
                   .className(
                     classNames(
                       StringDictionary[js.Any](classes("menuButton") -> true, classes("menuButtonHidden") -> isOpen)
@@ -171,16 +168,16 @@ import scala.scalajs.js
             )
           )
           .open(isOpen)(
-            div(className := classes("toolbarIcon"))(
-              IconButton.onClick(_ => handleDrawerClose())(Icons.ChevronLeft())
+            <.div(^.className := classes("toolbarIcon"))(
+              IconButton.onClick(_ => handleDrawerClose)(Icons.ChevronLeft())
             ),
             Divider(),
             List(ListItems.mainListItems),
             Divider(),
             List(ListItems.secondaryListItems)
           ),
-        main(className := classes("content"))(
-          div(className := classes("appBarSpacer")),
+        <.main(^.className := classes("content"))(
+          <.div(^.className := classes("appBarSpacer")),
           Typography
             .variant(Style.h4)
             .gutterBottom(true)
@@ -190,7 +187,7 @@ import scala.scalajs.js
           Typography()
             .component("div")
             .className(classes("chartContainer"))(
-              SimpleLineChart()
+              SimpleLineChart.component()
             ),
           Typography()
             .variant(Style.h4)
@@ -200,7 +197,7 @@ import scala.scalajs.js
             ),
           Typography()
             .component("div")
-            .className(classes("tableContainer"))(SimpleTable())
+            .className(classes("tableContainer"))(SimpleTable.component())
         )
       )
   }

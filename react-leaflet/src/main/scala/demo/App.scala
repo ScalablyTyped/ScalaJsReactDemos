@@ -1,7 +1,7 @@
 package demo
 
-import slinky.core._
-import slinky.core.annotations.react
+import japgolly.scalajs.react.ScalaFnComponent
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.leaflet.mod.LatLngExpression
 import typings.reactLeaflet.components.{Map, Marker, Popup, TileLayer}
 import typings.reactLeaflet.mod.{MapProps, MarkerProps, PopupProps, TileLayerProps}
@@ -9,10 +9,8 @@ import typings.reactLeaflet.mod.{MapProps, MarkerProps, PopupProps, TileLayerPro
 import scala.language.implicitConversions
 import scala.scalajs.js
 
-@react object App {
-  type Props = Unit
-
-  val component = FunctionalComponent[Props] { _ =>
+object App {
+  val component = ScalaFnComponent[Unit] { _ =>
     val position: LatLngExpression = js.Tuple2(51.505, -0.09)
 
     Map(MapProps().setCenter(position).setZoom(13))(

@@ -8,9 +8,8 @@ import demo.dashboard.Dashboard
 import demo.login.Login
 import demo.signin.SignIn
 import org.scalajs.dom
-import slinky.core.FunctionalComponent
-import slinky.core.facade.Fragment
-import slinky.web.ReactDOM
+import japgolly.scalajs.react.{Callback, CallbackTo, ScalaFnComponent}
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.materialUiCore.components.{List, ListItem, ListItemIcon, ListItemText, ListSubheader, Typography}
 import typings.materialUiCore.createMuiThemeMod.{Theme, ThemeOptions}
 import typings.materialUiCore.createTypographyMod.TypographyOptions
@@ -18,6 +17,7 @@ import typings.materialUiCore.stylesMod.createMuiTheme
 import typings.materialUiCore.typographyTypographyMod.Style
 import typings.materialUiIcons.{components => Icon}
 import typings.materialUiStyles.components.ThemeProvider
+import typings.react.components.Fragment
 import typings.reactRouter.mod.RouteProps
 import typings.reactRouterDom.components.{BrowserRouter, Link, Route}
 
@@ -30,12 +30,10 @@ object Demo {
       ) // https://v3.material-ui.com/style/typography/#migration-to-typography-v2
   )
 
-  type Props = Unit
-
   /* the production build is deployed at github pages under /material-ui , while dev build is server from root of webpack-dev-server */
   val basename = if (scala.scalajs.runtime.linkingInfo.productionMode) "/SlinkyDemos/material-ui/" else ""
 
-  val Main: FunctionalComponent[Props] = FunctionalComponent[Props] {
+  val Main = ScalaFnComponent[Unit] {
     case () =>
       ThemeProvider(theme)(
         BrowserRouter.basename(basename)(
@@ -44,29 +42,31 @@ object Demo {
               .setExact(true)
               .setPath("/")
               .setRender(_ =>
-                List(
-                  ListSubheader.inset(true)(""),
-                  Link[String](to = "/dashboard")(
-                    ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Dashboard"))
-                  ),
-                  Link[String](to = "/album")(
-                    ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Album"))
-                  ),
-                  Link[String](to = "/signin")(
-                    ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Sign In"))
-                  ),
-                  Link[String](to = "/login")(
-                    ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Login"))
-                  ),
-                  Link[String](to = "/button")(
-                    ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Buttons"))
-                  ),
-                  Link[String](to = "/select")(
-                    ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Select"))
-                  ),
-                  Link[String](to = "/customization")(
-                    ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Customization"))
-                  )
+                CallbackTo(
+                  List(
+                    ListSubheader.inset(true)(""),
+                    Link[String](to = "/dashboard")(
+                      ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Dashboard"))
+                    ),
+                    Link[String](to = "/album")(
+                      ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Album"))
+                    ),
+                    Link[String](to = "/signin")(
+                      ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Sign In"))
+                    ),
+                    Link[String](to = "/login")(
+                      ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Login"))
+                    ),
+                    Link[String](to = "/button")(
+                      ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Buttons"))
+                    ),
+                    Link[String](to = "/select")(
+                      ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Select"))
+                    ),
+                    Link[String](to = "/customization")(
+                      ListItem.button(true)(ListItemIcon(Icon.Assignment()), ListItemText.primary("Customization"))
+                    )
+                  ).rawElement
                 )
               )
           ),
@@ -74,12 +74,16 @@ object Demo {
             RouteProps()
               .setPath("/dashboard")
               .setRender(_ =>
-                Fragment(
-                  AppTheme(
-                    title = "Dashboard page layout example - Material-UI",
-                    description = "An example layout for creating an albumn.",
-                    hideCredit = true
-                  )(Dashboard())
+                CallbackTo(
+                  Fragment(
+                    AppTheme.component(
+                      AppTheme.Props(
+                        title = "Dashboard page layout example - Material-UI",
+                        description = "An example layout for creating an albumn.",
+                        hideCredit = true
+                      )
+                    )(Dashboard.component())
+                  ).rawElement
                 )
               )
           ),
@@ -87,11 +91,15 @@ object Demo {
             RouteProps()
               .setPath("/album")
               .setRender(_ =>
-                Fragment(
-                  AppTheme(
-                    title = "Album page layout - Material-UI",
-                    description = "An example layout for creating an album or gallery."
-                  )(Album())
+                CallbackTo(
+                  Fragment(
+                    AppTheme.component(
+                      AppTheme.Props(
+                        title = "Album page layout - Material-UI",
+                        description = "An example layout for creating an album or gallery."
+                      )
+                    )(Album.component())
+                  ).rawElement
                 )
               )
           ),
@@ -99,28 +107,34 @@ object Demo {
             RouteProps()
               .setPath("/signin")
               .setRender(_ =>
-                Fragment(
-                  AppTheme(
-                    title = "Sign-in page layout example - Material-UI",
-                    description = "An example layout for creating a sign-in page."
-                  )(SignIn())
+                CallbackTo(
+                  Fragment(
+                    AppTheme.component(
+                      AppTheme.Props(
+                        title = "Sign-in page layout example - Material-UI",
+                        description = "An example layout for creating a sign-in page."
+                      )
+                    )(SignIn.component())
+                  ).rawElement
                 )
               )
           ),
           Route(
             RouteProps()
               .setPath("/login")
-              .setRender(_ => Login())
+              .setRender(_ => CallbackTo(Login.component().rawElement))
           ),
           Route(
             RouteProps()
               .setPath("/button")
               .setRender(_ =>
-                Fragment(
-                  Typography.variant(Style.h4).gutterBottom(true).component("h2")("Buttons"),
-                  ButtonTest("dear user"),
-                  StyledButtonDemo(),
-                  StyledButtonHooksDemo()
+                CallbackTo(
+                  Fragment(
+                    Typography.variant(Style.h4).gutterBottom(true).component("h2")("Buttons"),
+                    ButtonTest.component("dear user"),
+                    StyledButtonDemo.component(),
+                    StyledButtonHooksDemo.component()
+                  ).rawElement
                 )
               )
           ),
@@ -128,9 +142,11 @@ object Demo {
             RouteProps()
               .setPath("/select")
               .setRender(_ =>
-                Fragment(
-                  Typography.variant(Style.h4).gutterBottom(true).component("h2")("Select"),
-                  SelectDemo(scala.List("one", "two", "three"))
+                CallbackTo(
+                  Fragment(
+                    Typography.variant(Style.h4).gutterBottom(true).component("h2")("Select"),
+                    SelectDemo.component(scala.List("one", "two", "three"))
+                  ).rawElement
                 )
               )
           ),
@@ -138,10 +154,12 @@ object Demo {
             RouteProps()
               .setPath("/customization")
               .setRender(_ =>
-                Fragment(
-                  Typography.variant(Style.h4).gutterBottom(true).component("h2")("Customization"),
-                  DarkTheme(),
-                  Palette()
+                CallbackTo(
+                  Fragment(
+                    Typography.variant(Style.h4).gutterBottom(true).component("h2")("Customization"),
+                    DarkTheme(),
+                    Palette.component()
+                  ).rawElement
                 )
               )
           )
@@ -151,9 +169,6 @@ object Demo {
 
   def main(argv: Array[String]): Unit = {
     println("starting")
-    ReactDOM.render(
-      Main(()),
-      dom.document.getElementById("container")
-    )
+    Main().renderIntoDOM(dom.document.getElementById("container"))
   }
 }

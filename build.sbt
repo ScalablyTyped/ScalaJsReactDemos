@@ -7,7 +7,7 @@ Global / onLoad := {
   println("""*
       |* Welcome to ScalablyTyped demos!
       |*
-      |* These demos demonstrate how to use third party react components with Slinky.
+      |* These demos demonstrate how to use third party react components with Scalajs-react.
       |*
       |* For documentation see https://scalablytyped.org .
       |*
@@ -44,9 +44,6 @@ lazy val baseSettings: Project => Project =
       scalaJSUseMainModuleInitializer := true,
       /* disabled because it somehow triggers many warnings */
       scalaJSLinkerConfig := scalaJSLinkerConfig.value.withSourceMap(false),
-      /* for slinky */
-      libraryDependencies ++= Seq("me.shadaj" %%% "slinky-hot" % "0.6.5"),
-      scalacOptions += "-Ymacro-annotations"
     )
 
 lazy val `react-mobx` =
@@ -56,7 +53,7 @@ lazy val `react-mobx` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8001,
-      stFlavour := Flavour.Slinky,
+      stFlavour := Flavour.Japgolly,
       Compile / npmDependencies ++= Seq(
         "mobx" -> "5.15.4",
         "mobx-react" -> "6.2.2"
@@ -70,7 +67,7 @@ lazy val `react-slick` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8002,
-      stFlavour := Flavour.Slinky,
+      stFlavour := Flavour.Japgolly,
       Compile / npmDependencies ++= Seq(
         "react-slick" -> "0.23",
         "@types/react-slick" -> "0.23.4"
@@ -84,7 +81,7 @@ lazy val `react-big-calendar` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8003,
-      stFlavour := Flavour.Slinky,
+      stFlavour := Flavour.Japgolly,
       Compile / npmDependencies ++= Seq(
         "moment" -> "2.24.0",
         "react-big-calendar" -> "0.24.4",
@@ -98,7 +95,7 @@ lazy val `semantic-ui-react-kitchensink` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8004,
-    stFlavour := Flavour.Slinky,
+    stFlavour := Flavour.Japgolly,
     Compile / npmDependencies ++= Seq(
       "semantic-ui-react" -> "0.88.2"
     )
@@ -111,12 +108,13 @@ lazy val `storybook-react` = project
   .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
   .configure(baseSettings)
   .settings(
+    scalaJSLinkerConfig := scalaJSLinkerConfig.value.withModuleKind(ModuleKind.CommonJSModule),
     /* ScalablyTypedConverterExternalNpmPlugin requires that we define how to install node dependencies and where they are */
     externalNpm := {
       Process("yarn", baseDirectory.value).!
       baseDirectory.value
     },
-    stFlavour := Flavour.Slinky,
+    stFlavour := Flavour.Japgolly,
     /** This is not suitable for development, but effective for demo.
       * Run `yarn storybook` commands yourself, and run `~storybook-react/fastOptJS` from sbt
       */
@@ -139,7 +137,7 @@ lazy val antd =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8006,
-      stFlavour := Flavour.Slinky,
+      stFlavour := Flavour.Japgolly,
       Compile / npmDependencies ++= Seq("antd" -> "4.3.1")
     )
 
@@ -150,7 +148,7 @@ lazy val `react-router-dom` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8007,
-      stFlavour := Flavour.Slinky,
+      stFlavour := Flavour.Japgolly,
       Compile / npmDependencies ++= Seq(
         "react-router-dom" -> "5.1.2",
         "@types/react-router-dom" -> "5.1.2" // note 5.1.4 did weird things to the Link component
@@ -164,7 +162,7 @@ lazy val `material-ui` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8008,
-      stFlavour := Flavour.Slinky,
+      stFlavour := Flavour.Japgolly,
       Compile / npmDependencies ++= Seq(
         "@material-ui/core" -> "3.9.4", // note: version 4 is not supported yet
         "@material-ui/styles" -> "3.0.0-alpha.10", // note: version 4 is not supported yet
@@ -183,7 +181,7 @@ lazy val `react-leaflet` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8009,
-    stFlavour := Flavour.Slinky,
+    stFlavour := Flavour.Japgolly,
     Compile / npmDependencies ++= Seq(
       "react-leaflet" -> "2.6.3",
       "@types/react-leaflet" -> "2.5.1",
@@ -197,7 +195,7 @@ lazy val `office-ui-fabric-react` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8010,
-    stFlavour := Flavour.Slinky,
+    stFlavour := Flavour.Japgolly,
     Compile / npmDependencies ++= Seq(
       "office-ui-fabric-react" -> "7.107.1"
     )
@@ -209,7 +207,7 @@ lazy val `react-dnd` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8011,
-    stFlavour := Flavour.Slinky,
+    stFlavour := Flavour.Japgolly,
     Compile / npmDependencies ++= Seq(
       "react-dnd" -> "11.1.3",
       "react-dnd-html5-backend" -> "11.1.3"
@@ -222,7 +220,7 @@ lazy val `react-i18n` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8012,
-    stFlavour := Flavour.Slinky,
+    stFlavour := Flavour.Japgolly,
     Compile / npmDependencies ++= Seq(
       "i18next" -> "19.5.2",
       "i18next-browser-languagedetector" -> "5.0.0",
@@ -236,31 +234,10 @@ lazy val `nivo` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8013,
-    stFlavour := Flavour.Slinky,
+    stFlavour := Flavour.Japgolly,
     Compile / npmDependencies ++= Seq(
       "@nivo/line" -> "0.62.0"
     )
-  )
-
-/** Note: This can't use scalajs-bundler (at least I don't know how),
-  *  so we run yarn ourselves with an external package.json.
-  */
-lazy val `react-native` = project
-  .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
-  .configure(baseSettings)
-  .settings(
-    scalaJSUseMainModuleInitializer := false,
-    /* ScalablyTypedConverterExternalNpmPlugin requires that we define how to install node dependencies and where they are */
-    externalNpm := {
-      Process("yarn", baseDirectory.value).!
-      baseDirectory.value
-    },
-    stFlavour := Flavour.SlinkyNative,
-    stStdlib := List("es5"),
-    run := {
-      (Compile / fastOptJS).value
-      Process("expo start", baseDirectory.value).!
-    }
   )
 
 lazy val reactNpmDeps: Project => Project =

@@ -1,8 +1,8 @@
 package demo
 
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
+import japgolly.scalajs.react.vdom.html_<^._
 import org.scalablytyped.runtime.StringDictionary
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
 import typings.antd.antdStrings
 import typings.antd.components._
 import typings.antd.formFormMod.useForm
@@ -12,19 +12,16 @@ import typings.std.global.console
 
 import scala.scalajs.js
 
-@react
 object CoordinatedDemo {
-  case class Props(noteTitle: String)
-
-  val component = FunctionalComponent[Props] { props =>
+  val component = ScalaFnComponent[String] { noteTitle =>
     val form = useForm().head
     Form
       .form(form)
       .labelCol(ColProps().setSpan(5))
       .wrapperCol(ColProps().setSpan(12))
-      .onFinish(store => console.log("Received values of form: ", store))(
+      .onFinish(store => Callback(console.log("Received values of form: ", store)))(
         FormItem
-          .label(props.noteTitle)
+          .label(noteTitle)
           .name("note")
           .rules(js.Array(BaseRule().setRequired(true).setMessage("Please input your note!")))(
             Input()
@@ -36,10 +33,12 @@ object CoordinatedDemo {
             Select[String]
               .placeholder("Select a option and change input text above")
               .onChange { (value, _) =>
-                form.setFieldsValue(
-                  StringDictionary(
-                    "gender" -> value,
-                    "note" -> s"Hi, ${if (value == "male") "man" else "lady"}!"
+                Callback(
+                  form.setFieldsValue(
+                    StringDictionary(
+                      "gender" -> value,
+                      "note" -> s"Hi, ${if (value == "male") "man" else "lady"}!"
+                    )
                   )
                 )
               }(

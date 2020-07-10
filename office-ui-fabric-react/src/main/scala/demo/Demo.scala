@@ -1,30 +1,25 @@
 package demo
 
 import org.scalajs.dom
-import slinky.core._
-import slinky.core.annotations.react
-import slinky.core.facade.Hooks
-import slinky.web.ReactDOM
-import slinky.web.html._
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.officeUiFabricReact.{components => Fabric}
+import typings.react.mod.useState
+
+import scala.scalajs.js
 
 object Demo {
   def main(argv: Array[String]): Unit =
-    ReactDOM.render(App(name = "Dear user"), dom.document.getElementById("container"))
+    App.component("Dear user").renderIntoDOM(dom.document.getElementById("container"))
 }
 
-@react
 object App {
-  case class Props(name: String)
-
-  val component = FunctionalComponent[Props] { props =>
+  val component = ScalaFnComponent[String] { name =>
     /* use a hook to keep state */
-    val (state, setState) = Hooks.useState(1)
+    val js.Tuple2(state, setState) = useState(1)
 
-    val incrementButton = Fabric.Button(onClick := (() => setState(state + 1)))(
-      s"Increment it, ${props.name}"
-    )
-    val text = Fabric.TextField(value := state.toString, disabled := true)
-    div(text, incrementButton)
+    val incrementButton = Fabric.Button.onClick(_ => Callback(setState(state + 1)))(s"Increment it, $name")
+    val text = Fabric.TextField.value(state.toString).disabled(true)
+    <.div(text, incrementButton)
   }
 }

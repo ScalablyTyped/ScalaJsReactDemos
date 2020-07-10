@@ -1,7 +1,6 @@
 package demo
 
 import org.scalajs.dom.document
-import slinky.web.ReactDOM
 import typings.nivoLine.mod.Serie
 import typings.std.global.console
 
@@ -14,9 +13,6 @@ object Main {
 
   def main(argv: Array[String]): Unit = {
     console.warn(Data)
-    ReactDOM.render(
-      App(Data),
-      document.getElementById("container")
-    )
+    App.component(Data).renderIntoDOM(document.getElementById("container"))
   }
 }

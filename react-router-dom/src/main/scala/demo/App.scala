@@ -1,81 +1,74 @@
 package demo
 
-import slinky.core._
-import slinky.core.annotations.react
-import slinky.web.html._
+import japgolly.scalajs.react.{CallbackTo, ScalaFnComponent}
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.reactRouter.mod._
 import typings.reactRouterDom.components._
 
 import scala.scalajs.js
 
-@react object App {
+object App {
 
-  type Props = Unit
+  def home: VdomElement = <.div(<.h2("Home"))
 
-  def home = div(h2("Home"))
+  def about: VdomElement = <.div(<.h2("About"))
 
-  def about = div(h2("About"))
-
-  val component = FunctionalComponent[Props] { _ =>
-    val renderIntro = div(
-      header(className := "App-header")(h1(className := "App-title")("Welcome to React (with Scala.js!)")),
-      p(className := "App-intro")("To get started, edit ", code("App.scala"), " and save to reload.")
+  val component = ScalaFnComponent[Unit] { _ =>
+    val renderIntro = <.div(
+      <.header(^.className := "App-header")(<.h1(^.className := "App-title")("Welcome to React (with Scala.js!)")),
+      <.p(^.className := "App-intro")("To get started, edit ", <.code("App.scala"), " and save to reload.")
     )
 
-    div(className := "App")(
+    <.div(^.className := "App")(
       renderIntro,
       BrowserRouter(
-        div(
-          ul(
-            li(Link[js.Object](to = "/")("Home")),
-            li(Link[js.Object](to = "/about")("About")),
-            li(Link[js.Object](to = "/topics")("Topics"))
+        <.div(
+          <.ul(
+            <.li(Link[js.Object](to = "/")("Home")),
+            <.li(Link[js.Object](to = "/about")("About")),
+            <.li(Link[js.Object](to = "/topics")("Topics"))
           ),
-          hr(),
-          Route(RouteProps().setExact(true).setPath("/").setRender(_ => home)),
-          Route(RouteProps().setPath("/about").setRender(_ => about)),
-          Route(RouteProps().setPath("/topics").setRender(props => Topics(props.`match`)))
+          <.hr(),
+          Route(RouteProps().setExact(true).setPath("/").setRender(_ => CallbackTo(home.rawElement))),
+          Route(RouteProps().setPath("/about").setRender(_ => CallbackTo(about.rawElement))),
+          Route(RouteProps().setPath("/topics").setRender(props => CallbackTo(Topics.component(props.`match`).rawElement)))
         )
       )
     )
   }
 }
 
-@react object Topics {
+object Topics {
 
-  type Props = `match`[_]
-
-  val component = FunctionalComponent[Props] { m =>
-    div(
-      h2("Topics"),
-      ul(
-        li(Link[js.Object](to = m.url + "/rendering")("Rendering with React")),
-        li(Link[js.Object](to = m.url + "/components")("Components")),
-        li(Link[js.Object](to = m.url + "/props-v-state")("Props v. State"))
+  val component = ScalaFnComponent[`match`[_]] { m =>
+    <.div(
+      <.h2("Topics"),
+      <.ul(
+        <.li(Link[js.Object](to = m.url + "/rendering")("Rendering with React")),
+        <.li(Link[js.Object](to = m.url + "/components")("Components")),
+        <.li(Link[js.Object](to = m.url + "/props-v-state")("Props v. State"))
       ),
-      hr(),
+      <.hr(),
       Route(
         RouteProps()
           .setPath(m.path + "/:topicId")
-          .setRender(props => Topic(props.`match`.asInstanceOf[`match`[Topic.Param]]))
+          .setRender(props => CallbackTo(Topic.component(props.`match`.asInstanceOf[`match`[Topic.Param]]).rawElement))
       ),
-      Route(RouteProps().setExact(true).setPath(m.path).setRender(_ => h3("Please select a topic")))
+      Route(RouteProps().setExact(true).setPath(m.path).setRender(_ => CallbackTo(<.h3("Please select a topic").rawElement)))
     )
   }
 }
 
-@react object Topic {
+object Topic {
 
   @js.native
   trait Param extends js.Object {
     val topicId: String = js.native
   }
 
-  case class Props(`match`: `match`[Topic.Param])
-
-  val component = FunctionalComponent[Props] { props =>
-    div(
-      h3("Topic: " + props.`match`.params.topicId)
+  val component = ScalaFnComponent[`match`[Topic.Param]] { m =>
+    <.div(
+      <.h3("Topic: " + m.params.topicId)
     )
   }
 }

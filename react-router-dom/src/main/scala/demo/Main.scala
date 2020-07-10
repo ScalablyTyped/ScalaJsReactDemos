@@ -1,7 +1,6 @@
 package demo
 
 import org.scalajs.dom
-import slinky.web.ReactDOM
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -12,6 +11,6 @@ object Main {
       elem
     }
 
-    ReactDOM.render(App.component(()), container)
+    App.component().renderIntoDOM(container)
   }
 }

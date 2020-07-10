@@ -1,9 +1,8 @@
 package demo.dashboard
 
 import demo.StyleBuilder
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
-import slinky.web.html._
+import japgolly.scalajs.react.ScalaFnComponent
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.csstype.csstypeStrings.auto
 import typings.materialUiCore.components._
 import typings.materialUiCore.createMuiThemeMod.Theme
@@ -13,7 +12,7 @@ import typings.materialUiStyles.withStylesMod.CSSProperties
 import scala.scalajs.js
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/SimpleTable.js
-@react object SimpleTable {
+object SimpleTable {
 
   lazy val styles =
     StyleBuilder[Theme, js.Object]
@@ -31,13 +30,11 @@ import scala.scalajs.js
     Data(5, "Gingerbread", 356, 16.0, 49, 3.9)
   )
 
-  type Props = Unit
-
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] {
+  val component = ScalaFnComponent[Unit] {
     case () =>
       val classes = styles(js.undefined)
       Paper.className(classes("root"))(
-        Table(className := classes("table"))(
+        Table.className(classes("table"))(
           TableHead(
             TableRow(
               TableCell("Dessert (100g serving)"),
@@ -47,17 +44,15 @@ import scala.scalajs.js
               TableCell.align(right)("Protein (g)")
             )
           ),
-          TableBody(
-            data.map { n =>
-              TableRow.withKey(n.id.toString)(
-                TableCell.set("component", "th").scope("row")(n.name),
-                TableCell.align(right)(n.calories),
-                TableCell.align(right)(n.fat),
-                TableCell.align(right)(n.carbs),
-                TableCell.align(right)(n.protein)
-              )
-            }
-          )
+          TableBody(data.map { n =>
+            TableRow.withKey(n.id.toString)(
+              TableCell.set("component", "th").scope("row")(n.name),
+              TableCell.align(right)(n.calories),
+              TableCell.align(right)(n.fat),
+              TableCell.align(right)(n.carbs),
+              TableCell.align(right)(n.protein)
+            ): VdomNode
+          }: _*)
         )
       )
   }

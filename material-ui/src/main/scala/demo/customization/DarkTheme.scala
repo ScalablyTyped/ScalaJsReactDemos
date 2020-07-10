@@ -1,6 +1,5 @@
 package demo.customization
 
-import slinky.core.facade.ReactElement
 import typings.materialUiCore.createMuiThemeMod.{Theme, ThemeOptions}
 import typings.materialUiCore.createPaletteMod.PaletteOptions
 import typings.materialUiCore.createTypographyMod.TypographyOptions
@@ -18,6 +17,6 @@ object DarkTheme {
       )
   )
 
-  def apply(): ReactElement =
-    ThemeProvider(theme)(WithTheme(theme))
+  def apply() =
+    ThemeProvider(theme)(WithTheme.component(theme))
 }

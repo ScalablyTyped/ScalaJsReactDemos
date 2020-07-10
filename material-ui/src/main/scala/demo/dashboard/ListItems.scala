@@ -1,15 +1,14 @@
 package demo.dashboard
 
-import slinky.core.facade.ReactElement
-import slinky.web.html._
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.materialUiCore.components.{ListItem, ListItemIcon, ListItemText, ListSubheader}
 import typings.materialUiIcons.{components => Icon}
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/listItems.js
 object ListItems {
 
-  val mainListItems: ReactElement =
-    div(
+  val mainListItems: VdomElement =
+    <.div(
       ListItem.button(true)(
         ListItemIcon(Icon.Dashboard()),
         ListItemText.primary("Dashboard")
@@ -32,8 +31,8 @@ object ListItems {
       )
     )
 
-  val secondaryListItems: ReactElement =
-    div(
+  val secondaryListItems: VdomElement =
+    <.div(
       ListSubheader.inset(true)("Saved reports"),
       ListItem.button(true)(
         ListItemIcon(Icon.Assignment()),

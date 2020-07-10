@@ -1,4 +1,4 @@
-# Demos for ScalablyTyped with Slinky flavour
+# Demos for ScalablyTyped with Scalajs-React flavour
 
 This is a collection of tiny demo projects to show off how we can use react libraries with Slinky with typings generated from ScalablyTyped
 
@@ -72,15 +72,3 @@ This is a collection of tiny demo projects to show off how we can use react libr
 
 `sbt> nivo/start` starts a webpack-dev-server at http://localhost:8013 .
 
-## React-native 
-[Expo demo you can run on your phone](https://expo.io/@scalablytyped/scalably-typed-react-native)
-
-To run this you'll need to follow the 
-[Setting up the development environment](https://reactnative.dev/docs/environment-setup) 
-for react-native. 
-
-When you have an emulator running, you can start the demo like this:
-
-```
-sbt>react-native/run
-``` 

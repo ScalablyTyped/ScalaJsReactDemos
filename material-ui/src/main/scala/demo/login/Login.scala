@@ -2,10 +2,8 @@ package demo.login
 
 import demo.login.Styles.styles
 import org.scalablytyped.runtime.StringDictionary
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
-import slinky.core.facade.{Fragment, Hooks}
-import slinky.web.html._
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.materialUiCore.anon.{PartialClassNameMapInputC, PartialInputProps}
 import typings.materialUiCore.components._
 import typings.materialUiCore.materialUiCoreStrings.primary
@@ -15,6 +13,8 @@ import typings.materialUiCore.materialUiCoreStrings.contained
 import typings.materialUiCore.materialUiCoreStrings.secondary
 import typings.materialUiCore.typographyTypographyMod.Style
 import typings.classnames.{mod => classNames}
+import typings.react.components.Fragment
+import typings.react.mod.useState
 import typings.std.{HTMLInputElement, HTMLTextAreaElement}
 
 import scala.scalajs.js
@@ -29,31 +29,29 @@ object Logo extends js.Object
 object GoogleLogo extends js.Object
 
 // https://github.com/flatlogic/react-material-admin/blob/master/src/pages/login/Login.js
-@react object Login {
+object Login {
 
-  type Props = Unit
-
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] { _ =>
+  val component = ScalaFnComponent[Unit]{ _ =>
     val classes = styles(js.undefined)
 
-    val (isLoading, setIsLoading) = Hooks.useState(false);
-    val (error, setError) = Hooks.useState(false);
-    val (activeTabId, setActiveTabId) = Hooks.useState(0);
-    val (nameValue, setNameValue) = Hooks.useState("");
-    val (loginValue, setLoginValue) = Hooks.useState("");
-    val (passwordValue, setPasswordValue) = Hooks.useState("");
+    val js.Tuple2(isLoading, setIsLoading) = useState(false);
+    val js.Tuple2(error, setError) = useState(false);
+    val js.Tuple2(activeTabId, setActiveTabId) = useState(0);
+    val js.Tuple2(nameValue, setNameValue) = useState("");
+    val js.Tuple2(loginValue, setLoginValue) = useState("");
+    val js.Tuple2(passwordValue, setPasswordValue) = useState("");
 
     Grid
       .container(true)
       .className(classes("container"))(
-        div(className := classes("logotypeContainer"))(
-          img(src := Logo.asInstanceOf[String], alt := "logo", className := classes("logotypeImage")),
+        <.div(^.className := classes("logotypeContainer"))(
+          <.img(^.src := Logo.asInstanceOf[String], ^.alt := "logo", ^.className := classes("logotypeImage")),
           Typography.className(classes("logotypeText"))("Material Admin")
         ),
-        div(className := classes("formContainer"))(
-          div(className := classes("form"))(
+        <.div(^.className := classes("formContainer"))(
+          <.div(^.className := classes("form"))(
             Tabs(activeTabId)
-              .onChange((_, id) => setActiveTabId(id.asInstanceOf[Int]))
+              .onChange((_, id) => Callback(setActiveTabId(id.asInstanceOf[Int])))
               .indicatorColor(primary)
               .textColor(primary)
               .centered(true)(
@@ -69,13 +67,13 @@ object GoogleLogo extends js.Object
                   Button
                     .size(large)
                     .className(classes("googleButton"))(
-                      img(src := GoogleLogo.asInstanceOf[String], alt := "google", className := classes("googleIcon")),
+                      <.img(^.src := GoogleLogo.asInstanceOf[String], ^.alt := "google", ^.className := classes("googleIcon")),
                       "Sign in with Google"
                     ),
-                  div(className := classes("formDividerContainer"))(
-                    div(className := classes("formDivider")),
+                  <.div(^.className := classes("formDividerContainer"))(
+                    <.div(^.className := classes("formDivider")),
                     Typography.className(classes("formDividerWord"))("or"),
-                    div(className := classes("formDivider"))
+                    <.div(^.className := classes("formDivider"))
                   ),
                   Fade.in(error)(
                     Typography
@@ -93,7 +91,7 @@ object GoogleLogo extends js.Object
                         )
                     )
                     .value(loginValue)
-                    .onChange(e => setLoginValue(e.currentTarget.asInstanceOf[HTMLInputElement].value))
+                    .onChange(e => Callback(setLoginValue(e.currentTarget.asInstanceOf[HTMLInputElement].value)))
                     .margin(normal)
                     .placeholder("Email Address")
                     .`type`("email")
@@ -109,12 +107,12 @@ object GoogleLogo extends js.Object
                         )
                     )
                     .value(passwordValue)
-                    .onChange(e => setPasswordValue(e.currentTarget.asInstanceOf[HTMLInputElement].value))
+                    .onChange(e => Callback(setPasswordValue(e.currentTarget.asInstanceOf[HTMLInputElement].value)))
                     .margin(normal)
                     .placeholder("Password")
                     .`type`("password")
                     .fullWidth(true),
-                  div(className := classes("formButtons"))(
+                  <.div(^.className := classes("formButtons"))(
                     if (isLoading)
                       CircularProgress.size(26).className(classes("loginLoader"))
                     else
@@ -151,7 +149,7 @@ object GoogleLogo extends js.Object
                         )
                     )
                     .value(nameValue)
-                    .onChange(e => setNameValue(e.currentTarget.asInstanceOf[HTMLInputElement].value))
+                    .onChange(e => Callback(setNameValue(e.currentTarget.asInstanceOf[HTMLInputElement].value)))
                     .margin(normal)
                     .placeholder("Full Name")
                     .`type`("text")
@@ -167,7 +165,7 @@ object GoogleLogo extends js.Object
                         )
                     )
                     .value(loginValue)
-                    .onChange(e => setLoginValue(e.currentTarget.asInstanceOf[HTMLInputElement].value))
+                    .onChange(e => Callback(setLoginValue(e.currentTarget.asInstanceOf[HTMLInputElement].value)))
                     .margin(normal)
                     .placeholder("Email Address")
                     .`type`("email")
@@ -183,12 +181,12 @@ object GoogleLogo extends js.Object
                         )
                     )
                     .value(passwordValue)
-                    .onChange(e => setPasswordValue(e.currentTarget.asInstanceOf[HTMLInputElement].value))
+                    .onChange(e => Callback(setPasswordValue(e.currentTarget.asInstanceOf[HTMLInputElement].value)))
                     .margin(normal)
                     .placeholder("Password")
                     .`type`("password")
                     .fullWidth(true),
-                  div(className := classes("formButtons"))(
+                  <.div(^.className := classes("formButtons"))(
                     if (isLoading)
                       CircularProgress.size(26).className(classes("loginLoader"))
                     else
@@ -200,10 +198,10 @@ object GoogleLogo extends js.Object
                         .fullWidth(true)
                         .className(classes("createAccountButton"))("Create your account")
                   ),
-                  div(className := classes("formDividerContainer"))(
-                    div(className := classes("formDivider")),
+                  <.div(^.className := classes("formDividerContainer"))(
+                    <.div(^.className := classes("formDivider")),
                     Typography.className(classes("formDividerWord"))("or"),
-                    div(className := classes("formDivider"))
+                    <.div(^.className := classes("formDivider"))
                   ),
                   Button
                     .color(primary)
@@ -216,7 +214,7 @@ object GoogleLogo extends js.Object
                         )
                       )
                     )(
-                      img(src := GoogleLogo.asInstanceOf[String], alt := "google", className := classes("googleIcon")),
+                      <.img(^.src := GoogleLogo.asInstanceOf[String], ^.alt := "google", ^.className := classes("googleIcon")),
                       "Sign in with Google"
                     )
                 )

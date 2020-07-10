@@ -1,17 +1,17 @@
 package demo
 
+import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.{Callback, CallbackTo}
 import org.scalajs.dom.window
+import typings.react.mod.useEffect
 
-import slinky.core._
-import slinky.core.annotations.react
-import slinky.core.facade.Hooks._
-import slinky.web.html._
+import scala.scalajs.js
 
-@react object TodoList {
+object TodoList {
 
   case class Props(store: TodoStore, peopleStore: PeopleStore)
 
-  val component: FunctionalComponent[Props] = ObserverComponent[Props] {
+  val component = ObserverComponent[Props] {
     case Props(store, peopleStore) =>
       useEffect(
         () => {
@@ -19,16 +19,15 @@ import slinky.web.html._
           store.assignTodo(1, Some(peopleStore.people.get()(1)))
           peopleStore.renamePerson(0, "Michel Weststrate")
         },
-        Seq() // run an effect and clean it up only once (on mount and unmount)
+        js.Array() // run an effect and clean it up only once (on mount and unmount)
       )
 
-      val onNewTodo = () =>
-        window.prompt("Task name", "coffee plz") match {
-          case e if e.isEmpty => ()
-          case task           => store.addTodo(task)
-        }
+      val onNewTodo: Callback = CallbackTo(window.prompt("Task name", "coffee plz")) flatMap {
+        case e if e.isEmpty => Callback.empty
+        case task           => Callback(store.addTodo(task))
+      }
 
-      val onLoadTodo = () => {
+      val onLoadTodo = Callback {
         store.increasePending()
         window.setTimeout(
           () => {
@@ -37,33 +36,34 @@ import slinky.web.html._
           },
           2000
         )
-        ()
       }
 
-      val todoViews = {
+      val todoViews = TagMod.fromTraversableOnce {
         val ts = store.todos.get().todos
         ts.indices.map(index =>
-          TodoView(
-            ts(index),
-            () => store.toggleTodo(index),
-            (task: String) => store.renameTodo(index, task)
-          ).withKey("td" + index)
+          TodoView.component.withKey("td" + index)(
+            TodoView.Props(
+              todo = ts(index),
+              toggle = Callback(store.toggleTodo(index)),
+              rename = task => Callback(store.renameTodo(index, task))
+            )
+          )
         )
       }
 
-      div(
+      <.div(
         store.report.get(),
-        ul(todoViews),
-        ul(
+        <.ul(todoViews),
+        <.ul(
           store.pendingRequests.get().c match {
-            case 0 => div()
-            case _ => li("Loading...")
+            case 0 => <.div()
+            case _ => <.li("Loading...")
           }
         ),
-        button(onClick := onNewTodo)("New Todo"),
-        small("double-click a todo to edit"),
-        div(
-          button(onClick := onLoadTodo)("Load async Todo")
+        <.button(^.onClick --> onNewTodo)("New Todo"),
+        <.small("double-click a todo to edit"),
+        <.div(
+          <.button(^.onClick --> onLoadTodo.void)("Load async Todo")
         )
       )
   }

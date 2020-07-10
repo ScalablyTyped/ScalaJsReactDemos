@@ -1,15 +1,15 @@
 package demo.dashboard
 
 import org.scalablytyped.runtime.StringDictionary
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
+import japgolly.scalajs.react.ScalaFnComponent
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.recharts.components._
 import typings.recharts.rechartsStrings.monotone
 
 import scala.scalajs.js
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/SimpleLineChart.js
-@react object SimpleLineChart {
+object SimpleLineChart {
 
   class Data(val Name: String, val Visits: Int, val Orders: Int) extends js.Object
 
@@ -22,9 +22,8 @@ import scala.scalajs.js
     new Data("Sat", 4390, 3800),
     new Data("Sun", 4490, 4300)
   )
-  type Props = Unit
 
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] {
+  val component = ScalaFnComponent[Unit]{
     case () =>
       ResponsiveContainer
         .width("99%")

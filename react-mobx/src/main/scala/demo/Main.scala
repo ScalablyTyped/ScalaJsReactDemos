@@ -1,12 +1,10 @@
 package demo
 
 import org.scalajs.dom.document
-import slinky.web.ReactDOM
 
 object Main {
   def main(argv: Array[String]): Unit =
-    ReactDOM.render(
-      TodoList(new TodoStore, new PeopleStore),
-      document.getElementsByTagName("body")(0)
-    )
+    TodoList
+      .component(TodoList.Props(new TodoStore, new PeopleStore))
+      .renderIntoDOM(document.getElementsByTagName("body")(0))
 }

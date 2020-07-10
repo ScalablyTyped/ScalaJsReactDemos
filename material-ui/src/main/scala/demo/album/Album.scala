@@ -1,11 +1,9 @@
 package demo.album
 
 import demo.StyleBuilder
+import japgolly.scalajs.react.ScalaFnComponent
+import japgolly.scalajs.react.vdom.html_<^._
 import org.scalablytyped.runtime.StringDictionary
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
-import slinky.core.facade.Fragment
-import slinky.web.html._
 import typings.classnames.{mod => classNames}
 import typings.csstype.csstypeStrings.{auto, column, flex, relative}
 import typings.materialUiCore.components._
@@ -17,12 +15,13 @@ import typings.materialUiCore.{materialUiCoreStrings => strings}
 import typings.materialUiIcons.{components => Icons}
 import typings.materialUiStyles.makeStylesMod.StylesHook
 import typings.materialUiStyles.withStylesMod.{CSSProperties, Styles}
+import typings.react.components.Fragment
 
 import scala.scalajs.js
 
 // https://v3.material-ui.com/getting-started/page-layout-examples/album/
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/album/Album.js
-@react object Album {
+object Album {
   lazy val styles: StylesHook[Styles[Theme, js.Object, String]] =
     StyleBuilder[Theme, js.Object]
       .add("appBar", CSSProperties().setPosition(relative))
@@ -66,7 +65,7 @@ import scala.scalajs.js
 
   type Props = Unit
 
-  val component: FunctionalComponent[Unit] = FunctionalComponent[Unit] { _ =>
+  val component = ScalaFnComponent[Unit] { _ =>
     val classes = styles(js.undefined)
 
     Fragment(
@@ -79,9 +78,9 @@ import scala.scalajs.js
             Typography.variant(Style.h6).color(Color.inherit)("Album layout")
           )
         ),
-      main(
-        div(className := classes("heroUnit"))(
-          div(className := classes("heroContent"))(
+      <.main(
+        <.div(^.className := classes("heroUnit"))(
+          <.div(^.className := classes("heroContent"))(
             Typography
               .variant(Style.h2)
               .align(strings.center)
@@ -99,7 +98,7 @@ import scala.scalajs.js
                   |contents, the creator, etc. Make it short and sweet, but not too
                   |short so folks don't simply skip over it entirely.""".stripMargin
               ),
-            div(className := classes("heroButtons"))(
+            <.div(^.className := classes("heroButtons"))(
               Grid
                 .container(true)
                 .spacing(`16`)
@@ -110,7 +109,7 @@ import scala.scalajs.js
             )
           )
         ),
-        div(className := classNames(StringDictionary[js.Any](classes("layout") -> true, classes("cardGrid") -> true)))(
+        <.div(^.className := classNames(StringDictionary[js.Any](classes("layout") -> true, classes("cardGrid") -> true)))(
           Grid
             .container(true)
             .spacing(`40`)(cards.map { card =>
@@ -142,12 +141,11 @@ import scala.scalajs.js
                       Button.size(strings.small).color(Color.primary)("Edit")
                     )
                   )
-                )
-
-            })
+                ): VdomNode
+            } :_*)
         )
       ),
-      footer(className := classes("footer"))(
+      <.footer(^.className := classes("footer"))(
         Typography
           .variant(Style.h6)
           .align(strings.center)

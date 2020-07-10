@@ -1,9 +1,8 @@
 package demo.signin
 
 import demo.StyleBuilder
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
-import slinky.web.html._
+import japgolly.scalajs.react.ScalaFnComponent
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.csstype.csstypeStrings._
 import typings.materialUiCore.components._
 import typings.materialUiCore.createMuiThemeMod.Theme
@@ -17,7 +16,7 @@ import scala.scalajs.js
 
 // https://v3.material-ui.com/getting-started/page-layout-examples/sign-in/
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/sign-in/SignIn.js
-@react object SignIn {
+object SignIn {
 
   lazy val styles: StylesHook[Styles[Theme, js.Object, String]] =
     StyleBuilder[Theme, js.Object]
@@ -58,18 +57,16 @@ import scala.scalajs.js
       .add("submit", theme => CSSProperties().setMarginTop(theme.spacing.unit * 3))
       .hook
 
-  type Props = Unit
-
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] {
+  val component = ScalaFnComponent[Unit] {
     case () =>
       val classes = styles(js.undefined)
 
-      main(className := classes("main"))(
+      <.main(^.className := classes("main"))(
         CssBaseline(),
         Paper.className(classes("paper"))(
           Avatar.className(classes("avatar"))(Icons.LockOutlined()),
           Typography.variant(Style.h5).component("h1")("Sign in"),
-          form(className := classes("form"))(
+          <.form(^.className := classes("form"))(
             FormControl
               .margin(normal)
               .required(true)

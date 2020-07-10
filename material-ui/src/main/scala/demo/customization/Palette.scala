@@ -1,7 +1,7 @@
 package demo.customization
 
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
+import japgolly.scalajs.react.ScalaFnComponent
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.materialUiCore.colorsMod.purple
 import typings.materialUiCore.components.{Button, MuiThemeProvider}
 import typings.materialUiCore.createMuiThemeMod.{Theme, ThemeOptions}
@@ -11,7 +11,7 @@ import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.stylesMod
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/customization/themes/Palette.js
-@react object Palette {
+object Palette {
 
   val theme: Theme = stylesMod
     .createMuiTheme(
@@ -26,12 +26,10 @@ import typings.materialUiCore.stylesMod
         )
     )
 
-  type Props = Unit
-
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] { _ =>
+  val component = ScalaFnComponent[Unit]{ _ =>
     MuiThemeProvider(theme)(
-      Button.color(Color.primary)("Primary"),
-      Button.color(Color.secondary)("Secondary")
+      Button.color(Color.primary)(<.span("Primary")),
+      Button.color(Color.secondary)(<.span("Secondary"))
     )
   }
 }

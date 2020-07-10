@@ -1,23 +1,18 @@
 package demo.customization
 
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
-import slinky.web.html.{div, style}
+import japgolly.scalajs.react.ScalaFnComponent
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.materialUiCore.components.Typography
 import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.react.mod.CSSProperties
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/customization/themes/WithTheme.js
-@react object WithTheme {
-
-  case class Props(theme: Theme)
-
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] { props =>
-    val theme = props.theme
+object WithTheme {
+  val component = ScalaFnComponent[Theme] { theme =>
     val primaryText = theme.palette.text.primary;
     val primaryColor = theme.palette.primary.main;
 
-    div(style := CSSProperties().setWidth(300))(
+    <.div(^.style := CSSProperties().setWidth(300))(
       Typography.style(
         CSSProperties()
           .setBackgroundColor(primaryColor)
@@ -32,5 +27,4 @@ import typings.react.mod.CSSProperties
       )(s"Primary color $primaryText")
     )
   }
-
 }

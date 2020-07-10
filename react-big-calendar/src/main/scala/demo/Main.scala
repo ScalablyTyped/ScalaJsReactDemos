@@ -1,7 +1,6 @@
 package demo
 
-import org.scalajs.dom.{console, document}
-import slinky.web.ReactDOM
+import org.scalajs.dom.document
 import typings.moment.mod.{^ => Moment}
 import typings.moment.momentStrings
 import typings.reactBigCalendar.mod.{momentLocalizer, View}
@@ -28,15 +27,11 @@ object Main {
     title = "My amazing event"
   )
 
-  def main(argv: Array[String]): Unit = {
-    val container = document.getElementById("container")
-    ReactDOM.render(
-      Calendar[Event, js.Object](Localizer)
-        .events(js.Array(someEvent))
-        .defaultDate(new js.Date)
-        .defaultView(View.week)
-        .views(js.Array(View.agenda, View.day, View.week)),
-      container
-    )
-  }
+  def main(argv: Array[String]): Unit =
+    Calendar[Event, js.Object](Localizer)
+      .events(js.Array(someEvent))
+      .defaultDate(new js.Date)
+      .defaultView(View.week)
+      .views(js.Array(View.agenda, View.day, View.week))
+      .renderIntoDOM(document.getElementById("container"))
 }

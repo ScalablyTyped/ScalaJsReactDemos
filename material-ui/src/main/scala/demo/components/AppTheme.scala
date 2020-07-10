@@ -2,10 +2,8 @@ package demo.components
 
 import demo.StyleBuilder
 import org.scalablytyped.runtime.StringDictionary
-import slinky.core.FunctionalComponent
-import slinky.core.annotations.react
-import slinky.core.facade.{Fragment, ReactElement}
-import slinky.web.html.{aria, role, span}
+import japgolly.scalajs.react.ScalaFnComponent
+import japgolly.scalajs.react.vdom.html_<^._
 import typings.classnames.{mod => classNames}
 import typings.csstype.csstypeStrings.absolute
 import typings.materialUiCore.colorManipulatorMod.darken
@@ -19,11 +17,12 @@ import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.stylesMod.createMuiTheme
 import typings.materialUiStyles.makeStylesMod.StylesHook
 import typings.materialUiStyles.withStylesMod._
+import typings.react.mod.ReactNode
 
 import scala.scalajs.js
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/modules/components/AppTheme.js
-@react object AppTheme {
+object AppTheme {
 
   // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/modules/styles/themeInitialState.js
   val theme: Theme = createMuiTheme(
@@ -48,12 +47,12 @@ import scala.scalajs.js
       .add("hideCredit", CSSProperties().setPosition(absolute).set("top", 0))
       .hook
 
-  case class Props(children: ReactElement, description: String, hideCredit: Boolean = false, title: String)
+  case class Props(description: String, hideCredit: Boolean = false, title: String)
 
-  val component: FunctionalComponent[Props] = FunctionalComponent[Props] { props =>
+  val component = ScalaFnComponent.withChildren[Props]{ case (props, children) =>
     val classes = styles(js.undefined)
     MuiThemeProvider(theme)(
-      props.children,
+      children,
       Typography
         .color(textSecondary)
         .align(center)
@@ -61,7 +60,7 @@ import scala.scalajs.js
           classNames(StringDictionary[js.Any](classes("credit") -> true, classes("hideCredit") -> props.hideCredit))
         )(
           "Built with ",
-          span(role := "img", aria - "label" := "Love")("❤️"),
+          <.span(^.role := "img", ^.aria.label := "Love")("❤️"),
           " by the ",
           Link.color(Color.inherit).href("www.scalablytyped.org")("ScalablyTyped Material-UI"),
           " team."
