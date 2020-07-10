@@ -14,7 +14,9 @@ object App {
     val index = 11
     <.div(^.className := "App")(
       <.div(^.className := "App-header")(
-        <.h2(t("Welcome to React")),
+        // note: `t` on the line under needs type parameters in order to not run into a `ClassCastException`.
+        // Better write a small facade around it to constrain the interface a bit if you want to use it
+        <.h2(t[String, String, js.Object]("Welcome to React")),
         <.button(^.onClick --> Callback(i18n.changeLanguage(I18n.de)), "de"),
         <.button(^.onClick --> Callback(i18n.changeLanguage(I18n.en)), "en")
       ),
