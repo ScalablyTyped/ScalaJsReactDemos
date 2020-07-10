@@ -76,12 +76,12 @@ object App {
           .columns(
             js.Array(
               ColumnType[TableItem]()
-                .setTitleVdomElement(<.span("Name"))
+                .setTitle("Name")
                 .setDataIndex("name")
                 .setKey("name")
                 .setRender((_, tableItem, _) => CallbackTo(Tag(tableItem.name).rawElement)),
-              ColumnType[TableItem].setTitleVdomElement(<.span("Age")).setDataIndex("age").setKey("age"),
-              ColumnType[TableItem].setTitleVdomElement(<.span("Address")).setDataIndex("address").setKey("address")
+              ColumnType[TableItem].setTitle("Age").setDataIndex("age").setKey("age"),
+              ColumnType[TableItem].setTitle("Address").setDataIndex("address").setKey("address")
             )
           )
       )

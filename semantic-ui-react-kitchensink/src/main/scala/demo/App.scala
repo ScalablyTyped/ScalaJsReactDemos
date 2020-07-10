@@ -54,13 +54,9 @@ object App {
               <.input(^.placeholder := "Last Name")
             ),
             Sui.FormField(
-              Sui.Checkbox.labelVdomElement(<.span("I agree to the Terms and Conditions"))
+              Sui.Checkbox.label("I agree to the Terms and Conditions")
             ),
-            Sui.FormField(
-              Sui.Checkbox
-                .labelVdomElement(<.span("I agree to the Cookie Policy"))
-                .toggle(true)
-            ),
+            Sui.FormField(Sui.Checkbox.label("I agree to the Cookie Policy").toggle(true)),
             Sui.Button.`type`(submit)("OK!")
           ),
           Sui.Divider.horizontal(true)(
