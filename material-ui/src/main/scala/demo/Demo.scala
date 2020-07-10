@@ -31,7 +31,7 @@ object Demo {
   )
 
   /* the production build is deployed at github pages under /material-ui , while dev build is server from root of webpack-dev-server */
-  val basename = if (scala.scalajs.runtime.linkingInfo.productionMode) "/SlinkyDemos/material-ui/" else ""
+  val basename = if (scala.scalajs.runtime.linkingInfo.productionMode) "/ScalajsReactDemos/material-ui/" else ""
 
   val Main = ScalaFnComponent[Unit] {
     case () =>
