@@ -23,13 +23,13 @@ object CoordinatedDemo {
         FormItem
           .label(noteTitle)
           .name("note")
-          .rules(js.Array(BaseRule().setRequired(true).setMessage("Please input your note!")))(
+          .rulesVarargs(BaseRule().setRequired(true).setMessage("Please input your note!"))(
             Input()
           ),
         FormItem
           .label("Gender")
           .name("gender")
-          .rules(js.Array(BaseRule().setRequired(true).setMessage("Please select your gender!'")))(
+          .rulesVarargs(BaseRule().setRequired(true).setMessage("Please select your gender!'"))(
             Select[String]
               .placeholder("Select a option and change input text above")
               .onChange { (value, _) =>

@@ -1,14 +1,13 @@
 package demo
 
-import japgolly.scalajs.react.{Callback, CallbackTo, ScalaFnComponent}
 import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.{Callback, CallbackTo, ScalaFnComponent}
 import typings.antDesignIcons.{components => Icons}
 import typings.antd.antdStrings
 import typings.antd.components._
 import typings.antd.notificationMod.{ArgsProps, IconType, default => Notification}
 import typings.antd.tableInterfaceMod.ColumnType
 import typings.react.mod.useState
-import typings.std.global.console
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -67,22 +66,18 @@ object App {
       <.section(
         <.h2("Table"),
         Table[TableItem]
-          .dataSource(
-            js.Array(
-              new TableItem(1, "Mike", 32, "10 Downing St."),
-              new TableItem(2, "John", 42, "10 Downing St.")
-            )
+          .dataSourceVarargs(
+            new TableItem(1, "Mike", 32, "10 Downing St."),
+            new TableItem(2, "John", 42, "10 Downing St.")
           )
-          .columns(
-            js.Array(
-              ColumnType[TableItem]()
-                .setTitle("Name")
-                .setDataIndex("name")
-                .setKey("name")
-                .setRender((_, tableItem, _) => CallbackTo(Tag(tableItem.name).rawElement)),
-              ColumnType[TableItem].setTitle("Age").setDataIndex("age").setKey("age"),
-              ColumnType[TableItem].setTitle("Address").setDataIndex("address").setKey("address")
-            )
+          .columnsVarargs(
+            ColumnType[TableItem]()
+              .setTitle("Name")
+              .setDataIndex("name")
+              .setKey("name")
+              .setRender((_, tableItem, _) => CallbackTo(Tag(tableItem.name).rawElement)),
+            ColumnType[TableItem].setTitle("Age").setDataIndex("age").setKey("age"),
+            ColumnType[TableItem].setTitle("Address").setDataIndex("address").setKey("address")
           )
       )
 

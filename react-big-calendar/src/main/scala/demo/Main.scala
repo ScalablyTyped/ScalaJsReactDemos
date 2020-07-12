@@ -29,9 +29,9 @@ object Main {
 
   def main(argv: Array[String]): Unit =
     Calendar[Event, js.Object](Localizer)
-      .events(js.Array(someEvent))
+      .eventsVarargs(someEvent)
       .defaultDate(new js.Date)
       .defaultView(View.week)
-      .views(js.Array(View.agenda, View.day, View.week))
+      .viewsVarargs(View.agenda, View.day, View.week)
       .renderIntoDOM(document.getElementById("container"))
 }
