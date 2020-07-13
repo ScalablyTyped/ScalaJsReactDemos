@@ -1,9 +1,9 @@
 package hello.world
 
 import japgolly.scalajs.react.raw.React
-import japgolly.scalajs.react.{Callback, CallbackTo, ReactEventFrom, ScalaFnComponent}
+import japgolly.scalajs.react.{Callback, ReactEventFrom, ScalaFnComponent}
 import japgolly.scalajs.react.vdom.html_<^._
-import org.scalajs.dom.raw.{Element, Node}
+import org.scalajs.dom.raw.Element
 import typings.antDesignReactNative.anon.PartialLocale
 import typings.antDesignReactNative.antDesignReactNativeStrings.xl
 import typings.antDesignReactNative.components.{List => AntdList, _}
@@ -39,13 +39,14 @@ object App {
 
     val js.Tuple2(redirPath, updateRedirPath) = useState(RoutePath.Home.path)
 
-    def navigateTo(route: RoutePath)(e: ReactEventFrom[NodeHandle with Element]) = Callback {
-      updateRedirPath(route.path)
-      ref.foreach(_.closeDrawer())
-    }
+    def navigateTo(route: RoutePath)(e: ReactEventFrom[NodeHandle with Element]) =
+      Callback {
+        updateRedirPath(route.path)
+        ref.foreach(_.closeDrawer())
+      }
 
-    def checkRedirection(stayPath: String, elem: VdomElement): CallbackTo[React.Node] =
-      CallbackTo(if (redirPath != stayPath) Redirect(to = redirPath).rawNode else elem.rawNode)
+    def checkRedirection(stayPath: String, elem: VdomElement): VdomNode =
+      if (redirPath != stayPath) Redirect(to = redirPath) else elem
 
     val routeLinks: Seq[VdomElement] = RoutePath.allOrdered.zipWithIndex.map {
       case (route, index) => ListItem.onPress(navigateTo(route))(Text(route.title)).withKey(index.toString)
@@ -54,25 +55,29 @@ object App {
     Provider.locale(PartialLocale().setLocale("enUS"))(
       NativeRouter(
         Drawer
-          .drawerRef(nullableRef => Callback{ref = toOption(nullableRef)})
-          .sidebar(ScrollView(WhiteSpace.size(xl), AntdList(routeLinks :_*)))(
+          .drawerRef(nullableRef => Callback { ref = toOption(nullableRef) })
+          .sidebar(ScrollView(WhiteSpace.size(xl), AntdList(routeLinks: _*)))(
             AntdList.renderHeaderVdomElement(WhiteSpace.size(xl))(
-              ListItem.extra(Icon(name = "menu")).onPress(_ => Callback(ref.foreach(_.openDrawer())))("React Native demo")
+              ListItem
+                .extra(Icon(name = "menu"))
+                .onPress(_ => Callback(ref.foreach(_.openDrawer())))("React Native demo")
             )
           ),
         Route(
           RouteProps()
             .setPath(RoutePath.Home.path)
-            .setRender(props => checkRedirection(props.`match`.path, Home.component()))
+            .setRender(props => checkRedirection(props.`match`.path, Home.component()).rawNode)
             .setExact(true)
         ),
         Route(
-          RouteProps().setPath(RoutePath.Antd.path).setRender(props => checkRedirection(props.`match`.path, Antd.component()))
+          RouteProps()
+            .setPath(RoutePath.Antd.path)
+            .setRender(props => checkRedirection(props.`match`.path, Antd.component()).rawNode)
         ),
         Route(
           RouteProps()
             .setPath(RoutePath.ReactRouter.path)
-            .setRender(props => checkRedirection(props.`match`.path, ReactRouter.component(props.`match`)))
+            .setRender(props => checkRedirection(props.`match`.path, ReactRouter.component(props.`match`)).rawNode)
         )
       )
     )

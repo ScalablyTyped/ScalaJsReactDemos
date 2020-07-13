@@ -1,6 +1,6 @@
 package demo
 
-import japgolly.scalajs.react.{CallbackTo, ScalaFnComponent}
+import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.html_<^._
 import typings.reactRouter.mod._
 import typings.reactRouterDom.components._
@@ -29,9 +29,9 @@ object App {
             <.li(Link[js.Object](to = "/topics")("Topics"))
           ),
           <.hr(),
-          Route(RouteProps().setExact(true).setPath("/").setRender(_ => CallbackTo(home.rawElement))),
-          Route(RouteProps().setPath("/about").setRender(_ => CallbackTo(about.rawElement))),
-          Route(RouteProps().setPath("/topics").setRender(props => CallbackTo(Topics.component(props.`match`).rawElement)))
+          Route(RouteProps().setExact(true).setPath("/").setRender(_ => home.rawElement)),
+          Route(RouteProps().setPath("/about").setRender(_ => about.rawElement)),
+          Route(RouteProps().setPath("/topics").setRender(props => Topics.component(props.`match`).rawElement))
         )
       )
     )
@@ -52,9 +52,9 @@ object Topics {
       Route(
         RouteProps()
           .setPath(m.path + "/:topicId")
-          .setRender(props => CallbackTo(Topic.component(props.`match`.asInstanceOf[`match`[Topic.Param]]).rawElement))
+          .setRender(props => Topic.component(props.`match`.asInstanceOf[`match`[Topic.Param]]).rawElement)
       ),
-      Route(RouteProps().setExact(true).setPath(m.path).setRender(_ => CallbackTo(<.h3("Please select a topic").rawElement)))
+      Route(RouteProps().setExact(true).setPath(m.path).setRender(_ => <.h3("Please select a topic").rawElement))
     )
   }
 }

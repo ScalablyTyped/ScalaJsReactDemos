@@ -1,6 +1,6 @@
 package hello.world
 
-import japgolly.scalajs.react.{CallbackTo, ScalaFnComponent}
+import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.html_<^._
 import typings.reactNative.components.{Text, View}
 import typings.reactRouterNative.components._
@@ -23,9 +23,9 @@ object ReactRouter {
       Route(
         RouteProps()
           .setPath(m.path + "/:topicId")
-          .setRender(props => CallbackTo(Topic.component(props.`match`.asInstanceOf[`match`[Topic.Param]]).rawNode))
+          .setRender(props => Topic.component(props.`match`.asInstanceOf[`match`[Topic.Param]]).rawNode)
       ),
-      Route(RouteProps().setPath(m.path).setRender(_ => CallbackTo(Text("Please select a topic").rawNode)).setExact(true))
+      Route(RouteProps().setPath(m.path).setRender(_ => Text("Please select a topic").rawNode).setExact(true))
     )
   }
 }

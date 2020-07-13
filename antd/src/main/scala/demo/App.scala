@@ -75,7 +75,7 @@ object App {
               .setTitle("Name")
               .setDataIndex("name")
               .setKey("name")
-              .setRender((_, tableItem, _) => CallbackTo(Tag(tableItem.name).rawElement)),
+              .setRender((_, tableItem, _) => Tag(tableItem.name).rawElement),
             ColumnType[TableItem].setTitle("Age").setDataIndex("age").setKey("age"),
             ColumnType[TableItem].setTitle("Address").setDataIndex("address").setKey("address")
           )

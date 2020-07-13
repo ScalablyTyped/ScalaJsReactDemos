@@ -3,7 +3,7 @@ package demo
 import japgolly.scalajs.react.raw.React.RefFn
 import japgolly.scalajs.react.vdom.Attr.ValueType
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{Callback, CallbackTo, ScalaFnComponent}
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import org.scalajs.dom.raw.HTMLElement
 import typings.csstype.mod.{ClearProperty, FloatProperty, TextAlignProperty}
 import typings.dndCore.interfacesMod.SourceType
@@ -53,8 +53,8 @@ object components {
       val js.Tuple2(Collected(canDrop, isOver), drop: ConnectDropTarget) =
         useDrop(
           DropTargetHookSpec[js.Object, DropResult, Collected](ItemTypes.BOX)
-            .setDrop((_, _) => CallbackTo(new DropResult("Dustbin")))
-            .setCollect(monitor => CallbackTo(Collected(monitor.isOver, monitor.canDrop)))
+            .setDrop((_, _) => new DropResult("Dustbin"))
+            .setCollect(monitor => Collected(monitor.isOver, monitor.canDrop))
         )
 
       val isActive = canDrop && isOver
@@ -92,7 +92,7 @@ object components {
               alert(s"You dropped ${item.name} into ${dropResult.asInstanceOf[DropResult].name}!")
             })
           }
-          .setCollect(monitor => CallbackTo(monitor.isDragging))
+          .setCollect(monitor => monitor.isDragging)
       )
 
     val opacity = if (isDragging) "0.4" else "1"
@@ -119,7 +119,7 @@ object components {
   val App = ScalaFnComponent[Unit] {
     case () =>
       <.div(^.className := "App")(
-        DndProvider.Backend((x0, x1, x2) => CallbackTo(HTML5Backend(x0, x1, x2)))(Container())
+        DndProvider.Backend(HTML5Backend)(Container())
       )
   }
 }
