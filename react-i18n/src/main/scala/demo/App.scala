@@ -1,11 +1,10 @@
 package demo
 
-import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import japgolly.scalajs.react.vdom.html_<^._
-import org.scalajs.dom.html.Element
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import typings.react.mod.CSSProperties
-import typings.reactI18next.mod.useTranslation
 import typings.reactI18next.components.Trans
+import typings.reactI18next.mod.useTranslation
 
 import scala.scalajs.js
 
@@ -22,9 +21,9 @@ object App {
         <.button(^.onClick --> Callback(i18n.changeLanguage(I18n.en)), "en")
       ),
       <.div(^.className := "App-intro")(
-        Trans[Element]()("To get started, edit ", <.code("src/App.js"), " and save to reload."),
-        Trans[Element]().i18nKey("welcome")("trans"),
-        Trans[Element]()(index + 1, <.a("xxx"))
+        Trans()("To get started, edit ", <.code("src/App.js"), " and save to reload."),
+        Trans.i18nKey("welcome")("trans"),
+        Trans()(index + 1, <.a("xxx"))
       ),
       <.div(^.style := CSSProperties().setMarginTop(40))(
         "Learn more ",
