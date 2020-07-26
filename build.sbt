@@ -18,6 +18,11 @@ Global / onLoad := {
   (Global / onLoad).value
 }
 
+Global / stRemoteCache := RemoteCache.Rsync(
+  push = "tso@olvind.com:/usr/share/nginx/html/st-cache",
+  pull = new java.net.URI("https://olvind.com/st-cache")
+)
+
 // Uncomment if you want to remove debug output
 //Global / stQuiet := true
 
