@@ -10,6 +10,7 @@ import typings.materialUiCore.components._
 import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.materialUiCore.materialUiCoreNumbers._
 import typings.materialUiCore.mod.PropTypes.Color
+import typings.materialUiCore.stepperStepperMod.Orientation
 import typings.materialUiCore.typographyTypographyMod.Style
 import typings.materialUiCore.{materialUiCoreStrings => strings}
 import typings.materialUiIcons.{components => Icons}
@@ -70,6 +71,7 @@ object Album {
 
     Fragment(
       CssBaseline(),
+      Stepper.connectorVdomElement(<.div("foo")),
       AppBar
         .position(strings.static)
         .className(classes("appBar"))(
