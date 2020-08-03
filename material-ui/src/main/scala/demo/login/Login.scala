@@ -1,21 +1,17 @@
 package demo.login
 
 import demo.login.Styles.styles
-import org.scalablytyped.runtime.StringDictionary
-import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
+import org.scalablytyped.runtime.StringDictionary
+import typings.classnames.{mod => classNames}
 import typings.materialUiCore.anon.{PartialClassNameMapInputC, PartialInputProps}
 import typings.materialUiCore.components._
-import typings.materialUiCore.materialUiCoreStrings.primary
-import typings.materialUiCore.materialUiCoreStrings.large
-import typings.materialUiCore.materialUiCoreStrings.normal
-import typings.materialUiCore.materialUiCoreStrings.contained
-import typings.materialUiCore.materialUiCoreStrings.secondary
+import typings.materialUiCore.materialUiCoreStrings._
 import typings.materialUiCore.typographyTypographyMod.Style
-import typings.classnames.{mod => classNames}
 import typings.react.components.Fragment
 import typings.react.mod.useState
-import typings.std.{HTMLInputElement, HTMLTextAreaElement}
+import typings.std.HTMLInputElement
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -31,7 +27,7 @@ object GoogleLogo extends js.Object
 // https://github.com/flatlogic/react-material-admin/blob/master/src/pages/login/Login.js
 object Login {
 
-  val component = ScalaFnComponent[Unit]{ _ =>
+  val component = ScalaFnComponent[Unit] { _ =>
     val classes = styles(js.undefined)
 
     val js.Tuple2(isLoading, setIsLoading) = useState(false);
@@ -67,7 +63,11 @@ object Login {
                   Button
                     .size(large)
                     .className(classes("googleButton"))(
-                      <.img(^.src := GoogleLogo.asInstanceOf[String], ^.alt := "google", ^.className := classes("googleIcon")),
+                      <.img(
+                        ^.src := GoogleLogo.asInstanceOf[String],
+                        ^.alt := "google",
+                        ^.className := classes("googleIcon")
+                      ),
                       "Sign in with Google"
                     ),
                   <.div(^.className := classes("formDividerContainer"))(
@@ -214,7 +214,11 @@ object Login {
                         )
                       )
                     )(
-                      <.img(^.src := GoogleLogo.asInstanceOf[String], ^.alt := "google", ^.className := classes("googleIcon")),
+                      <.img(
+                        ^.src := GoogleLogo.asInstanceOf[String],
+                        ^.alt := "google",
+                        ^.className := classes("googleIcon")
+                      ),
                       "Sign in with Google"
                     )
                 )
