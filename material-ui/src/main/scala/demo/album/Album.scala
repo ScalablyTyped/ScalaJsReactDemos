@@ -10,7 +10,6 @@ import typings.materialUiCore.components._
 import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.materialUiCore.materialUiCoreNumbers._
 import typings.materialUiCore.mod.PropTypes.Color
-import typings.materialUiCore.stepperStepperMod.Orientation
 import typings.materialUiCore.typographyTypographyMod.Style
 import typings.materialUiCore.{materialUiCoreStrings => strings}
 import typings.materialUiIcons.{components => Icons}
@@ -111,7 +110,9 @@ object Album {
             )
           )
         ),
-        <.div(^.className := classNames(StringDictionary[js.Any](classes("layout") -> true, classes("cardGrid") -> true)))(
+        <.div(
+          ^.className := classNames(StringDictionary[js.Any](classes("layout") -> true, classes("cardGrid") -> true))
+        )(
           Grid
             .container(true)
             .spacing(`40`)(cards.map { card =>
@@ -144,7 +145,7 @@ object Album {
                     )
                   )
                 ): VdomNode
-            } :_*)
+            }: _*)
         )
       ),
       <.footer(^.className := classes("footer"))(

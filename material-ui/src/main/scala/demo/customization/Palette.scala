@@ -26,7 +26,7 @@ object Palette {
         )
     )
 
-  val component = ScalaFnComponent[Unit]{ _ =>
+  val component = ScalaFnComponent[Unit] { _ =>
     MuiThemeProvider(theme)(
       Button.color(Color.primary)(<.span("Primary")),
       Button.color(Color.secondary)(<.span("Secondary"))

@@ -1,9 +1,9 @@
 package demo.button
 
+import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom
-import japgolly.scalajs.react.{Callback, ScalaFnComponent}
-import japgolly.scalajs.react.vdom.html_<^._
 import typings.csstype.mod.{ColorProperty, NamedColor}
 import typings.materialUiCore.createMuiThemeMod.{Theme, ThemeOptions}
 import typings.materialUiCore.spacingMod.SpacingOptions
@@ -59,7 +59,7 @@ object SelectDemo {
       <.div(
         Mui.Select
           .value(chosen)
-          .onChange((e, _) => Callback(setChosen(e.target.value)))(items :_*),
+          .onChange((e, _) => Callback(setChosen(e.target.value)))(items: _*),
         Mui.TextField
           .StandardTextFieldProps()
           .value(chosen)

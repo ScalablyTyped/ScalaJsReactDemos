@@ -1,8 +1,8 @@
 package demo.dashboard
 
-import org.scalablytyped.runtime.StringDictionary
 import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.html_<^._
+import org.scalablytyped.runtime.StringDictionary
 import typings.recharts.components._
 import typings.recharts.rechartsStrings.monotone
 
@@ -23,7 +23,7 @@ object SimpleLineChart {
     new Data("Sun", 4490, 4300)
   )
 
-  val component = ScalaFnComponent[Unit]{
+  val component = ScalaFnComponent[Unit] {
     case () =>
       ResponsiveContainer
         .width("99%")
