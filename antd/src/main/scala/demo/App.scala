@@ -3,12 +3,20 @@ package demo
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import typings.antDesignIcons.components.AntdIcon
-import typings.antDesignIconsSvg.{mod => Icons}
+import typings.antDesignIconsSvg.downOutlinedMod.{default => DownOutlinedIcon}
+import typings.antDesignIconsSvg.downloadOutlinedMod.{default => DownloadOutlinedIcon}
+import typings.antDesignIconsSvg.homeOutlinedMod.{default => HomeOutlinedIcon}
+import typings.antDesignIconsSvg.lockTwoToneMod.{default => LockTwoToneIcon}
+import typings.antDesignIconsSvg.mailTwoToneMod.{default => MailTwoToneIcon}
+import typings.antDesignIconsSvg.shopOutlinedMod.{default => ShopOutlinedIcon}
+import typings.antDesignIconsSvg.userOutlinedMod.{default => UserOutlinedIcon}
 import typings.antd.antdStrings
 import typings.antd.components.{List => AntList, _}
 import typings.antd.notificationMod.{ArgsProps, IconType, default => Notification}
 import typings.antd.tableInterfaceMod.{ColumnGroupType, ColumnType}
 import typings.react.mod.useState
+import typings.rcSelect.interfaceMod.OptionData
+import typings.react.mod.CSSProperties
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -101,7 +109,7 @@ object App {
     val renderButton =
       <.section(
         <.h2("Button"),
-        Button.icon(AntdIcon(Icons.DownloadOutlined)).`type`(antdStrings.primary)("Download")
+        Button.icon(AntdIcon(DownloadOutlinedIcon)).`type`(antdStrings.primary)("Download")
       )
 
     val renderModal = <.section(
@@ -130,12 +138,12 @@ object App {
         )
     )
 
-    val renderIcon = <.section(<.h2("Icon"), AntdIcon(Icons.HomeOutlined))
+    val renderIcon = <.section(<.h2("Icon"), AntdIcon(HomeOutlinedIcon))
 
     val renderInput = <.section(
       <.h2("Input"),
       Input
-        .addonBefore(AntdIcon(Icons.UserOutlined))
+        .addonBefore(AntdIcon(UserOutlinedIcon))
         .placeholder("Basic usage")
         .onChange(event => Callback.log(event.target.value))
     )
@@ -160,10 +168,10 @@ object App {
       <.h2("Form"),
       Form.onFinish(store => Callback.log("Form submitted", store))(
         FormItem(
-          Input.addonBefore(AntdIcon(Icons.MailTwoTone)).`type`(antdStrings.email).placeholder("input email")
+          Input.addonBefore(AntdIcon(MailTwoToneIcon)).`type`(antdStrings.email).placeholder("input email")
         ),
         FormItem(
-          Password.addonBefore(AntdIcon(Icons.LockTwoTone)).`type`(antdStrings.password).placeholder("input password")
+          Password.addonBefore(AntdIcon(LockTwoToneIcon)).`type`(antdStrings.password).placeholder("input password")
         ),
         FormItem(Button.htmlType(antdStrings.submit).`type`(antdStrings.primary))("Log in")
       )
@@ -188,9 +196,69 @@ object App {
       )("Show notification")
     )
 
+    def menu: VdomElement =
+      Menu.onClick(mi =>
+        Callback(
+          Notification.open(
+            ArgsProps()
+              .setMessage("Selected menu item")
+              .setDescription(
+                s"Menu Item with key '${mi.key}' was selected"
+              )
+              .setType(IconType.success)
+          )
+        )
+      )(
+        MenuItem.withKey("1")("Option 1"),
+        MenuItem.withKey("2")("Option 2"),
+        MenuItem.withKey("3")("Option 3")
+      )
+
+    def renderDropdown: VdomElement =
+      <.section(
+        <.h2("Dropdown with Menu"),
+        Dropdown(menu.rawElement).className("spaced")(
+          Button("Dropdown Button", AntdIcon(DownOutlinedIcon))
+        ),
+        Dropdown(menu.rawElement)
+          .triggerVarargs(antdStrings.click)
+          .className("spaced")(
+            Button("Dropdown Button, responds to click", AntdIcon(DownOutlinedIcon))
+          )
+      )
+
+    def renderMenu =
+      <.section(<.h2("Menu"), menu)
+
+    val js.Tuple2(text, setText) = useState("")
+    def renderAutocomplete =
+      <.section(
+        <.h2("Autocomplete"),
+        AutoComplete
+          .style(CSSProperties().setWidth("100%"))
+          .value(text)
+          .filterOption(true) // Filter options by input
+          .defaultActiveFirstOption(true) // Make first option active - enter to select
+          .options(
+            js.Array(
+              OptionData("Alphabet"),
+              OptionData("Baguette").set(
+                "label",
+                <.span(AntdIcon(ShopOutlinedIcon), " Baguette").rawElement
+              ), // Set label as a ReactElement for customised display
+              OptionData("Bicycle"),
+              OptionData("Croissant")
+            )
+          )
+          .onChange { case (text, _) => Callback(setText(text)) }
+      )
+
+    def renderFooter =
+      <.div(^.height := "100px")
+
     val renderAvatar = <.section(
       <.h2("Avatar"),
-      Avatar.size(antdStrings.large).icon(AntdIcon(Icons.UserOutlined))
+      Avatar.size(antdStrings.large).icon(AntdIcon(UserOutlinedIcon))
     )
 
     val renderBadge = <.section(
@@ -202,7 +270,7 @@ object App {
       <.h2("Comment"),
       Comment
         .author("Author")
-        .avatar(Avatar.size(antdStrings.large).icon(AntdIcon(Icons.UserOutlined)))
+        .avatar(Avatar.size(antdStrings.large).icon(AntdIcon(UserOutlinedIcon)))
         .content("Comment")
         .actionsVarargs(Button("Like").rawElement)
     )
@@ -266,7 +334,7 @@ object App {
         def item =
           AntList.Item(
             AntList.Item.Meta
-              .avatar(Avatar.icon(AntdIcon(Icons.UserOutlined)))
+              .avatar(Avatar.icon(AntdIcon(UserOutlinedIcon)))
               .title("Title")
               .description("Description")
           ): VdomElement
@@ -332,6 +400,9 @@ object App {
           renderForm,
           renderCoordinated,
           renderNotification,
+          renderDropdown,
+          renderMenu,
+          renderAutocomplete,
           renderAvatar,
           renderBadge,
           renderComment,
@@ -348,6 +419,7 @@ object App {
           renderTimeline,
           renderTabs
         ),
+        renderFooter,
         Col.span(2)
       )
     )
