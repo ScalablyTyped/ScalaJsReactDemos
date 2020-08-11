@@ -101,6 +101,7 @@ lazy val `semantic-ui-react-kitchensink` = project
     useYarn := true,
     webpackDevServerPort := 8004,
     stFlavour := Flavour.Japgolly,
+    stReactEnableTreeShaking := Selection.All,
     Compile / npmDependencies ++= Seq(
       "semantic-ui-react" -> "0.88.2"
     )
@@ -168,6 +169,7 @@ lazy val `material-ui` =
       useYarn := true,
       webpackDevServerPort := 8008,
       stFlavour := Flavour.Japgolly,
+      stReactEnableTreeShaking := Selection.All,
       Compile / npmDependencies ++= Seq(
         "@material-ui/core" -> "3.9.4", // note: version 4 is not supported yet
         "@material-ui/styles" -> "3.0.0-alpha.10", // note: version 4 is not supported yet
@@ -201,6 +203,7 @@ lazy val `office-ui-fabric-react` = project
     useYarn := true,
     webpackDevServerPort := 8010,
     stFlavour := Flavour.Japgolly,
+    stReactEnableTreeShaking := Selection.All,
     Compile / npmDependencies ++= Seq(
       "office-ui-fabric-react" -> "7.107.1"
     )
