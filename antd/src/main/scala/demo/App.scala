@@ -32,6 +32,7 @@ object App {
   val component = ScalaFnComponent[Unit] { _ =>
     val js.Tuple2(isModalVisible, updateIsModalVisible) = useState(false)
     val js.Tuple2(selectValue, updateSelectValue) = useState("lucy")
+    val js.Tuple2(multiSelectValue, updateMultiSelectValue) = useState(List("a10", "c12"))
 
     val renderIntro = Row(
       Col.span(7),
@@ -135,6 +136,34 @@ object App {
           Option("lucy")("Lucy"),
           Option("disabled")("Disabled").disabled(true),
           Option("yiminghe")("Yiminghe")
+        )
+    )
+
+    val renderMultiSelect = <.section(
+      <.h2("Multiple select"),
+      Select[js.Array[String]]
+        .defaultValue(js.Array(multiSelectValue: _*))
+        .mode(antdStrings.multiple)
+        .onChange((changedValue, _) => Callback(updateMultiSelectValue(changedValue.toList)))(
+          (10 until 36).map { n =>
+            val s = s"${(n + 87).toChar}${n.toString}"
+            Select.Option(s)(s).withKey(s): VdomNode
+          }: _*
+        )
+    )
+
+    val renderGroupSelect = <.section(
+      <.h2("Select with grouped options"),
+      Select[String]
+        .defaultValue(selectValue)
+        .onChange((changedValue, _) => Callback(updateSelectValue(changedValue)))(
+          Select.OptGroup.label("Manager")(
+            Select.Option("jack")("Jack"),
+            Select.Option("lucy")("Lucy")
+          ),
+          Select.OptGroup.label("Engineer")(
+            Select.Option("yiminghe")("Yiminghe")
+          )
         )
     )
 
@@ -393,6 +422,8 @@ object App {
           renderButton,
           renderModal,
           renderSelect,
+          renderMultiSelect,
+          renderGroupSelect,
           renderIcon,
           renderInput,
           renderPassword,
