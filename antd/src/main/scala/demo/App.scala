@@ -147,8 +147,8 @@ object App {
         .onChange((changedValue, _) => Callback(updateMultiSelectValue(changedValue.toList)))(
           (10 until 36).map { n =>
             val s = s"${(n + 87).toChar}${n.toString}"
-            Select.Option(s)(s).withKey(s): VdomNode
-          }: _*
+            Select.Option(s)(s).withKey(s)
+          }.toVdomArray
         )
     )
 

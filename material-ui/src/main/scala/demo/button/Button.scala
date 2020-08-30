@@ -54,12 +54,13 @@ object SelectDemo {
       val js.Tuple2(chosen, setChosen) = useState[String](values.head)
 
       val items = values.zipWithIndex.map {
-        case (value, idx) => Mui.MenuItem.value(value).withKey(idx.toString)(value): VdomNode
-      }
+        case (value, idx) => Mui.MenuItem.value(value).withKey(idx.toString)(value)
+      }.toVdomArray
+
       <.div(
         Mui.Select
           .value(chosen)
-          .onChange((e, _) => Callback(setChosen(e.target.value)))(items: _*),
+          .onChange((e, _) => Callback(setChosen(e.target.value)))(items),
         Mui.TextField
           .StandardTextFieldProps()
           .value(chosen)

@@ -1,10 +1,9 @@
 package demo
 
-import japgolly.scalajs.react.vdom.VdomNode
+import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.Implicits._
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import org.scalajs.dom
-import typings.StBuildingComponent
 import typings.csstype.csstypeStrings.{bold, none, normal}
 import typings.csstype.mod.{DisplayLegacy, NamedColor, OverflowYProperty, PositionProperty}
 import typings.downshift.components.Downshift
@@ -12,20 +11,10 @@ import typings.downshift.mod.{GetItemPropsOptions, GetPropsCommonOptions, GetRoo
 import typings.react.components._
 import typings.react.mod.CSSProperties
 
-import scala.scalajs.js
 import scala.scalajs.js.|
 
 // https://codesandbox.io/s/github/kentcdodds/downshift-examples/tree/master/?module=/src/ordered-examples/01-basic-autocomplete.js&moduleview=1&file=/src/downshift/ordered-examples/00-get-root-props-example.js
 object Demo {
-  // missing in html dsl
-  implicit class SpreadOps[B <: StBuildingComponent[_]](private val b: B) {
-    def spread(obj: js.Any): B = {
-      typings.std.global.Object.assign(b.args(1), obj)
-      b
-    }
-  }
-
-  // missing in scala
   def asOpt[T](t: T | Null): Option[T] = Option(t.asInstanceOf[T])
 
   val menuStyles = CSSProperties()
@@ -43,6 +32,8 @@ object Demo {
 
   val items = Seq(Item("apple"), Item("pear"), Item("orange"), Item("grape"), Item("banana"))
 
+  div(TagMod.fromTraversableOnce(0 to 9 map (n => label(n)))).build
+
   val Main = ScalaFnComponent[Unit] {
     case () =>
       Downshift[Item]
@@ -50,47 +41,46 @@ object Demo {
           Callback.alert(asOpt(selection).fold("Selection Cleared")(value => s"You selected ${value.value}"))
         )
         .itemToString(item => asOpt(item).fold("")(_.value))
-        .children { ctrl =>
-          val renderedItems: Seq[VdomNode] =
-            if (!ctrl.isOpen) Nil
-            else
-              items
-                .filter(item => asOpt(ctrl.inputValue).fold(false)(inputValue => item.value.contains(inputValue)))
-                .zipWithIndex
-                .map {
-                  case (item, index) =>
-                    li().spread(
-                      ctrl.getItemProps(
-                        GetItemPropsOptions(item)
-                          .setKey(item.value)
-                          .setIndex(index)
-                          .setStyle {
-                            val isSelected = asOpt(ctrl.highlightedIndex).contains(index)
-                            CSSProperties()
-                              .setBackgroundColor(if (isSelected) NamedColor.lightgray else NamedColor.white)
-                              .setFontWeight(if (isSelected) bold else normal)
-                          }
-                      )
-                    )(item.value)
-                }
-
+        .children(ctrl =>
           div(
-            label().spread(ctrl.getLabelProps())("Enter a fruit:"),
+            label.unsafeSpread(ctrl.getLabelProps())("Enter a fruit:"),
             div
               .style(comboboxStyles)
-              .spread(
-                ctrl.getRootProps(GetRootPropsOptions("refKey"), GetPropsCommonOptions().setSuppressRefError(true))
+              .unsafeSpread(
+                ctrl.getRootProps(GetRootPropsOptions("refkey"), GetPropsCommonOptions().setSuppressRefError(true))
               )(
-                input().spread(ctrl.getInputProps()),
-                button()
-                  .spread(ctrl.getToggleButtonProps())
-                  .`aria-label`("toggle menu")(
-                    "toggle menu"
-                  )
+                input.unsafeSpread(ctrl.getInputProps()),
+                button.unsafeSpread(ctrl.getToggleButtonProps()).`aria-label`("toggle menu")("toggle menu")
               ),
-            ul().spread(ctrl.getMenuProps()).style(menuStyles)(renderedItems.toVdomArray)
+            ul.unsafeSpread(ctrl.getMenuProps())
+              .style(menuStyles)(
+                if (!ctrl.isOpen) TagMod.empty
+                else
+                  TagMod.fromTraversableOnce(
+                    items
+                      .filter(item => asOpt(ctrl.inputValue).fold(false)(inputValue => item.value.contains(inputValue)))
+                      .zipWithIndex
+                      .map {
+                        case (item, index) =>
+                          li.unsafeSpread(
+                            ctrl.getItemProps(
+                              GetItemPropsOptions(item)
+                                .setKey(item.value)
+                                .setIndex(index)
+                                .setStyle {
+                                  val isSelected = asOpt(ctrl.highlightedIndex).contains(index)
+                                  CSSProperties()
+                                    .setBackgroundColor(if (isSelected) NamedColor.lightgray else NamedColor.white)
+                                    .setFontWeight(if (isSelected) bold else normal)
+                                }
+                            )
+                          )(item.value)
+                            .build
+                      }
+                  )
+              )
           ).rawNode
-        }
+        )
   }
 
   def main(argv: Array[String]): Unit =

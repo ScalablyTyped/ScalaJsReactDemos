@@ -45,14 +45,15 @@ object SimpleTable {
             )
           ),
           TableBody(data.map { n =>
-            TableRow.withKey(n.id.toString)(
-              TableCell.set("component", "th").scope("row")(n.name),
-              TableCell.align(right)(n.calories),
-              TableCell.align(right)(n.fat),
-              TableCell.align(right)(n.carbs),
-              TableCell.align(right)(n.protein)
-            ): VdomNode
-          }: _*)
+            TableRow
+              .withKey(n.id.toString)(
+                TableCell.set("component", "th").scope("row")(n.name),
+                TableCell.align(right)(n.calories),
+                TableCell.align(right)(n.fat),
+                TableCell.align(right)(n.carbs),
+                TableCell.align(right)(n.protein)
+              )
+          }.toVdomArray)
         )
       )
   }

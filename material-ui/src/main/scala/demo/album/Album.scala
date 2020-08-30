@@ -144,8 +144,8 @@ object Album {
                       Button.size(strings.small).color(Color.primary)("Edit")
                     )
                   )
-                ): VdomNode
-            }: _*)
+                )
+            }.toVdomArray)
         )
       ),
       <.footer(^.className := classes("footer"))(
