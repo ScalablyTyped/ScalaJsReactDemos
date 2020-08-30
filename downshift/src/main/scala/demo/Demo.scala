@@ -71,7 +71,7 @@ object Demo {
                               .setFontWeight(if (isSelected) bold else normal)
                           }
                       )
-                    )(item.value): VdomNode
+                    )(item.value)
                 }
 
           div(
@@ -88,7 +88,7 @@ object Demo {
                     "toggle menu"
                   )
               ),
-            ul().spread(ctrl.getMenuProps()).style(menuStyles)(renderedItems: _*)
+            ul().spread(ctrl.getMenuProps()).style(menuStyles)(renderedItems.toVdomArray)
           ).rawNode
         }
   }
