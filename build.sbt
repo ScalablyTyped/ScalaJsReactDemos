@@ -105,6 +105,22 @@ lazy val `semantic-ui-react-kitchensink` = project
     )
   )
 
+lazy val `semantic-ui-react-redux` = project
+  .enablePlugins(ScalablyTypedConverterPlugin)
+  .configure(baseSettings, browserProject, reactNpmDeps, bundlerSettings)
+  .settings(
+    useYarn := true,
+    webpackDevServerPort := 8004,
+    stFlavour := Flavour.Japgolly,
+    stReactEnableTreeShaking := Selection.All,
+    Compile / npmDependencies ++= Seq(
+      "semantic-ui-react" -> "0.88.2",
+      "react-redux" -> "7.1",
+      "redux-devtools-extension" -> "2.13.8",
+      "@types/react-redux" -> "7.1.5"
+    )
+  )
+
 /** Note: This can't use scalajs-bundler (at least I don't know how),
   *  so we run yarn ourselves with an external package.json.
   */
