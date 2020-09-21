@@ -46,7 +46,7 @@ lazy val baseSettings: Project => Project =
       scalacOptions ++= ScalacOptions.flags,
       scalaJSUseMainModuleInitializer := true,
       /* disabled because it somehow triggers many warnings */
-      scalaJSLinkerConfig := scalaJSLinkerConfig.value.withSourceMap(false),
+      scalaJSLinkerConfig := scalaJSLinkerConfig.value.withSourceMap(false)
     )
 
 lazy val `react-mobx` =
@@ -102,22 +102,6 @@ lazy val `semantic-ui-react-kitchensink` = project
     stReactEnableTreeShaking := Selection.All,
     Compile / npmDependencies ++= Seq(
       "semantic-ui-react" -> "0.88.2"
-    )
-  )
-
-lazy val `semantic-ui-react-redux` = project
-  .enablePlugins(ScalablyTypedConverterPlugin)
-  .configure(baseSettings, browserProject, reactNpmDeps, bundlerSettings)
-  .settings(
-    useYarn := true,
-    webpackDevServerPort := 8004,
-    stFlavour := Flavour.Japgolly,
-    stReactEnableTreeShaking := Selection.All,
-    Compile / npmDependencies ++= Seq(
-      "semantic-ui-react" -> "0.88.2",
-      "react-redux" -> "7.1",
-      "redux-devtools-extension" -> "2.13.8",
-      "@types/react-redux" -> "7.1.5"
     )
   )
 
@@ -268,16 +252,30 @@ lazy val downshift = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8014,
-    stFlavour := Flavour.Japgolly
-    ,
+    stFlavour := Flavour.Japgolly,
     Compile / npmDependencies ++= Seq(
       "downshift" -> "6.0.5"
     )
   )
 
+lazy val `react-redux` = project
+  .enablePlugins(ScalablyTypedConverterPlugin)
+  .configure(baseSettings, browserProject, reactNpmDeps, bundlerSettings)
+  .settings(
+    useYarn := true,
+    webpackDevServerPort := 8015,
+    stFlavour := Flavour.Japgolly,
+    stReactEnableTreeShaking := Selection.All,
+    Compile / npmDependencies ++= Seq(
+      "react-redux" -> "7.1",
+      "redux-devtools-extension" -> "2.13.8",
+      "@types/react-redux" -> "7.1.5"
+    )
+  )
+
 /** Note: This can't use scalajs-bundler (at least I don't know how),
- *  so we run yarn ourselves with an external package.json.
- */
+  *  so we run yarn ourselves with an external package.json.
+  */
 lazy val `react-native` = project
   .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
   .configure(baseSettings)
@@ -307,7 +305,7 @@ lazy val reactNpmDeps: Project => Project =
       "@types/react" -> "16.9.42",
       "@types/react-dom" -> "16.9.8",
       "csstype" -> "2.6.11",
-      "@types/prop-types" -> "15.7.3",
+      "@types/prop-types" -> "15.7.3"
     )
   )
 
