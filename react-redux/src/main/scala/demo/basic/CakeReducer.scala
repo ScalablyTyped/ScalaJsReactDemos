@@ -7,15 +7,14 @@ import scala.scalajs.js
 
 object CakeReducer {
 
-  trait State extends js.Object {
-    val numOfCakes: Int
-  }
+  class State(val numOfCakes: Int) extends js.Object
 
   object State {
+
     val initial: State = State(10)
 
     def apply(_numOfCakes: Int): State =
-      new State { val numOfCakes: Int = _numOfCakes }
+      new State(_numOfCakes)
   }
 
   val Reducer: Reducer[State, CakeAction] = (stateOpt, action) => {
@@ -23,8 +22,7 @@ object CakeReducer {
     println(js.JSON.stringify(action))
     action match {
       case CakeActions.BuyCake(_) => State(state.numOfCakes - 1)
-      case other =>
-        state
+      case _                      => state
     }
   }
 

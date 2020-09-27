@@ -1,10 +1,9 @@
 package demo
 
 import demo.basic.CakeActions.CakeAction
-import demo.basic.CakeContainer.BuyCake
 import demo.basic.CakeStore.Store
-import demo.basic.{CakeActions, CakeContainer, CakeReducer, CakeStore}
-import japgolly.scalajs.react.{Callback, CtorType}
+import demo.basic.{CakeContainer, CakeStore}
+import japgolly.scalajs.react.CtorType
 import japgolly.scalajs.react.component.Js.Component
 import org.scalajs.dom
 import typings.reactRedux.components.Provider

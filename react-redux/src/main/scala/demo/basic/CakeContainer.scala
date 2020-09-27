@@ -4,14 +4,12 @@ import demo.ReduxFacade.Connected
 import demo.basic.CakeActions.{BuyCake, CakeAction}
 import demo.basic.CakeReducer.State
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{CallbackTo, ScalaFnComponent}
+import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import typings.redux.mod.Dispatch
 
 import scala.scalajs.js
 
 object CakeContainer {
-
-  type BuyCake = js.Function1[Unit, Unit]
 
   @js.native
   trait Props extends js.Object {
@@ -23,7 +21,7 @@ object CakeContainer {
     println(js.JSON.stringify(props))
     <.div(
       <.h2(s"Number of cakes  ${props.state.numOfCakes}"),
-      <.button(^.onClick --> CallbackTo(props.dispatch(BuyCake())).void)("Buy Cake")
+      <.button(^.onClick --> Callback(props.dispatch(BuyCake())))("Buy Cake")
     )
   }
 

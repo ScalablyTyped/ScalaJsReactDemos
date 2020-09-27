@@ -1,6 +1,7 @@
 package demo
 
-import demo.basic.CakeActions.CakeAction
+import demo.basic.CakeActions.BuyCake._type
+import demo.basic.CakeActions.{BuyCake, CakeAction}
 import demo.basic.CakeContainer.Props
 import demo.basic.CakeReducer.State
 import japgolly.scalajs.react.component.Generic.{ComponentRaw, ComponentSimple}
@@ -27,6 +28,13 @@ object ReduxFacade {
     protected val _type: String
     def unapply(a: Action[String]): Option[T] =
       if (a.`type` == _type) Some(a.asInstanceOf[T]) else None
+
+    @scala.inline
+    def apply(): T = {
+      val __obj = js.Dynamic.literal()
+      __obj.updateDynamic("type")(_type.asInstanceOf[js.Any])
+      __obj.asInstanceOf[T]
+    }
   }
 
   trait Connected[State, Action] extends js.Object {

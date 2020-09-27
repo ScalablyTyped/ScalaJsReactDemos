@@ -4,8 +4,6 @@ import typings.redux.mod.{Store, createStore}
 import typings.reduxDevtoolsExtension.developmentOnlyMod.devToolsEnhancer
 import typings.reduxDevtoolsExtension.mod.EnhancerOptions
 
-import scala.scalajs.js
-
 object CakeStore {
 
   val Store: Store[CakeReducer.State, CakeActions.CakeAction] =
