@@ -11,19 +11,20 @@ import scala.scalajs.js
 
 object CakeContainer {
 
-  case class Props(numOfCakes: Int = 0, buyCake: () => Unit = () => ())
+  type BuyCake = js.Function1[Unit, Unit]
 
-  val component = ScalaFnComponent[Connected[State, CakeAction] with Props] { props =>
-    <.div(
-      <.h2(s"Number of cakes - ${props.numOfCakes}"),
-      <.button(^.onClick --> CallbackTo(props.buyCake()))("Buy Cake")
-    )
+  @js.native
+  trait Props extends js.Object {
+    var state: State = js.native
+    var dispatch: Dispatch[CakeAction]
   }
 
-  val mapStateToProps: js.Function1[State, Props] =
-    (state: State) => CakeContainer.Props(state.numOfCakes, () => ())
-
-  val mapDispatchToProps: js.Function1[Dispatch[CakeAction], Props] =
-    (dispatch: Dispatch[CakeAction]) => CakeContainer.Props(10, () => dispatch(BuyCake()))
+  val component = ScalaFnComponent[Connected[State with js.Object, CakeAction] with Props] { props =>
+    println(js.JSON.stringify(props))
+    <.div(
+      <.h2(s"Number of cakes  ${props.state.numOfCakes}"),
+      <.button(^.onClick --> CallbackTo(props.dispatch(BuyCake())).void)("Buy Cake")
+    )
+  }
 
 }

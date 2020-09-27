@@ -20,8 +20,11 @@ object CakeReducer {
 
   val Reducer: Reducer[State, CakeAction] = (stateOpt, action) => {
     val state = stateOpt.getOrElse(State.initial)
+    println(js.JSON.stringify(action))
     action match {
       case CakeActions.BuyCake(_) => State(state.numOfCakes - 1)
+      case other =>
+        state
     }
   }
 

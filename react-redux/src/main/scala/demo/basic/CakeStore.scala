@@ -8,7 +8,7 @@ import scala.scalajs.js
 
 object CakeStore {
 
-  val Store: Store[CakeReducer.State with js.Object, CakeActions.CakeAction] with Any =
+  val Store: Store[CakeReducer.State, CakeActions.CakeAction] =
     createStore(CakeReducer.Reducer, devToolsEnhancer(EnhancerOptions().setName("cake store")))
 
 }
