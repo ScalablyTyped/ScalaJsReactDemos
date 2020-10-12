@@ -20,10 +20,10 @@ object Main {
       ReduxFacade.simpleConnect(Store, CakeContainer.component)
 
     Provider[CakeAction](CakeStore.Store)(
-        ConnectedDemo({
-          val props = (new js.Object).asInstanceOf[CakeContainer.Props]
-          props
-        })()
+      ConnectedDemo {
+        val props = (new js.Object).asInstanceOf[CakeContainer.Props]
+        props
+      }()
     ).renderIntoDOM(dom.document.getElementById("container"))
   }
 }

@@ -15,6 +15,13 @@ object CakeActions {
 
   object BuyCake extends Extractor[BuyCake] {
     protected val _type = "BUY_CAKE"
+
+    @scala.inline
+    def apply(): BuyCake = {
+      val __obj = js.Dynamic.literal()
+      __obj.updateDynamic("type")(_type.asInstanceOf[js.Any])
+      __obj.asInstanceOf[BuyCake]
+    }
   }
 
 }
