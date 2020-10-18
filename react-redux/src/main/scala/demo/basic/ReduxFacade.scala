@@ -1,4 +1,4 @@
-package demo
+package demo.basic
 
 import japgolly.scalajs.react.component.{Js, ScalaFn}
 import japgolly.scalajs.react.{Children, CtorType, JsComponent}

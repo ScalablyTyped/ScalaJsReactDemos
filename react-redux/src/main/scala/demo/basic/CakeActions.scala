@@ -1,6 +1,6 @@
 package demo.basic
 
-import demo.ReduxFacade.Extractor
+import demo.basic.ReduxFacade.Extractor
 import typings.redux.mod.Action
 
 import scala.scalajs.js
