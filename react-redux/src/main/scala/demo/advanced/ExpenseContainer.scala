@@ -8,7 +8,6 @@ import japgolly.scalajs.react.vdom.html_<^.{<, _}
 import japgolly.scalajs.react.{Callback, Children, CtorType, JsComponent, ScalaFnComponent}
 import typings.reactRedux.mod.connect
 import typings.redux.mod.{bindActionCreators, AnyAction, Dispatch}
-import typings.reduxThunk.mod.ThunkDispatch
 
 import scala.scalajs.js
 

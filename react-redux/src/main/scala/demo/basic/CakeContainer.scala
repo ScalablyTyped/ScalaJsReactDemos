@@ -1,6 +1,6 @@
 package demo.basic
 
-import demo.ReduxFacade.Connected
+import demo.basic.ReduxFacade.Connected
 import demo.basic.CakeActions.{BuyCake, CakeAction}
 import demo.basic.CakeReducer.State
 import japgolly.scalajs.react.component.ScalaFn.Component
