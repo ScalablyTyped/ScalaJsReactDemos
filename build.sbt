@@ -272,6 +272,22 @@ lazy val `react-redux` = project
       "@types/react-redux" -> "7.1.5"
     )
   )
+  
+lazy val `react-window` = project
+  .enablePlugins(ScalablyTypedConverterPlugin)
+  .configure(baseSettings, browserProject, reactNpmDeps, bundlerSettings)
+  .settings(
+    useYarn := true,
+    webpackDevServerPort := 8016,
+    stFlavour := Flavour.Japgolly,
+    stReactEnableTreeShaking := Selection.All,
+    Compile / npmDependencies ++= Seq(
+      "react-window" -> "1.8.6",
+      "@types/react-window" -> "1.8.2",
+      "react-virtualized-auto-sizer" -> "1.0.2", // as recommended by react-window
+      "@types/react-virtualized-auto-sizer" -> "1.0.0",
+    )
+  )  
 
 /** Note: This can't use scalajs-bundler (at least I don't know how),
   *  so we run yarn ourselves with an external package.json.
