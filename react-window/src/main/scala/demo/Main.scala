@@ -12,7 +12,7 @@ object Main {
 
   final val Elements: Vector[String] = Vector.tabulate(1000)(i => s"Element($i)")
 
-  final val Row = ScalaFnComponent{ p: ListChildComponentProps =>
+  final val Row = ScalaFnComponent { p: ListChildComponentProps =>
     <.div(^.style := p.style, s"Row(index=${p.index}, data=${Elements(p.index.toInt)})")
   }.toJsComponent
 
@@ -26,7 +26,7 @@ object Main {
       width = 800,
       itemSize = 100,
       itemCount = Elements.size,
-      children = rawRowCasted,
+      children = rawRowCasted
     ).renderIntoDOM(dom.document.getElementById("container"))
   }
 }
