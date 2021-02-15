@@ -1,8 +1,9 @@
 package demo.advanced
 
 import demo.advanced.ExpenseAction.{AddExpenseAction, EditExpenseAction, RemoveExpenseAction, SetExpenseAction}
-import typings.redux.mod.{combineReducers, Reducer}
+import typings.redux.mod.{Reducer, combineReducers}
 import typings.std.ReturnType
+import typings.std.global.alert
 
 import scala.scalajs.js
 
@@ -18,6 +19,7 @@ object ExpenseReducer {
     action match {
       case SetExpenseAction(_action) => ExpenseContainer.LinkStateProps(_action.expenses)
       case EditExpenseAction(_action) =>
+        alert("an implementation is missing")
         ExpenseContainer.LinkStateProps(state.expenses.map { expense =>
           if (expense.id.equals(_action.expense.id)) _action.expense
           else expense
@@ -25,7 +27,8 @@ object ExpenseReducer {
       case RemoveExpenseAction(_action) =>
         ExpenseContainer.LinkStateProps(state.expenses.filterNot(_.id.equals(_action.id)))
       case AddExpenseAction(_action) =>
-        ExpenseContainer.LinkStateProps(state.expenses += _action.expense)
+        val expenses = state.expenses.foldLeft(js.Array[Expense]())(_+=_)
+        ExpenseContainer.LinkStateProps(expenses += _action.expense)
       case _ => state
     }
   }

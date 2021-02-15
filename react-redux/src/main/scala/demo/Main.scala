@@ -1,11 +1,7 @@
 package demo
 
-import demo.advanced.ExpenseContainer.{LinkStateProps, Props}
-import demo.advanced.{Expense, ExpenseContainer, ExpenseStore}
-import demo.basic.CakeActions.CakeAction
-import demo.basic.{CakeContainer, CakeStore, ReduxFacade}
-import japgolly.scalajs.react.CtorType
-import japgolly.scalajs.react.component.Js.Component
+import demo.advanced.ExpenseContainer.Props
+import demo.advanced.{ExpenseContainer, ExpenseStore}
 import org.scalajs.dom
 import typings.reactRedux.components.Provider
 
@@ -15,18 +11,18 @@ object Main {
 
   // BASIC
   // https://www.youtube.com/watch?v=gFZiQnM3Is4
-//  def main(args: Array[String]): Unit = {
-//
-//    val ConnectedDemo: Component[CakeContainer.Props, Null, CtorType.PropsAndChildren] =
-//      ReduxFacade.simpleConnect(CakeStore.Store, CakeContainer.component)
-//
-//    Provider[CakeAction](CakeStore.Store)(
-//        ConnectedDemo({
-//          val props = (new js.Object).asInstanceOf[CakeContainer.Props]
-//          props
-//        })()
-//    ).renderIntoDOM(dom.document.getElementById("container"))
-//  }
+  //  def main(args: Array[String]): Unit = {
+  //
+  //    val ConnectedDemo: Component[CakeContainer.Props, Null, CtorType.PropsAndChildren] =
+  //      ReduxFacade.simpleConnect(CakeStore.Store, CakeContainer.component)
+  //
+  //    Provider[CakeAction](CakeStore.Store)(
+  //        ConnectedDemo({
+  //          val props = (new js.Object).asInstanceOf[CakeContainer.Props]
+  //          props
+  //        })()
+  //    ).renderIntoDOM(dom.document.getElementById("container"))
+  //  }
 
   // ADVANCED
   // https://www.youtube.com/watch?v=OXxul6AvXNs

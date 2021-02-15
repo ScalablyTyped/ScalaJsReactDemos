@@ -1,19 +1,18 @@
 package demo.advanced
 
-import demo.advanced.ExpenseAction.{addExpense, removeExpense, AppActions}
+import demo.advanced.ExpenseAction._
 import demo.advanced.ExpenseReducer.AppState
 import japgolly.scalajs.react.component.Js
-import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.vdom.html_<^.{<, _}
 import japgolly.scalajs.react.{Callback, Children, CtorType, JsComponent, ScalaFnComponent}
 import typings.reactRedux.mod.connect
-import typings.redux.mod.{bindActionCreators, AnyAction, Dispatch}
+import typings.redux.mod.{AnyAction, Dispatch, bindActionCreators}
 
 import scala.scalajs.js
 
 object ExpenseContainer {
 
-  class LinkStateProps(var expenses: js.Array[Expense]) extends js.Object
+  class LinkStateProps(val expenses: js.Array[Expense]) extends js.Object
 
   object LinkStateProps {
 
@@ -25,7 +24,8 @@ object ExpenseContainer {
 
   trait LinkDispatchProps extends js.Object {
     val startAddExpense: js.Function1[Expense, Unit]
-    val startEditExpense: js.Function1[String, Unit]
+    val startSetExpenses: js.Function1[js.Array[Expense], Unit]
+    val startEditExpense: js.Function1[Expense, Unit]
     val startRemoveExpense: js.Function1[String, Unit]
   }
 
@@ -41,13 +41,14 @@ object ExpenseContainer {
               <.p(expense.description),
               <.p(expense.amount),
               <.p(expense.note),
-              <.button(^.onClick --> Callback(props.startRemoveExpense("")))("Remove Expense"),
-              <.button(^.onClick --> Callback(props.startEditExpense("")))("Edit Expense")
+              <.button(^.onClick --> Callback(props.startRemoveExpense(expense.id)))("Remove Expense"),
+              <.button(^.onClick --> Callback(props.startEditExpense(expense)))("Edit Expense")
             )
           )
-          .toVdomArray
+          .toVdomArray,
       ),
-      <.button(^.onClick --> Callback(props.startAddExpense(Expense())))("Edit Expense")
+      <.button(^.onClick --> Callback(props.startSetExpenses(js.Array[Expense](Expense()))))("Set Expense"),
+      <.button(^.onClick --> Callback(props.startAddExpense(Expense())))("Add Expense"),
     )
   }
 
@@ -61,11 +62,13 @@ object ExpenseContainer {
     (dispatch: Dispatch[AppActions]) =>
       js.Dynamic.literal(
         startAddExpense = bindActionCreators(addExpense, dispatch.asInstanceOf[Dispatch[AnyAction]]),
-        startRemoveExpense = bindActionCreators(removeExpense, dispatch.asInstanceOf[Dispatch[AnyAction]])
+        startSetExpenses = bindActionCreators(setExpenses, dispatch.asInstanceOf[Dispatch[AnyAction]]),
+        startRemoveExpense = bindActionCreators(removeExpense, dispatch.asInstanceOf[Dispatch[AnyAction]]),
+        startEditExpense = bindActionCreators(editExpense, dispatch.asInstanceOf[Dispatch[AnyAction]]),
       )
 
-  val connectElem: Js.Component[Props, Null, CtorType.PropsAndChildren] =
-    JsComponent[Props, Children.Varargs, Null](
+  val connectElem: Js.Component[Props, AppState with js.Object, CtorType.PropsAndChildren] =
+    JsComponent[Props, Children.Varargs, AppState with js.Object](
       connect.asInstanceOf[js.Dynamic](mapStateToProps, mapDispatchToProps)(component.toJsComponent.raw)
     )
 
