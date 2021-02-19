@@ -3,10 +3,11 @@ package demo.advanced
 import demo.advanced.ExpenseAction._
 import demo.advanced.ExpenseReducer.AppState
 import japgolly.scalajs.react.component.Js
+import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.vdom.html_<^.{<, _}
 import japgolly.scalajs.react.{Callback, Children, CtorType, JsComponent, ScalaFnComponent}
-import typings.reactRedux.mod.connect
-import typings.redux.mod.{AnyAction, Dispatch, bindActionCreators}
+import typings.reactRedux.mod.{MapDispatchToPropsFunction, MapStateToProps, MapStateToPropsParam, connect}
+import typings.redux.mod.{Action, AnyAction, Dispatch, bindActionCreators}
 
 import scala.scalajs.js
 
@@ -23,15 +24,18 @@ object ExpenseContainer {
   }
 
   trait LinkDispatchProps extends js.Object {
-    val startAddExpense: js.Function1[Expense, Unit]
-    val startSetExpenses: js.Function1[js.Array[Expense], Unit]
-    val startEditExpense: js.Function1[Expense, Unit]
-    val startRemoveExpense: js.Function1[String, Unit]
+    def startAddExpense(expense: Expense): Unit
+
+    def startSetExpenses(expenses: js.Array[Expense]): Unit
+
+    def startEditExpense(expense: Expense): Unit
+
+    def startRemoveExpense(expenseId: String): Unit
   }
 
   type Props = LinkDispatchProps with LinkStateProps
 
-  val component = ScalaFnComponent[Props] { props =>
+  val component: Component[Props, CtorType.Props] = ScalaFnComponent[Props] { props =>
     <.div(
       <.h1(s"Expense Page"),
       <.div(
@@ -58,14 +62,18 @@ object ExpenseContainer {
       js.Dynamic.literal(expenses = expenses)
     }
 
-  val mapDispatchToProps: js.Function1[Dispatch[AppActions], js.Dynamic] =
+
+  val mapDispatchToProps: js.Function1[Dispatch[AppActions], LinkDispatchProps] =
     (dispatch: Dispatch[AppActions]) =>
-      js.Dynamic.literal(
-        startAddExpense = bindActionCreators(addExpense, dispatch.asInstanceOf[Dispatch[AnyAction]]),
-        startSetExpenses = bindActionCreators(setExpenses, dispatch.asInstanceOf[Dispatch[AnyAction]]),
-        startRemoveExpense = bindActionCreators(removeExpense, dispatch.asInstanceOf[Dispatch[AnyAction]]),
-        startEditExpense = bindActionCreators(editExpense, dispatch.asInstanceOf[Dispatch[AnyAction]]),
-      )
+      new LinkDispatchProps {
+        override def startAddExpense(expense: Expense): Unit = dispatch(addExpense(expense)).asInstanceOf[Dispatch[AnyAction]]
+
+        override def startSetExpenses(expenses: js.Array[Expense]): Unit = dispatch(setExpenses(expenses))
+
+        override def startEditExpense(expense: Expense): Unit = dispatch(editExpense(expense))
+
+        override def startRemoveExpense(expenseId: String): Unit = dispatch(removeExpense(expenseId))
+      }
 
   val connectElem: Js.Component[Props, AppState with js.Object, CtorType.PropsAndChildren] =
     JsComponent[Props, Children.Varargs, AppState with js.Object](
