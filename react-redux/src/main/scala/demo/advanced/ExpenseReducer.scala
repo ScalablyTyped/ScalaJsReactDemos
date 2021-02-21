@@ -1,7 +1,7 @@
 package demo.advanced
 
 import demo.advanced.ExpenseAction.{AddExpenseAction, EditExpenseAction, RemoveExpenseAction, SetExpenseAction}
-import typings.redux.mod.{Reducer, combineReducers}
+import typings.redux.mod._
 import typings.std.ReturnType
 import typings.std.global.alert
 
@@ -11,7 +11,17 @@ object ExpenseReducer {
 
   type AppState = ReturnType[rootReducer.type]
 
-  lazy val rootReducer = combineReducers(js.Dynamic.literal("expenseReducer" -> ExpenseReducer.Reducer))
+  trait Reducers extends js.Object {
+    val expenseReducer: Reducer[ExpenseContainer.LinkStateProps, ExpenseAction]
+    // other reducers
+    // val otherReducer: Reducer[_, _]
+  }
+
+  lazy val rootReducer: Reducer[CombinedState[
+    StateFromReducersMapObject[Reducers]
+  ], ActionFromReducersMapObject[Reducers]] = combineReducers(new Reducers {
+    override val expenseReducer: Reducer[ExpenseContainer.LinkStateProps, ExpenseAction] = ExpenseReducer.Reducer
+  })
 
   lazy val Reducer: Reducer[ExpenseContainer.LinkStateProps, ExpenseAction] = (stateOpt, action) => {
     val state = stateOpt.getOrElse(ExpenseContainer.LinkStateProps.initial)
@@ -27,7 +37,7 @@ object ExpenseReducer {
       case RemoveExpenseAction(_action) =>
         ExpenseContainer.LinkStateProps(state.expenses.filterNot(_.id.equals(_action.id)))
       case AddExpenseAction(_action) =>
-        val expenses = state.expenses.foldLeft(js.Array[Expense]())(_+=_)
+        val expenses = state.expenses.foldLeft(js.Array[Expense]())(_ += _)
         ExpenseContainer.LinkStateProps(expenses += _action.expense)
       case _ => state
     }

@@ -6,8 +6,8 @@ import japgolly.scalajs.react.component.Js
 import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.vdom.html_<^.{<, _}
 import japgolly.scalajs.react.{Callback, Children, CtorType, JsComponent, ScalaFnComponent}
-import typings.reactRedux.mod.{MapDispatchToPropsFunction, MapStateToProps, MapStateToPropsParam, connect}
-import typings.redux.mod.{Action, AnyAction, Dispatch, bindActionCreators}
+import typings.reactRedux.mod.connect
+import typings.redux.mod.Dispatch
 
 import scala.scalajs.js
 
@@ -24,13 +24,10 @@ object ExpenseContainer {
   }
 
   trait LinkDispatchProps extends js.Object {
-    def startAddExpense(expense: Expense): Unit
-
-    def startSetExpenses(expenses: js.Array[Expense]): Unit
-
-    def startEditExpense(expense: Expense): Unit
-
-    def startRemoveExpense(expenseId: String): Unit
+    val startAddExpense: js.Function1[Expense, AppActions]
+    val startSetExpenses: js.Function1[js.Array[Expense], AppActions]
+    val startEditExpense: js.Function1[Expense, AppActions]
+    val startRemoveExpense: js.Function1[String, AppActions]
   }
 
   type Props = LinkDispatchProps with LinkStateProps
@@ -41,7 +38,7 @@ object ExpenseContainer {
       <.div(
         props.expenses
           .map(expense =>
-            <.div(
+            <.div(^.key := expense.id)(
               <.p(expense.description),
               <.p(expense.amount),
               <.p(expense.note),
@@ -49,30 +46,39 @@ object ExpenseContainer {
               <.button(^.onClick --> Callback(props.startEditExpense(expense)))("Edit Expense")
             )
           )
-          .toVdomArray,
+          .toVdomArray
       ),
       <.button(^.onClick --> Callback(props.startSetExpenses(js.Array[Expense](Expense()))))("Set Expense"),
-      <.button(^.onClick --> Callback(props.startAddExpense(Expense())))("Add Expense"),
+      <.button(^.onClick --> Callback(props.startAddExpense(Expense())))("Add Expense")
     )
   }
 
   val mapStateToProps: js.Function1[AppState, js.Dynamic] =
     (state: AppState) => {
-      val expenses = state.asInstanceOf[js.Dynamic].expenseReducer.expenses
+      val expenses: js.Array[Expense] =
+        state.asInstanceOf[js.Dynamic].expenseReducer.expenses.asInstanceOf[js.Array[Expense]]
       js.Dynamic.literal(expenses = expenses)
     }
-
 
   val mapDispatchToProps: js.Function1[Dispatch[AppActions], LinkDispatchProps] =
     (dispatch: Dispatch[AppActions]) =>
       new LinkDispatchProps {
-        override def startAddExpense(expense: Expense): Unit = dispatch(addExpense(expense)).asInstanceOf[Dispatch[AnyAction]]
+        override val startAddExpense: js.Function1[Expense, AppActions] =
+          expense => dispatch(addExpense(expense))
+        // https://stackoverflow.com/questions/41754489/when-would-bindactioncreators-be-used-in-react-redux
+        // bindActionCreators(addExpense, dispatch.asInstanceOf[Dispatch[AnyAction]])
 
-        override def startSetExpenses(expenses: js.Array[Expense]): Unit = dispatch(setExpenses(expenses))
+        override val startSetExpenses: js.Function1[js.Array[Expense], AppActions] =
+          expenses => dispatch(setExpenses(expenses))
+        // bindActionCreators(setExpenses, dispatch.asInstanceOf[Dispatch[AnyAction]])
 
-        override def startEditExpense(expense: Expense): Unit = dispatch(editExpense(expense))
+        override val startEditExpense: js.Function1[Expense, AppActions] =
+          expense => dispatch(editExpense(expense))
+        // bindActionCreators(editExpense, dispatch.asInstanceOf[Dispatch[AnyAction]])
 
-        override def startRemoveExpense(expenseId: String): Unit = dispatch(removeExpense(expenseId))
+        override val startRemoveExpense: js.Function1[String, AppActions] =
+          expenseId => dispatch(removeExpense(expenseId))
+        // bindActionCreators(removeExpense, dispatch.asInstanceOf[Dispatch[AnyAction]])
       }
 
   val connectElem: Js.Component[Props, AppState with js.Object, CtorType.PropsAndChildren] =
