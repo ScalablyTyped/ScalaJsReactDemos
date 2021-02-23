@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "react-native-animate",
+    "name": "react-native-animations",
     "description": "A template setting up Expo with Slinky and Scala.js",
-    "slug": "react-native-animate",
+    "slug": "react-native-animations",
     "privacy": "public",
-    "sdkVersion": "37.0.0",
+    "sdkVersion": "39.0.0",
     "platforms": [
       "ios",
       "android",

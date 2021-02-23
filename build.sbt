@@ -314,7 +314,7 @@ lazy val `react-native` = project
 /** Note: This can't use scalajs-bundler (at least I don't know how),
   *  so we run yarn ourselves with an external package.json.
   */
-lazy val `react-native-animate` = project
+lazy val `react-native-animations` = project
   .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
   .configure(baseSettings)
   .settings(

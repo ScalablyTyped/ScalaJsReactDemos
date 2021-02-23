@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 object Main {
 
   @JSExportTopLevel("app")
-  val app: StatelessFunctionalComponent[UnusedObject] = CountdownApp.component.toJsComponent.raw
+  val app: StatelessFunctionalComponent[UnusedObject] = AnimatedIconApp.component.toJsComponent.raw
 
 }
