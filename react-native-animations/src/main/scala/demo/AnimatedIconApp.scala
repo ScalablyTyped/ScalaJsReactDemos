@@ -1,7 +1,7 @@
 package demo
 
 import demo.facade.AnimatedView
-import demo.facade.AnimatedView.AnimatedProps
+import demo.facade.AnimatedView.AnimatedViewProps
 import japgolly.scalajs.react.component.Js
 import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.{CallbackTo, Children, CtorType, JsComponent, ScalaFnComponent}
@@ -115,7 +115,7 @@ object AnimatedIconApp {
                 )
               )
             )
-            .asInstanceOf[AnimatedProps]
+            .asInstanceOf[AnimatedViewProps]
         )(
           AnimatedView.component(
             js.Dynamic
@@ -130,7 +130,7 @@ object AnimatedIconApp {
                   )
                 )
               )
-              .asInstanceOf[AnimatedProps]
+              .asInstanceOf[AnimatedViewProps]
           )(),
           AnimatedView.component(
             js.Dynamic
@@ -144,7 +144,7 @@ object AnimatedIconApp {
                   )
                 )
               )
-              .asInstanceOf[AnimatedProps]
+              .asInstanceOf[AnimatedViewProps]
           )(),
           AnimatedView.component(
             js.Dynamic
@@ -159,7 +159,7 @@ object AnimatedIconApp {
                   )
                 )
               )
-              .asInstanceOf[AnimatedProps]
+              .asInstanceOf[AnimatedViewProps]
           )()
         )
       )

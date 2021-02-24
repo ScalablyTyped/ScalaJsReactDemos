@@ -1,34 +1,31 @@
 package demo
 
-import demo.facade.AnimatedView
-import demo.facade.AnimatedView.AnimatedProps
+import demo.facade.AnimatedView.AnimatedViewProps
+import demo.facade.{AnimatedFlatList, AnimatedText, AnimatedView}
 import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{Callback, CtorType, ScalaFnComponent, _}
-import typings.react.mod.{useRef, useState}
-import typings.reactNative.components.{FlatList, StatusBar, Text, TextInput, TouchableOpacity, View}
-import typings.reactNative.mod.Animated.{AnimatedInterpolation, InterpolationConfigType}
+import japgolly.scalajs.react.{Callback, CtorType, ScalaFnComponent}
+import typings.react.mod._
+import typings.reactNative.components.{StatusBar, TextInput, TouchableOpacity, View}
 import typings.reactNative.mod._
-import typings.reactNative.mod.global.console
 import typings.reactNative.reactNativeStrings
 
 import scala.scalajs.js
 import scala.scalajs.js.Object.keys
-import scala.scalajs.js.annotation.JSImport
 
 // https://gist.github.com/catalinmiron/341457332b8962fbc1cbb39f978a3882
 object CountdownApp {
 
-  val scaledSize: ScaledSize = Dimensions.get_window(reactNativeStrings.window);
-  val black = "#323F4E"
-  val red = "#F76A6A"
-  val text = "#ffffff"
+  private val scaledSize: ScaledSize = Dimensions.get_window(reactNativeStrings.window);
+  private val black = "#323F4E"
+  private val red = "#F76A6A"
+  private val text = "#ffffff"
 
-  val timers = keys(js.Array[Int](0 to 13: _*)).map(_.toInt).map(i => if (i == 0) 1 else i * 5)
-  val ITEM_SIZE = scaledSize.width * 0.38
-  val ITEM_SPACING = (scaledSize.width - ITEM_SIZE) / 2
+  private val timers: js.Array[Int] = keys(js.Array[Int](0 to 13: _*)).map(_.toInt).map(i => if (i == 0) 1 else i * 5)
+  private val ITEM_SIZE: ImageRequireSource = scaledSize.width * 0.38
+  private val ITEM_SPACING: ImageRequireSource = (scaledSize.width - ITEM_SIZE) / 2
 
-  val textStyle = TextStyle()
+  private val textStyle: TextStyle = TextStyle()
     .setFontSize(ITEM_SIZE * 0.8)
     .setFontFamily("Menlo")
     .setColor(text)
@@ -37,18 +34,96 @@ object CountdownApp {
   val component: Component[Unit, CtorType.Nullary] = ScalaFnComponent[Unit] { _ =>
     val scrollX = useRef(new Animated.Value(0)).current.asInstanceOf[Animated.Value]
     val js.Tuple2(duration, setDuration) = useState[Int](timers(0))
-    val inputRef = useRef()
+    val inputRef = useRef[TextInput]()
     val timerAnimation = useRef(new Animated.Value(scaledSize.height)).current.asInstanceOf[Animated.Value]
     val textInputAnimation = useRef(new Animated.Value(timers(0))).current.asInstanceOf[Animated.Value]
     val buttonAnimation = useRef(new Animated.Value(0)).current.asInstanceOf[Animated.Value]
 
-    val buttonOpacity = buttonAnimation
-      .interpolate(InterpolationConfigType(js.Array(0, 1), js.Array(1, 0)))
+    useEffect((() => {
+      val listener = textInputAnimation.addListener { value =>
+        //https://stackoverflow.com/questions/57876152/how-to-use-the-useref-hook-for-setnativeprops-in-react-native
+        if (inputRef.current != null)
+          inputRef.current
+            .asInstanceOf[js.Dynamic]
+            .setNativeProps(
+              js.Dynamic.literal(
+                text = Math.ceil(value.value).toString
+              )
+            )
+      }
+      (() => {
+        textInputAnimation.removeListener(listener)
+        textInputAnimation.removeAllListeners()
+      }): Destructor
+    }): EffectCallback)
+
+    val animation = useCallback(
+      () => {
+        textInputAnimation.setValue(duration)
+        Animated
+          .sequence(
+            js.Array[Animated.CompositeAnimation](
+              Animated.timing(
+                buttonAnimation,
+                Animated
+                  .TimingAnimationConfig(toValue = 1, useNativeDriver = true)
+                  .setDuration(300)
+              ),
+              Animated.timing(
+                timerAnimation,
+                Animated
+                  .TimingAnimationConfig(toValue = 0, useNativeDriver = true)
+                  .setDuration(300)
+              ),
+              Animated.parallel(
+                js.Array(
+                  Animated.timing(
+                    textInputAnimation,
+                    Animated
+                      .TimingAnimationConfig(toValue = 0, useNativeDriver = true)
+                      .setDuration(duration * 1000)
+                  ),
+                  Animated.timing(
+                    timerAnimation,
+                    Animated
+                      .TimingAnimationConfig(toValue = scaledSize.height, useNativeDriver = true)
+                      .setDuration(duration * 1000)
+                  )
+                )
+              ),
+              Animated.delay(400)
+            )
+          )
+          .start(
+            (
+                (_: Animated.EndResult) => {
+                  Vibration.cancel()
+                  Vibration.vibrate()
+                  textInputAnimation.setValue(duration)
+                  Animated
+                    .timing(
+                      buttonAnimation,
+                      Animated
+                        .TimingAnimationConfig(toValue = 0, useNativeDriver = true)
+                        .setDuration(300)
+                    )
+                    .start()
+                }
+            ): Animated.EndCallback
+          )
+
+      },
+      js.Array(duration)
+    )
+
+    val opacity = buttonAnimation
+      .interpolate(Animated.InterpolationConfigType(inputRange = js.Array(0, 1), outputRange = js.Array(1, 0)))
 
     val translateY = buttonAnimation
-      .interpolate(InterpolationConfigType(js.Array(0, 1), js.Array(0, 200)))
+      .interpolate(Animated.InterpolationConfigType(inputRange = js.Array(0, 1), outputRange = js.Array(0, 200)))
+
     val textOpacity = buttonAnimation
-      .interpolate(InterpolationConfigType(js.Array(0, 1), js.Array(0, 1)))
+      .interpolate(Animated.InterpolationConfigType(inputRange = js.Array(0, 1), outputRange = js.Array(0, 1)))
 
     View.style(
       ViewStyle()
@@ -73,7 +148,7 @@ object CountdownApp {
               StyleSheet.absoluteFillObject
             )
           )
-          .asInstanceOf[AnimatedProps]
+          .asInstanceOf[AnimatedViewProps]
       )(),
       AnimatedView.component(
         js.Dynamic
@@ -87,16 +162,16 @@ object CountdownApp {
                   js.Dynamic.literal(
                     translateY = translateY
                   )
-                )
+                ),
+                opacity = opacity
               ),
-              buttonOpacity,
               StyleSheet.absoluteFillObject
             )
           )
-          .asInstanceOf[AnimatedProps]
+          .asInstanceOf[AnimatedViewProps]
       )(
         TouchableOpacity
-          .onPress(_ => Callback())(
+          .onPress(_ => Callback(animation()))(
             View.style(
               ViewStyle()
                 .setWidth(80)
@@ -121,59 +196,51 @@ object CountdownApp {
               width = ITEM_SIZE,
               justifyContent = reactNativeStrings.center,
               alignSelf = reactNativeStrings.center,
-              alignItems = reactNativeStrings.center
-              //opacity = textOpacity
+              alignItems = reactNativeStrings.center,
+              opacity = textOpacity
             )
-            .asInstanceOf[AnimatedProps]
+            .asInstanceOf[AnimatedViewProps]
         )(
           TextInput
-            .withRef(_ => inputRef)
+          // TODO :(
+            .withRef(ref => inputRef.current = ref)
             .style(textStyle)
             .defaultValue(duration.toString)()
         ),
-        FlatList()
+        AnimatedFlatList()
           .data(timers)
           .keyExtractor((item, _) => item.toString)
           .horizontal(true)
           .bounces(false)
-          // TODO
-          //   onScroll={Animated.event(
-          //    [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          //    {
-          //      useNativeDriver: false,
-          //    }
-          //  )}
-          .onScroll(_ =>
-            CallbackTo(
-              Animated.event(
-                js.Array(
-                  js.Dynamic
-                    .literal(
-                      nativeEvent = js.Dynamic.literal(
-                        contentOffset = js.Dynamic.literal(
-                          x = scrollX
-                        )
+          .set(
+            "onScroll",
+            Animated.event(
+              js.Array(
+                js.Dynamic
+                  .literal(
+                    nativeEvent = js.Dynamic.literal(
+                      contentOffset = js.Dynamic.literal(
+                        x = scrollX
                       )
                     )
-                    .asInstanceOf[Animated.Mapping]
-                ),
-                Animated.EventConfig(false)
-              )
+                  )
+                  .asInstanceOf[Animated.Mapping]
+              ),
+              Animated.EventConfig(true)
             )
           )
+          // https://github.com/necolas/react-native-web/issues/1021
           .onMomentumScrollEnd(ev =>
-            CallbackTo {
-              val index =
-                Math.round(ev.nativeEvent.asInstanceOf[js.Dynamic].contentOffset.x.asInstanceOf[Double] / ITEM_SIZE)
-              console.log(s"index $index")
-              setDuration(timers(index.toInt))
+            Callback {
+              val index: Int =
+                Math.round(ev.nativeEvent.asInstanceOf[js.Dynamic].contentOffset.x.asInstanceOf[Int] / ITEM_SIZE).toInt
+              setDuration(timers(index))
             }
           )
           .showsHorizontalScrollIndicator(false)
           .snapToInterval(ITEM_SIZE)
           .decelerationRate(reactNativeStrings.fast)
-          //.set("style", js.Dynamic.literal(flexGrow = 0, opacity = textOpacity))
-          .style(ViewStyle().setFlexGrow(0))
+          .style(ViewStyle().setFlexGrow(0).set("opacity", opacity))
           .contentContainerStyle(ViewStyle().setPaddingHorizontal(ITEM_SPACING))
           .renderItem { renderItem =>
             val inputRange = js.Array(
@@ -181,11 +248,11 @@ object CountdownApp {
               renderItem.index * ITEM_SIZE,
               (renderItem.index + 1) * ITEM_SIZE
             )
-            val opacity: AnimatedInterpolation =
-              scrollX.interpolate(InterpolationConfigType(inputRange, js.Array(.4, 1, .4)))
+            val opacity: Animated.AnimatedInterpolation =
+              scrollX.interpolate(Animated.InterpolationConfigType(inputRange, js.Array(.4, 1, .4)))
 
-            val scale: AnimatedInterpolation =
-              scrollX.interpolate(InterpolationConfigType(inputRange, js.Array(.7, 1, .7)))
+            val scale: Animated.AnimatedInterpolation =
+              scrollX.interpolate(Animated.InterpolationConfigType(inputRange, js.Array(.7, 1, .7)))
 
             View
               .style(
@@ -194,26 +261,10 @@ object CountdownApp {
                   .setJustifyContent(reactNativeStrings.center)
                   .setAlignItems(FlexAlignType.center)
               )(
-                Text.withProps(
-                  js.Dynamic
-                    .literal(
-                      style = js.Array(
-                        js.Dynamic.literal(
-                          fontSize = ITEM_SIZE * 0.8,
-                          fontFamily = "Menlo",
-                          color = text,
-                          fontWeight = reactNativeStrings.`900`,
-                          opacity = opacity
-                          //transform = js.Array(scale)
-                        )
-                      )
-                    )
-                    .asInstanceOf[TextProps]
-                  //textStyle
-                  // TODO opacity
-                  //.set("opacity", opacity)
-                  // TODO transform
-                  //.set("transform", scale)
+                AnimatedText().style(
+                  textStyle
+                    .set("opacity", opacity)
+                    .set("transform", js.Array(js.Dynamic.literal(scale = scale)))
                 )(renderItem.item)
               )
               .build
@@ -221,7 +272,6 @@ object CountdownApp {
           }
       )
     )
-
   }
 
 }

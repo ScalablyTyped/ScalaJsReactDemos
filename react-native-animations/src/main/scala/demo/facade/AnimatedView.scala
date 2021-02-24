@@ -2,6 +2,7 @@ package demo.facade
 
 import japgolly.scalajs.react.{Children, CtorType, JsComponent}
 import japgolly.scalajs.react.component.Js
+import typings.reactNative.components.SharedBuilder_ViewProps39190290
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -13,9 +14,10 @@ object AnimatedView {
   object RawComponent extends js.Object
 
   @js.native
-  trait AnimatedProps extends js.Object {}
+  trait AnimatedViewProps extends js.Object {}
 
-  val component: Js.Component[AnimatedProps, Null, CtorType.PropsAndChildren] =
-    JsComponent[AnimatedProps, Children.Varargs, Null](RawComponent)
+  val component: Js.Component[AnimatedViewProps, Null, CtorType.PropsAndChildren] =
+    JsComponent[AnimatedViewProps, Children.Varargs, Null](RawComponent)
+
 
 }
