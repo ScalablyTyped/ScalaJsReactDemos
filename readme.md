@@ -87,6 +87,11 @@ This is a collection of tiny demo projects to show off how we can use react libr
 
 `sbt> react-window/start` starts a webpack-dev-server at http://localhost:8016 .
 
+### react-markdown
+[Demo](https://scalablytyped.github.io/ScalaJsReactDemos/react-markdown/)
+
+`sbt> react-markdown/start` starts a webpack-dev-server at http://localhost:8017 .
+
 ## React-native 
 [Expo demo you can run on your phone](https://expo.io/@scalablytyped/scalably-typed-react-native) (slinky version is deployed there)
 

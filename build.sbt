@@ -287,7 +287,22 @@ lazy val `react-window` = project
       "react-virtualized-auto-sizer" -> "1.0.2", // as recommended by react-window
       "@types/react-virtualized-auto-sizer" -> "1.0.0",
     )
-  )  
+  )
+
+lazy val `react-markdown` = project
+  .enablePlugins(ScalablyTypedConverterPlugin)
+  .configure(baseSettings, browserProject, reactNpmDeps, bundlerSettings)
+  .settings(
+    useYarn := true,
+    webpackDevServerPort := 8017,
+    stFlavour := Flavour.Japgolly,
+    stReactEnableTreeShaking := Selection.All,
+    Compile / npmDependencies ++= Seq(
+      "react-markdown"-> "^5.0.3",
+      "react-syntax-highlighter"-> "^15.4.3",
+      "@types/react-syntax-highlighter"-> "^13.5.0"
+    )
+  )
 
 /** Note: This can't use scalajs-bundler (at least I don't know how),
   *  so we run yarn ourselves with an external package.json.
