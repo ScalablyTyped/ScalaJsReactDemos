@@ -291,12 +291,12 @@ lazy val `react-window` = project
 
 lazy val `react-markdown` = project
   .enablePlugins(ScalablyTypedConverterPlugin)
-  .configure(baseSettings, browserProject, reactNpmDeps, bundlerSettings)
+  .configure(baseSettings, withCssLoading, browserProject, reactNpmDeps, bundlerSettings)
   .settings(
+    webpack / version := "4.44.1",
     useYarn := true,
     webpackDevServerPort := 8017,
     stFlavour := Flavour.Japgolly,
-    stReactEnableTreeShaking := Selection.All,
     Compile / npmDependencies ++= Seq(
       "react-markdown"-> "^5.0.3",
       "react-syntax-highlighter"-> "^15.4.3",
@@ -357,7 +357,8 @@ lazy val withCssLoading: Project => Project =
       "css-loader" -> "3.4.2",
       "style-loader" -> "1.1.3",
       "file-loader" -> "5.1.0",
-      "url-loader" -> "3.0.0"
+      "url-loader" -> "4.1.0",
+      "copy-webpack-plugin" -> "6.0.3"
     )
   )
 
