@@ -1,11 +1,10 @@
 package demo.basic
 
-import demo.basic.ReduxFacade.Extractor
 import typings.redux.mod.Action
 
 import scala.scalajs.js
 
-object CakeActions {
+object CakeAction {
 
   @js.native
   sealed trait CakeAction extends Action[String]
@@ -13,8 +12,8 @@ object CakeActions {
   @js.native
   trait BuyCake extends CakeAction
 
-  object BuyCake extends Extractor[BuyCake] {
-    protected val _type = "BUY_CAKE"
+  object BuyCake {
+    val _type = "BUY_CAKE"
 
     @scala.inline
     def apply(): BuyCake = {
@@ -22,6 +21,8 @@ object CakeActions {
       __obj.updateDynamic("type")(_type.asInstanceOf[js.Any])
       __obj.asInstanceOf[BuyCake]
     }
-  }
 
+    def unapply(a: Action[String]): Boolean =
+      a.`type` == _type
+  }
 }
