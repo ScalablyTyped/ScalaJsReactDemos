@@ -1,38 +1,59 @@
 package demo
 
-import demo.advanced.ExpenseContainer.Props
-import demo.advanced.{ExpenseContainer, ExpenseStore}
+import demo.advanced.{ExpenseAction, ExpenseContainer, ExpenseReducer, ExpenseState}
+import demo.basic.CakeAction.CakeAction
+import demo.basic.{CakeContainer, CakeReducer}
+import japgolly.scalajs.react.{Children, JsComponent}
 import org.scalajs.dom
 import typings.reactRedux.components.Provider
+import typings.reactRedux.mod.connect
+import typings.redux.mod._
+import typings.reduxDevtoolsExtension.developmentOnlyMod.composeWithDevTools
 
 import scala.scalajs.js
+import scala.scalajs.js.|
 
 object Main {
+  type AppAction = ExpenseAction | CakeAction
 
-  // BASIC
-  // https://www.youtube.com/watch?v=gFZiQnM3Is4
-  //  def main(args: Array[String]): Unit = {
-  //
-  //    val ConnectedDemo: Component[CakeContainer.Props, Null, CtorType.PropsAndChildren] =
-  //      ReduxFacade.simpleConnect(CakeStore.Store, CakeContainer.component)
-  //
-  //    Provider[CakeAction](CakeStore.Store)(
-  //        ConnectedDemo({
-  //          val props = (new js.Object).asInstanceOf[CakeContainer.Props]
-  //          props
-  //        })()
-  //    ).renderIntoDOM(dom.document.getElementById("container"))
-  //  }
+  trait AppState extends js.Object {
+    val expenses: ExpenseState
+    val cake: CakeReducer.State
+  }
 
-  // ADVANCED
-  // https://www.youtube.com/watch?v=OXxul6AvXNs
-  // https://github.com/cmcaboy/redux-typed/tree/typed
-  def main(args: Array[String]): Unit =
-    Provider(ExpenseStore.value)(
-      ExpenseContainer.connectElem {
-        val props = (new js.Object()).asInstanceOf[Props]
-        props
-      }()
+  trait Reducers extends js.Object {
+    val expenses: Reducer[ExpenseState, ExpenseAction]
+    val cake: Reducer[CakeReducer.State, CakeAction]
+  }
+
+  val rootReducer: Reducer[AppState, AppAction] =
+    combineReducers(new Reducers {
+      override val expenses: Reducer[ExpenseState, ExpenseAction] = ExpenseReducer.Reducer
+      override val cake: Reducer[CakeReducer.State, CakeAction] = CakeReducer.Reducer
+    }).asInstanceOf[Reducer[AppState, AppAction]]
+
+  def main(args: Array[String]): Unit = {
+    val Empty = js.Object
+
+    val store = createStore(rootReducer, composeWithDevTools(applyMiddleware()))
+    val keepDispatch: js.Function1[Dispatch[AppAction], js.Dynamic] = d => js.Dynamic.literal(dispatch = d)
+
+    val ConnectedExpenses = JsComponent[js.Object, Children.None, js.Object](
+      connect.asInstanceOf[js.Dynamic]((appState: AppState) => js.Dynamic.literal(state = appState.expenses), keepDispatch)(
+        ExpenseContainer.component.toJsComponent.raw
+      )
+    )
+
+    val ConnectedCakes = JsComponent[js.Object, Children.None, js.Object](
+      connect.asInstanceOf[js.Dynamic]((appState: AppState) => js.Dynamic.literal(state = appState.cake), keepDispatch)(
+        CakeContainer.component.toJsComponent.raw
+      )
+    )
+
+    Provider(store)(
+      ConnectedExpenses(Empty),
+      ConnectedCakes(Empty)
     ).renderIntoDOM(dom.document.getElementById("container"))
+  }
 
 }
