@@ -96,6 +96,12 @@ for react-native.
 
 When you have an emulator running, you can start the demo like this:
 
-```
-sbt>react-native/run
-``` 
+## React-native 
+
+`yarn --cwd react-native-animations/ install`
+
+`sbt "project react-native-animations;~fastOptJS"`
+
+When you have an emulator running, you can start the demo like this:
+
+`yarn --cwd react-native-animations/ expo start`
