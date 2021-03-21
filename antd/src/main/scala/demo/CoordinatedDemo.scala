@@ -18,13 +18,13 @@ object CoordinatedDemo {
       .labelCol(ColProps().setSpan(5))
       .wrapperCol(ColProps().setSpan(12))
       .onFinish(store => Callback(console.log("Received values of form: ", store)))(
-        FormItem
+        Form.Item
           .label(noteTitle)
           .name("note")
           .rulesVarargs(BaseRule().setRequired(true).setMessage("Please input your note!"))(
             Input()
           ),
-        FormItem
+        Form.Item
           .label("Gender")
           .name("gender")
           .rulesVarargs(BaseRule().setRequired(true).setMessage("Please select your gender!'"))(
@@ -44,7 +44,7 @@ object CoordinatedDemo {
                 Select.Option(value = "female")("Female")
               )
           ),
-        FormItem.wrapperCol(ColProps().setSpan(12).setOffset(5))(
+        Form.Item.wrapperCol(ColProps().setSpan(12).setOffset(5))(
           Button.`type`(antdStrings.primary).htmlType(antdStrings.submit)("Submit")
         )
       )

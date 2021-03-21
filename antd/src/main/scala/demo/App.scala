@@ -196,13 +196,13 @@ object App {
     val renderForm = <.section(
       <.h2("Form"),
       Form.onFinish(store => Callback.log("Form submitted", store))(
-        FormItem(
+        Form.Item(
           Input.addonBefore(AntdIcon(MailTwoToneIcon)).`type`(antdStrings.email).placeholder("input email")
         ),
-        FormItem(
+        Form.Item(
           Password.addonBefore(AntdIcon(LockTwoToneIcon)).`type`(antdStrings.password).placeholder("input password")
         ),
-        FormItem(Button.htmlType(antdStrings.submit).`type`(antdStrings.primary))("Log in")
+        Form.Item(Button.htmlType(antdStrings.submit).`type`(antdStrings.primary))("Log in")
       )
     )
 

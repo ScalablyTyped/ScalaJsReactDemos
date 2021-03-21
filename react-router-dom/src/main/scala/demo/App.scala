@@ -2,7 +2,7 @@ package demo
 
 import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.html_<^._
-import typings.reactRouter.mod._
+import typings.reactRouter.mod.{RouteProps, `match`}
 import typings.reactRouterDom.components._
 
 import scala.scalajs.js
