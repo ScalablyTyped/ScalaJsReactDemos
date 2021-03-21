@@ -1,6 +1,6 @@
 package demo.basic
 
-import demo.basic.CakeActions.CakeAction
+import demo.basic.CakeAction.CakeAction
 import typings.redux.mod.Reducer
 
 import scala.scalajs.js
@@ -19,11 +19,9 @@ object CakeReducer {
 
   val Reducer: Reducer[State, CakeAction] = (stateOpt, action) => {
     val state = stateOpt.getOrElse(State.initial)
-    println(js.JSON.stringify(action))
     action match {
-      case CakeActions.BuyCake(_) => State(state.numOfCakes - 1)
-      case _                      => state
+      case CakeAction.BuyCake() => State(state.numOfCakes - 1)
+      case _                     => state
     }
   }
-
 }
