@@ -16,7 +16,7 @@ import typings.materialUiCore.materialUiCoreStrings.{center, textSecondary}
 import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.stylesMod.createMuiTheme
 import typings.materialUiStyles.makeStylesMod.StylesHook
-import typings.materialUiStyles.withStylesMod._
+import typings.materialUiStyles.withStylesMod.{Styles, CSSProperties}
 
 import scala.scalajs.js
 
