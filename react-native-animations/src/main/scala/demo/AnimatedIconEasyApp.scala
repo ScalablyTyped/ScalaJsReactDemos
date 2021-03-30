@@ -1,18 +1,23 @@
 package demo
 
 import demo.facade.AnimatedView
-import demo.facade.AnimatedView.AnimatedViewProps
 import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.{CallbackTo, CtorType, ScalaFnComponent}
 import typings.react.mod.useState
 import typings.reactNative.components.{TouchableWithoutFeedback, View}
 import typings.reactNative.mod.Animated.TimingAnimationConfig
-import typings.reactNative.mod.{Animated, FlexAlignType, ViewStyle}
+import typings.reactNative.mod.{Animated, FlexAlignType, ViewProps, ViewStyle}
 import typings.reactNative.reactNativeStrings
 
 import scala.scalajs.js
 
 object AnimatedIconEasyApp {
+
+  private def commonStyle: ViewStyle = ViewStyle()
+    .setWidth("60%")
+    .setHeight(10)
+    .setBorderRadius(10)
+    .setBackgroundColor("black")
 
   val component: Component[Unit, CtorType.Nullary] = ScalaFnComponent[Unit] { _ =>
     val js.Tuple2(activated, setActivated) = useState(false)
@@ -64,48 +69,13 @@ object AnimatedIconEasyApp {
             .setBackgroundColor("green")
         )(
           AnimatedView.component(
-            js.Dynamic
-              .literal(
-                style = js.Array(
-                  js.Dynamic.literal(
-                    width = "60%",
-                    height = 10,
-                    borderRadius = 10,
-                    backgroundColor = "black",
-                    transform = js.Array(js.Dynamic.literal(translateY = upperAnimation))
-                  )
-                )
-              )
-              .asInstanceOf[AnimatedViewProps]
+            ViewProps().setStyle(commonStyle.set("transform", js.Array(js.Dynamic.literal(translateY = upperAnimation))))
           )(),
           AnimatedView.component(
-            js.Dynamic
-              .literal(
-                style = js.Array(
-                  js.Dynamic.literal(
-                    width = "60%",
-                    height = 10,
-                    borderRadius = 10,
-                    backgroundColor = "black"
-                  )
-                )
-              )
-              .asInstanceOf[AnimatedViewProps]
+            ViewProps().setStyle(commonStyle)
           )(),
           AnimatedView.component(
-            js.Dynamic
-              .literal(
-                style = js.Array(
-                  js.Dynamic.literal(
-                    width = "60%",
-                    height = 10,
-                    borderRadius = 10,
-                    backgroundColor = "black",
-                    transform = js.Array(js.Dynamic.literal(translateY = lowerAnimation))
-                  )
-                )
-              )
-              .asInstanceOf[AnimatedViewProps]
+            ViewProps().setStyle(commonStyle.set("transform", js.Array(js.Dynamic.literal(translateY = lowerAnimation))))
           )()
         )
       )

@@ -1,6 +1,5 @@
 package demo
 
-import demo.facade.AnimatedView.AnimatedViewProps
 import demo.facade.{AnimatedFlatList, AnimatedText, AnimatedView}
 import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.vdom.html_<^._
@@ -25,7 +24,7 @@ object CountdownApp {
   private val ITEM_SIZE: ImageRequireSource = scaledSize.width * 0.38
   private val ITEM_SPACING: ImageRequireSource = (scaledSize.width - ITEM_SIZE) / 2
 
-  private val textStyle: TextStyle = TextStyle()
+  private def textStyle: TextStyle = TextStyle()
     .setFontSize(ITEM_SIZE * 0.8)
     .setFontFamily("Menlo")
     .setColor(text)
@@ -96,20 +95,20 @@ object CountdownApp {
           )
           .start(
             (
-                (_: Animated.EndResult) => {
-                  Vibration.cancel()
-                  Vibration.vibrate()
-                  textInputAnimation.setValue(duration)
-                  Animated
-                    .timing(
-                      buttonAnimation,
-                      Animated
-                        .TimingAnimationConfig(toValue = 0, useNativeDriver = true)
-                        .setDuration(300)
-                    )
-                    .start()
-                }
-            ): Animated.EndCallback
+              (_: Animated.EndResult) => {
+                Vibration.cancel()
+                Vibration.vibrate()
+                textInputAnimation.setValue(duration)
+                Animated
+                  .timing(
+                    buttonAnimation,
+                    Animated
+                      .TimingAnimationConfig(toValue = 0, useNativeDriver = true)
+                      .setDuration(300)
+                  )
+                  .start()
+              }
+              ): Animated.EndCallback
           )
 
       },
@@ -132,43 +131,36 @@ object CountdownApp {
     )(
       StatusBar.hidden(true),
       AnimatedView.component(
-        js.Dynamic
-          .literal(
-            style = js.Array(
+        ViewProps().set("style", js.Array(
+          js.Dynamic.literal(
+            backgroundColor = red,
+            height = scaledSize.height,
+            width = scaledSize.width,
+            transform = js.Array(
               js.Dynamic.literal(
-                backgroundColor = red,
-                height = scaledSize.height,
-                width = scaledSize.width,
-                transform = js.Array(
-                  js.Dynamic.literal(
-                    translateY = timerAnimation
-                  )
-                )
-              ),
-              StyleSheet.absoluteFillObject
+                translateY = timerAnimation
+              )
             )
-          )
-          .asInstanceOf[AnimatedViewProps]
+          ),
+          StyleSheet.absoluteFillObject
+        ))
       )(),
       AnimatedView.component(
-        js.Dynamic
-          .literal(
-            style = js.Array(
+        ViewProps().set("style", js.Array(
+          js.Dynamic.literal(
+            justifyContent = reactNativeStrings.`flex-end`,
+            alignItems = reactNativeStrings.center,
+            paddingBottom = 100,
+            transform = js.Array(
               js.Dynamic.literal(
-                justifyContent = reactNativeStrings.`flex-end`,
-                alignItems = reactNativeStrings.center,
-                paddingBottom = 100,
-                transform = js.Array(
-                  js.Dynamic.literal(
-                    translateY = translateY
-                  )
-                ),
-                opacity = opacity
-              ),
-              StyleSheet.absoluteFillObject
-            )
-          )
-          .asInstanceOf[AnimatedViewProps]
+                translateY = translateY
+              )
+            ),
+            opacity = opacity
+          ),
+          StyleSheet.absoluteFillObject
+        )
+        )
       )(
         TouchableOpacity
           .onPress(_ => Callback(animation()))(
@@ -190,20 +182,19 @@ object CountdownApp {
           .setFlex(1)
       )(
         AnimatedView.component(
-          js.Dynamic
-            .literal(
-              position = reactNativeStrings.absolute,
-              width = ITEM_SIZE,
-              justifyContent = reactNativeStrings.center,
-              alignSelf = reactNativeStrings.center,
-              alignItems = reactNativeStrings.center,
-              opacity = textOpacity
+          ViewProps().setStyle(
+              ViewStyle()
+                .setPosition(reactNativeStrings.absolute)
+                .setWidth(ITEM_SIZE)
+                .setJustifyContent(reactNativeStrings.center)
+                .setAlignSelf(reactNativeStrings.center)
+                .setAlignItems(reactNativeStrings.center)
+                .set("opacity", textOpacity)
             )
-            .asInstanceOf[AnimatedViewProps]
         )(
           TextInput
-          // TODO :(
-            .withRef(ref => inputRef.current = ref)
+            // TODO :(
+            //.withRef(ref => inputRef.current = ref)
             .style(textStyle)
             .defaultValue(duration.toString)()
         ),

@@ -1,7 +1,6 @@
 package demo
 
 import demo.facade.AnimatedView
-import demo.facade.AnimatedView.AnimatedViewProps
 import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{Callback, CtorType, ReactEventFrom, ScalaFnComponent}
@@ -51,7 +50,7 @@ object Drawer {
   )
 
   private val Button
-      : Component[js.Tuple3[String, ReactEventFrom[NodeHandle with Element] => Callback, TextStyle], CtorType.Props] =
+  : Component[js.Tuple3[String, ReactEventFrom[NodeHandle with Element] => Callback, TextStyle], CtorType.Props] =
     ScalaFnComponent[js.Tuple3[String, ReactEventFrom[NodeHandle with Element] => Callback, TextStyle]] {
       case js.Tuple3(title, onPress, style) =>
         TouchableOpacity
@@ -88,23 +87,14 @@ object Drawer {
         )(
           // AntDesign
           AnimatedView.component(
-            js.Dynamic
-              .literal(
-                style = js.Array(
-                  js.Dynamic.literal(
-                    flex = 1,
-                    alignItems = reactNativeStrings.`flex-start`,
-                    justifyContent = reactNativeStrings.`space-between`
-                    // opacity = opacity,
-                    //                transform = js.Array(
-                    //                  js.Dynamic.literal(
-                    //                    translateX = translateX
-                    //                  )
-                    //                )
-                  )
-                )
-              )
-              .asInstanceOf[AnimatedViewProps]
+            ViewProps().setStyle(
+              ViewStyle()
+                .setFlex(1)
+                .setAlignItems(reactNativeStrings.`flex-start`)
+                .setJustifyContent(reactNativeStrings.`space-between`)
+              //              .set("opacity", opacity)
+              //              .set("transform", js.Array(js.Dynamic.literal(translateX = translateX)))
+            )
           )(
             View(
               routes.zipWithIndex.map {
@@ -144,7 +134,6 @@ object Drawer {
     }
 
 
-
   val component: Component[Unit, CtorType.Nullary] = ScalaFnComponent[Unit] { _ =>
     val scaledSize: ScaledSize = Dimensions.get_window(reactNativeStrings.window)
     val width = scaledSize.width
@@ -180,9 +169,7 @@ object Drawer {
     )
 
 
-    View.style(
-      ViewStyle().setFlex(1)
-    )(
+    View.style(ViewStyle().setFlex(1))(
       drawer(js.Tuple3(animation, scaledSize, onCloseDrawer)),
       StatusBar.hidden(true)
     )

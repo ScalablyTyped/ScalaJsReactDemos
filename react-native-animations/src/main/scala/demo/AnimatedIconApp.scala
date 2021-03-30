@@ -1,21 +1,23 @@
 package demo
 
 import demo.facade.AnimatedView
-import demo.facade.AnimatedView.AnimatedViewProps
-import japgolly.scalajs.react.component.Js
 import japgolly.scalajs.react.component.ScalaFn.Component
-import japgolly.scalajs.react.{CallbackTo, Children, CtorType, JsComponent, ScalaFnComponent}
+import japgolly.scalajs.react.{CallbackTo, CtorType, ScalaFnComponent}
 import typings.react.mod.useState
 import typings.reactNative.components.{TouchableWithoutFeedback, View}
 import typings.reactNative.mod.Animated.{InterpolationConfigType, SpringAnimationConfig, TimingAnimationConfig}
-import typings.reactNative.mod.{Animated, FlexAlignType, ViewStyle}
+import typings.reactNative.mod._
 import typings.reactNative.reactNativeStrings
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSImport
 
 // https://cheesecakelabs.com/blog/first-steps-with-react-native-animations/
 object AnimatedIconApp {
+
+  private def commonStyle: ViewStyle = ViewStyle()
+    .setWidth("60%")
+    .setBorderRadius(10)
+    .setBackgroundColor("black")
 
   val component: Component[Unit, CtorType.Nullary] = ScalaFnComponent[Unit] { _ =>
     val js.Tuple2(activated, setActivated) = useState(false)
@@ -79,12 +81,12 @@ object AnimatedIconApp {
       js.Dynamic.literal(
         translateY = animation
           .interpolate(InterpolationConfigType(js.Array(0, 1), js.Array(0, -25)))
-          .asInstanceOf[js.Dynamic]
+          .asInstanceOf[TranslateYTransform]
       ),
       js.Dynamic.literal(
         rotate = rotation
           .interpolate(InterpolationConfigType(js.Array(0, 1), js.Array("0deg", "45deg")))
-          .asInstanceOf[js.Dynamic]
+          .asInstanceOf[RotateTransform]
       )
     )
 
@@ -97,69 +99,30 @@ object AnimatedIconApp {
     )(
       TouchableWithoutFeedback().onPress((_) => CallbackTo[Unit](startAnimation()))(
         AnimatedView.component(
-          js.Dynamic
-            .literal(
-              style = js.Array(
-                js.Dynamic.literal(
-                  display = reactNativeStrings.flex,
-                  flexDirection = reactNativeStrings.column,
-                  justifyContent = reactNativeStrings.`space-between`,
-                  alignItems = reactNativeStrings.center,
-                  width = 100,
-                  height = 100,
-                  paddingVertical = 20,
-                  borderRadius = 50,
-                  backgroundColor = jsAnimation
-                    .interpolate(InterpolationConfigType(js.Array(0, 1), js.Array("green", "red")))
-                    .asInstanceOf[js.Dynamic]
-                )
-              )
+          ViewProps()
+            .setStyle(
+              ViewStyle()
+                .setDisplay(reactNativeStrings.flex)
+                .setFlexDirection(reactNativeStrings.column)
+                .setJustifyContent(reactNativeStrings.`space-between`)
+                .setAlignItems(reactNativeStrings.center)
+                .setWidth(100)
+                .setHeight(100)
+                .setPaddingVertical(20)
+                .setBorderRadius(50)
+                .setBackgroundColor(jsAnimation
+                  .interpolate(InterpolationConfigType(js.Array(0, 1), js.Array("green", "red")))
+                  .asInstanceOf[OpaqueColorValue])
             )
-            .asInstanceOf[AnimatedViewProps]
         )(
           AnimatedView.component(
-            js.Dynamic
-              .literal(
-                style = js.Array(
-                  js.Dynamic.literal(
-                    width = "60%",
-                    height = 10,
-                    borderRadius = 10,
-                    backgroundColor = "black",
-                    transform = upper
-                  )
-                )
-              )
-              .asInstanceOf[AnimatedViewProps]
+            ViewProps().setStyle(commonStyle.setHeight(10).set("transform", upper))
           )(),
           AnimatedView.component(
-            js.Dynamic
-              .literal(
-                style = js.Array(
-                  js.Dynamic.literal(
-                    width = "60%",
-                    borderRadius = 10,
-                    backgroundColor = "black",
-                    height = middle
-                  )
-                )
-              )
-              .asInstanceOf[AnimatedViewProps]
+            ViewProps().setStyle(commonStyle.set("height", middle))
           )(),
           AnimatedView.component(
-            js.Dynamic
-              .literal(
-                style = js.Array(
-                  js.Dynamic.literal(
-                    width = "60%",
-                    height = 10,
-                    borderRadius = 10,
-                    backgroundColor = "black",
-                    transform = lower
-                  )
-                )
-              )
-              .asInstanceOf[AnimatedViewProps]
+            ViewProps().setStyle(commonStyle.setHeight(10).set("transform", lower))
           )()
         )
       )
