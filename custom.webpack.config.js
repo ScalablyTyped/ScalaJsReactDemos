@@ -1,9 +1,7 @@
-const merge = require('webpack-merge');
-const generated = require('./scalajs.webpack.config');
-const path = require("path");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+var merge = require('webpack-merge');
+var generated = require('./scalajs.webpack.config');
 
-const local = {
+var local = {
     module: {
         rules: [
             {
@@ -11,7 +9,7 @@ const local = {
                 use: ['style-loader', 'css-loader']
             },
             {
-                test: /\.(ttf|eot|woff|png|glb|svg)$/,
+                test: /\.(ttf|eot|woff|png|glb|svg|md)$/,
                 use: 'file-loader'
             },
             {
@@ -19,16 +17,7 @@ const local = {
                 use: 'url-loader'
             }
         ]
-    },
-    plugins: [
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, "../../../../src/main/js")
-                }
-            ]
-        })
-    ]
+    }
 };
 
 module.exports = merge(generated, local);

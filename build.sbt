@@ -357,8 +357,7 @@ lazy val withCssLoading: Project => Project =
       "css-loader" -> "3.4.2",
       "style-loader" -> "1.1.3",
       "file-loader" -> "5.1.0",
-      "url-loader" -> "4.1.0",
-      "copy-webpack-plugin" -> "6.0.3"
+      "url-loader" -> "4.1.0"
     )
   )
 
