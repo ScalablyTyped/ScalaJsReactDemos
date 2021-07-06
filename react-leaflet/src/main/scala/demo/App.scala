@@ -17,10 +17,10 @@ object App {
       TileLayer(
         TileLayerProps(url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
           .setAttribution("&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors")
-      ),
+      ).build,
       Marker(MarkerProps(position = position))(
-        Popup(PopupProps())("A pretty CSS3 popup.\nEasily customizable.")
-      )
-    )
+        Popup(PopupProps())("A pretty CSS3 popup.\nEasily customizable.").build
+      ).build
+    ).build
   }
 }

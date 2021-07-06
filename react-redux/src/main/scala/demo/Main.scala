@@ -50,7 +50,7 @@ object Main {
       )
     )
 
-    Provider(store)(
+    Provider(store.unsafeCast2[js.Any, AppAction])(
       ConnectedExpenses(Empty),
       ConnectedCakes(Empty)
     ).renderIntoDOM(dom.document.getElementById("container"))
