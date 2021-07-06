@@ -1,7 +1,7 @@
 package demo
 
 import japgolly.scalajs.react.component.ScalaFn.Component
-import japgolly.scalajs.react.raw.React.{ElementType, Node}
+import japgolly.scalajs.react.facade.React.{ElementType, Node}
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{CtorType, ScalaFnComponent}
 import org.scalablytyped.runtime.StringDictionary

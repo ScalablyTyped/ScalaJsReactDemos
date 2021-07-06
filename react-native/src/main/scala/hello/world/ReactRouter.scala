@@ -4,7 +4,7 @@ import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.html_<^._
 import typings.reactNative.components.{Text, View}
 import typings.reactRouterNative.components._
-import typings.reactRouter.mod._
+import typings.reactRouter.mod.{`match`, RouteProps}
 
 object ReactRouter {
 

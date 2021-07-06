@@ -1,15 +1,16 @@
 package demo
 
-import japgolly.scalajs.react.raw.React.RefFn
+import japgolly.scalajs.react.facade.React.{Element, RefFn, RefHandle}
 import japgolly.scalajs.react.vdom.Attr.ValueType
+import japgolly.scalajs.react.vdom.TopNode
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{Callback, ScalaFnComponent}
+import japgolly.scalajs.react.{Callback, CallbackTo, ScalaFnComponent}
 import org.scalajs.dom.raw.HTMLElement
 import typings.csstype.mod.{ClearProperty, FloatProperty, TextAlignProperty}
 import typings.dndCore.interfacesMod.SourceType
 import typings.react.mod.CSSProperties
 import typings.reactDnd.components.DndProvider
-import typings.reactDnd.connectorsMod.ConnectDropTarget
+import typings.reactDnd.connectorsMod.{ConnectDropTarget, ConnectableElement}
 import typings.reactDnd.hooksApiMod.{DragSourceHookSpec, DropTargetHookSpec}
 import typings.reactDnd.mod.{useDrag, useDrop}
 import typings.reactDndHtml5Backend.mod.HTML5Backend
@@ -50,11 +51,11 @@ object components {
 
   val Dustbin = ScalaFnComponent[Unit] {
     case () =>
-      val js.Tuple2(Collected(canDrop, isOver), drop: ConnectDropTarget) =
+      val js.Tuple2(Collected(canDrop, isOver), drop) =
         useDrop(
           DropTargetHookSpec[js.Object, DropResult, Collected](ItemTypes.BOX)
             .setDrop((_, _) => new DropResult("Dustbin"))
-            .setCollect(monitor => Collected(monitor.isOver, monitor.canDrop))
+            .setCollect(monitor => Collected(monitor.isOver(), monitor.canDrop()))
         )
 
       val isActive = canDrop && isOver
@@ -64,8 +65,10 @@ object components {
         else if (canDrop) "darkkhaki"
         else "#222"
 
+      val refFn: RefFn[TopNode] = elem => drop(elem.asInstanceOf[ConnectableElement], js.undefined)
+
       <.div(
-        ^.untypedRef := ((elem: HTMLElement) => Callback(drop(elem, js.undefined))),
+        ^.untypedRef := refFn,
         ^.style := dustbinStyles.duplicate.setBackgroundColor(backgroundColor),
         if (isActive) "Release to drop" else "Drag a box here"
       )
@@ -92,13 +95,13 @@ object components {
               alert(s"You dropped ${item.name} into ${dropResult.asInstanceOf[DropResult].name}!")
             })
           }
-          .setCollect(monitor => monitor.isDragging)
+          .setCollect(monitor => monitor.isDragging())
       )
 
     val opacity = if (isDragging) "0.4" else "1"
-
+    val refFn: RefFn[TopNode] = elem => drag(elem.asInstanceOf[ConnectableElement], js.undefined)
     <.div(
-      ^.untypedRef := ((elem: HTMLElement) => Callback(drag(elem, js.undefined))),
+      ^.untypedRef := refFn,
       ^.style := boxStyles.duplicate.setOpacity(opacity),
       name
     )

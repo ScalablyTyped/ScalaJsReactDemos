@@ -36,7 +36,7 @@ object Demo {
 
   val Main = ScalaFnComponent[Unit] {
     case () =>
-      Downshift[Item]
+      Downshift[Item]()
         .onChange((selection, _) =>
           Callback.alert(asOpt(selection).fold("Selection Cleared")(value => s"You selected ${value.value}"))
         )

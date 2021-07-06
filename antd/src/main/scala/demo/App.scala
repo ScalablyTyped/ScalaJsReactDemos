@@ -76,7 +76,7 @@ object App {
     def renderTable =
       <.section(
         <.h2("Table"),
-        Table[TableItem]
+        Table[TableItem]()
           .bordered(true)
           .dataSourceVarargs(
             new TableItem(1, "Mike", 32, "10 Downing St."),
@@ -91,8 +91,8 @@ object App {
             // TODO: is a varargs constructor missing here?
             ColumnGroupType[TableItem](
               scala.scalajs.js.Array(
-                ColumnType[TableItem].setTitle("Age").setDataIndex("age").setKey("age"),
-                ColumnType[TableItem].setTitle("Address").setDataIndex("address").setKey("address")
+                ColumnType[TableItem]().setTitle("Age").setDataIndex("age").setKey("age"),
+                ColumnType[TableItem]().setTitle("Address").setDataIndex("address").setKey("address")
               )
             ).setTitle("Age & Address")
           )
@@ -129,7 +129,7 @@ object App {
 
     val renderSelect = <.section(
       <.h2("Select"),
-      Select[String]
+      Select[String]()
         .defaultValue(selectValue)
         .onChange((changedValue, _) => Callback(updateSelectValue(changedValue)))(
           Option("jack")("Jack"),
@@ -141,7 +141,7 @@ object App {
 
     val renderMultiSelect = <.section(
       <.h2("Multiple select"),
-      Select[js.Array[String]]
+      Select[js.Array[String]]()
         .defaultValue(js.Array(multiSelectValue: _*))
         .mode(antdStrings.multiple)
         .onChange((changedValue, _) => Callback(updateMultiSelectValue(changedValue.toList)))(
@@ -154,7 +154,7 @@ object App {
 
     val renderGroupSelect = <.section(
       <.h2("Select with grouped options"),
-      Select[String]
+      Select[String]()
         .defaultValue(selectValue)
         .onChange((changedValue, _) => Callback(updateSelectValue(changedValue)))(
           Select.OptGroup.label("Manager")(

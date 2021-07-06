@@ -1,6 +1,6 @@
 package hello.world
 
-import japgolly.scalajs.react.raw.React
+import japgolly.scalajs.react.facade.React
 import japgolly.scalajs.react.{Callback, ReactEventFrom, ScalaFnComponent}
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.raw.Element

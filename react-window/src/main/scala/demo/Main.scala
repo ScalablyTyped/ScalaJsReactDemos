@@ -1,6 +1,6 @@
 package demo
 
-import japgolly.scalajs.react.raw.React.StatelessFunctionalComponent
+import japgolly.scalajs.react.facade.React.StatelessFunctionalComponent
 import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
@@ -12,7 +12,7 @@ object Main {
 
   final val Elements: Vector[String] = Vector.tabulate(1000)(i => s"Element($i)")
 
-  final val Row = ScalaFnComponent { p: ListChildComponentProps =>
+  final val Row = ScalaFnComponent { (p: ListChildComponentProps) =>
     <.div(^.style := p.style, s"Row(index=${p.index}, data=${Elements(p.index.toInt)})")
   }.toJsComponent
 

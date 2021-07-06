@@ -26,7 +26,7 @@ object App {
       ),
       <.div(^.className := "App-intro")(
         Trans[Element]()("To get started, edit ", <.code("src/App.js"), " and save to reload."),
-        Trans[Element].i18nKey("welcome")("trans"),
+        Trans[Element]().i18nKey("welcome")("trans"),
         Trans[Element]()(index + 1, <.a("xxx"))
       ),
       <.div(^.style := CSSProperties().setMarginTop(40))(

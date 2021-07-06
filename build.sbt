@@ -42,7 +42,7 @@ lazy val baseSettings: Project => Project =
   _.enablePlugins(ScalaJSPlugin)
     .settings(
       version := "0.1-SNAPSHOT",
-      scalaVersion := "2.13.2",
+      scalaVersion := "3.0.0",
       scalacOptions ++= ScalacOptions.flags,
       scalaJSUseMainModuleInitializer := true,
       /* disabled because it somehow triggers many warnings */
@@ -293,7 +293,6 @@ lazy val `react-markdown` = project
   .enablePlugins(ScalablyTypedConverterPlugin)
   .configure(baseSettings, withCssLoading, browserProject, reactNpmDeps, bundlerSettings)
   .settings(
-    webpack / version := "4.44.1",
     useYarn := true,
     webpackDevServerPort := 8017,
     stFlavour := Flavour.Japgolly,
