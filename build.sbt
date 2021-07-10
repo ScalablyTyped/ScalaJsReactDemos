@@ -56,7 +56,7 @@ lazy val `react-mobx` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8001,
-      stFlavour := Flavour.Japgolly,
+      stFlavour := Flavour.ScalajsReact,
       Compile / npmDependencies ++= Seq(
         "mobx" -> "5.15.4",
         "mobx-react" -> "6.2.2"
@@ -70,7 +70,7 @@ lazy val `react-slick` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8002,
-      stFlavour := Flavour.Japgolly,
+      stFlavour := Flavour.ScalajsReact,
       Compile / npmDependencies ++= Seq(
         "react-slick" -> "0.23",
         "@types/react-slick" -> "0.23.4"
@@ -84,7 +84,7 @@ lazy val `react-big-calendar` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8003,
-      stFlavour := Flavour.Japgolly,
+      stFlavour := Flavour.ScalajsReact,
       Compile / npmDependencies ++= Seq(
         "moment" -> "2.24.0",
         "react-big-calendar" -> "0.24.4",
@@ -98,7 +98,7 @@ lazy val `semantic-ui-react-kitchensink` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8004,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     stReactEnableTreeShaking := Selection.All,
     Compile / npmDependencies ++= Seq(
       "semantic-ui-react" -> "0.88.2"
@@ -118,7 +118,7 @@ lazy val `storybook-react` = project
       Process("yarn", baseDirectory.value).!
       baseDirectory.value
     },
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     /** This is not suitable for development, but effective for demo.
       * Run `yarn storybook` commands yourself, and run `~storybook-react/fastOptJS` from sbt
       */
@@ -141,7 +141,7 @@ lazy val antd =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8006,
-      stFlavour := Flavour.Japgolly,
+      stFlavour := Flavour.ScalajsReact,
       Compile / npmDependencies ++= Seq("antd" -> "4.5.1")
     )
 
@@ -152,7 +152,7 @@ lazy val `react-router-dom` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8007,
-      stFlavour := Flavour.Japgolly,
+      stFlavour := Flavour.ScalajsReact,
       Compile / npmDependencies ++= Seq(
         "react-router-dom" -> "5.1.2",
         "@types/react-router-dom" -> "5.1.2" // note 5.1.4 did weird things to the Link component
@@ -166,7 +166,7 @@ lazy val `material-ui` =
     .settings(
       useYarn := true,
       webpackDevServerPort := 8008,
-      stFlavour := Flavour.Japgolly,
+      stFlavour := Flavour.ScalajsReact,
       stReactEnableTreeShaking := Selection.All,
       Compile / npmDependencies ++= Seq(
         "@material-ui/core" -> "3.9.4", // note: version 4 is not supported yet
@@ -186,7 +186,7 @@ lazy val `react-leaflet` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8009,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     Compile / npmDependencies ++= Seq(
       "react-leaflet" -> "2.6.3",
       "@types/react-leaflet" -> "2.5.1",
@@ -200,7 +200,7 @@ lazy val `office-ui-fabric-react` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8010,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     stReactEnableTreeShaking := Selection.All,
     Compile / npmDependencies ++= Seq(
       "office-ui-fabric-react" -> "7.107.1"
@@ -213,7 +213,7 @@ lazy val `react-dnd` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8011,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     Compile / npmDependencies ++= Seq(
       "react-dnd" -> "11.1.3",
       "react-dnd-html5-backend" -> "11.1.3"
@@ -226,7 +226,7 @@ lazy val `react-i18n` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8012,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     Compile / npmDependencies ++= Seq(
       "i18next" -> "19.5.2",
       "i18next-browser-languagedetector" -> "5.0.0",
@@ -240,7 +240,7 @@ lazy val `nivo` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8013,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     Compile / npmDependencies ++= Seq(
       "@nivo/line" -> "0.62.0"
     )
@@ -252,7 +252,7 @@ lazy val downshift = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8014,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     Compile / npmDependencies ++= Seq(
       "downshift" -> "6.0.5"
     )
@@ -264,7 +264,7 @@ lazy val `react-redux` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8015,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     stReactEnableTreeShaking := Selection.All,
     Compile / npmDependencies ++= Seq(
       "react-redux" -> "7.1",
@@ -279,7 +279,7 @@ lazy val `react-window` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8016,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     stReactEnableTreeShaking := Selection.All,
     Compile / npmDependencies ++= Seq(
       "react-window" -> "1.8.6",
@@ -295,7 +295,7 @@ lazy val `react-markdown` = project
   .settings(
     useYarn := true,
     webpackDevServerPort := 8017,
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     Compile / npmDependencies ++= Seq(
       "react-markdown"-> "^5.0.3",
       "react-syntax-highlighter"-> "^15.4.3",
@@ -317,7 +317,7 @@ lazy val `react-native` = project
       Process("yarn", baseDirectory.value).!
       baseDirectory.value
     },
-    stFlavour := Flavour.Japgolly,
+    stFlavour := Flavour.ScalajsReact,
     stStdlib := List("es5"),
     run := {
       (Compile / fastOptJS).value
