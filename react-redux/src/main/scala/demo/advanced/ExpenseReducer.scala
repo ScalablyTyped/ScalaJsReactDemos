@@ -11,7 +11,7 @@ object ExpenseReducer {
 
       case ExpenseAction.EditExpenseAction(editedExpense) =>
         ExpenseState(state.expenses.map { expense =>
-          if (expense.id.equals(editedExpense.id)) editedExpense
+          if expense.id.equals(editedExpense.id) then editedExpense
           else expense
         })
 

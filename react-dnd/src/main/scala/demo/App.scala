@@ -61,8 +61,8 @@ object components {
       val isActive = canDrop && isOver
 
       val backgroundColor: String =
-        if (isActive) "darkgreen"
-        else if (canDrop) "darkkhaki"
+        if isActive then "darkgreen"
+        else if canDrop then "darkkhaki"
         else "#222"
 
       val refFn: RefFn[TopNode] = elem => drop(elem.asInstanceOf[ConnectableElement], js.undefined)
@@ -70,7 +70,7 @@ object components {
       <.div(
         ^.untypedRef := refFn,
         ^.style := dustbinStyles.duplicate.setBackgroundColor(backgroundColor),
-        if (isActive) "Release to drop" else "Drag a box here"
+        if isActive then "Release to drop" else "Drag a box here"
       )
   }
 
@@ -98,7 +98,7 @@ object components {
           .setCollect(monitor => monitor.isDragging())
       )
 
-    val opacity = if (isDragging) "0.4" else "1"
+    val opacity = if isDragging then "0.4" else "1"
     val refFn: RefFn[TopNode] = elem => drag(elem.asInstanceOf[ConnectableElement], js.undefined)
     <.div(
       ^.untypedRef := refFn,

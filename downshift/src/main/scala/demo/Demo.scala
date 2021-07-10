@@ -54,7 +54,7 @@ object Demo {
               ),
             ul.unsafeSpread(ctrl.getMenuProps())
               .style(menuStyles)(
-                if (!ctrl.isOpen) TagMod.empty
+                if !ctrl.isOpen then TagMod.empty
                 else
                   TagMod.fromTraversableOnce(
                     items
@@ -70,8 +70,8 @@ object Demo {
                                 .setStyle {
                                   val isSelected = asOpt(ctrl.highlightedIndex).contains(index)
                                   CSSProperties()
-                                    .setBackgroundColor(if (isSelected) NamedColor.lightgray else NamedColor.white)
-                                    .setFontWeight(if (isSelected) bold else normal)
+                                    .setBackgroundColor(if isSelected then NamedColor.lightgray else NamedColor.white)
+                                    .setFontWeight(if isSelected then bold else normal)
                                 }
                             )
                           )(item.value)

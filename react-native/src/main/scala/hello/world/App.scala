@@ -46,7 +46,7 @@ object App {
       }
 
     def checkRedirection(stayPath: String, elem: VdomElement): VdomNode =
-      if (redirPath != stayPath) Redirect(to = redirPath) else elem
+      if redirPath != stayPath then Redirect(to = redirPath) else elem
 
     val routeLinks: Seq[VdomElement] = RoutePath.allOrdered.zipWithIndex.map {
       case (route, index) => ListItem.onPress(navigateTo(route))(Text(route.title)).withKey(index.toString)

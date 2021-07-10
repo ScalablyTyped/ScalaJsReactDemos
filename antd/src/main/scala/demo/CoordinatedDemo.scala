@@ -35,7 +35,7 @@ object CoordinatedDemo {
                   form.setFieldsValue(
                     StringDictionary(
                       "gender" -> value,
-                      "note" -> s"Hi, ${if (value == "male") "man" else "lady"}!"
+                      "note" -> s"Hi, ${if value == "male" then "man" else "lady"}!"
                     )
                   )
                 )

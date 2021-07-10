@@ -113,7 +113,7 @@ object Login {
                     .`type`("password")
                     .fullWidth(true),
                   <.div(^.className := classes("formButtons"))(
-                    if (isLoading)
+                    if isLoading then
                       CircularProgress.size(26).className(classes("loginLoader"))
                     else
                       Button
@@ -187,7 +187,7 @@ object Login {
                     .`type`("password")
                     .fullWidth(true),
                   <.div(^.className := classes("formButtons"))(
-                    if (isLoading)
+                    if isLoading then
                       CircularProgress.size(26).className(classes("loginLoader"))
                     else
                       Button

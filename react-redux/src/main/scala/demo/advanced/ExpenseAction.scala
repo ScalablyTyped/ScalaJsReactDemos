@@ -24,7 +24,7 @@ object ExpenseAction {
       __obj.asInstanceOf[SetExpenseAction].set("expenses", expenses)
     }
     def unapply(a: Action[String]): Option[js.Array[Expense]] =
-      if (a.`type` == _type) Some(a.asInstanceOf[SetExpenseAction].expenses) else None
+      if a.`type` == _type then Some(a.asInstanceOf[SetExpenseAction].expenses) else None
   }
 
   @js.native
@@ -42,7 +42,7 @@ object ExpenseAction {
       __obj.asInstanceOf[EditExpenseAction].set("expense", expense)
     }
     def unapply(a: Action[String]): Option[Expense] =
-      if (a.`type` == _type) Some(a.asInstanceOf[EditExpenseAction].expense) else None
+      if a.`type` == _type then Some(a.asInstanceOf[EditExpenseAction].expense) else None
   }
 
   @js.native
@@ -61,7 +61,7 @@ object ExpenseAction {
     }
 
     def unapply(a: Action[String]): Option[String] =
-      if (a.`type` == _type) Some(a.asInstanceOf[RemoveExpenseAction].id) else None
+      if a.`type` == _type then Some(a.asInstanceOf[RemoveExpenseAction].id) else None
   }
 
   @js.native
@@ -79,6 +79,6 @@ object ExpenseAction {
     }
 
     def unapply(a: Action[String]): Option[Expense] =
-      if (a.`type` == _type) Some(a.asInstanceOf[AddExpenseAction].expense) else None
+      if a.`type` == _type then Some(a.asInstanceOf[AddExpenseAction].expense) else None
   }
 }
