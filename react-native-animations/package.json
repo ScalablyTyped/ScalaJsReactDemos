@@ -1,0 +1,36 @@
+{
+  "license": "MIT",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/drawer": "^5.12.4",
+    "@react-navigation/native": "^5.9.3",
+    "expo": "^39.0.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.1.tar.gz",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "^2.0.0",
+    "react-native-screens": "^2.18.1",
+    "typescript": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.45",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "@types/react-native": "^0.63.50",
+    "@types/react-router-native": "^5.1.0",
+    "babel-preset-expo": "^8.3.0",
+    "expo-cli": "^4.1.6",
+    "react-native-web": "^0.15.0",
+    "react-proxy": "^1.1.8"
+  },
+  "private": true
+}
