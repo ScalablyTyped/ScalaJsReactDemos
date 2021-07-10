@@ -1,10 +1,10 @@
 package demo
 
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalablytyped.runtime.StringDictionary
 import typings.antd.antdStrings
-import typings.antd.components._
+import typings.antd.components.*
 import typings.antd.formFormMod.useForm
 import typings.antd.gridColMod.ColProps
 import typings.rcFieldForm.interfaceMod.BaseRule
@@ -49,3 +49,4 @@ object CoordinatedDemo:
         )
       )
   }
+end CoordinatedDemo

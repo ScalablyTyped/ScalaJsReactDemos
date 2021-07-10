@@ -1,14 +1,14 @@
 package demo
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalablytyped.runtime.StringDictionary
 import typings.nivoAxes.mod.{AxisProps, Orient}
 import typings.nivoAxes.nivoAxesStrings.middle
 import typings.nivoColors.mod.{ColorSchemeId, OrdinalColorsInstruction, SchemeColorInstruction}
 import typings.nivoCore.mod.Box
 import typings.nivoLegends.anon.PartialitemTextColorstrin
-import typings.nivoLegends.mod._
+import typings.nivoLegends.mod.*
 import typings.nivoLine.components.Line
 import typings.nivoLine.mod.Serie
 import typings.nivoScales.mod.{LinearScale, Scale}
@@ -78,3 +78,4 @@ object App:
           )
       )
   }
+end App

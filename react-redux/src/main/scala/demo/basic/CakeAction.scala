@@ -23,3 +23,5 @@ object CakeAction:
 
     def unapply(a: Action[String]): Boolean =
       a.`type` == _type
+  end BuyCake
+end CakeAction

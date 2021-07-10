@@ -1,6 +1,6 @@
 package demo
 
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import org.scalajs.dom.html.Element
 import typings.react.mod.CSSProperties
@@ -12,7 +12,7 @@ import scala.scalajs.js
 object App:
   val component = ScalaFnComponent[Unit] { _ =>
     val js.Tuple3(t, i18n, _) = useTranslation()
-    val index = 11
+    val index                 = 11
 
     // note, explicit type parameters seem to be necessary below. didn't investigate why
 
@@ -35,3 +35,4 @@ object App:
       )
     )
   }
+end App

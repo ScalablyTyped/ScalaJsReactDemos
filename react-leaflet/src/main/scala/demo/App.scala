@@ -1,7 +1,7 @@
 package demo
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.leaflet.mod.LatLngExpression
 import typings.reactLeaflet.components.{Map, Marker, Popup, TileLayer}
 import typings.reactLeaflet.mod.{MapProps, MarkerProps, PopupProps, TileLayerProps}
@@ -23,3 +23,4 @@ object App:
       ).build
     ).build
   }
+end App

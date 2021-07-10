@@ -1,12 +1,12 @@
 package demo
 
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.react.mod.useState
 import typings.react.reactStrings.submit
 import typings.semanticUiReact.genericMod.{SemanticICONS, SemanticSIZES, SemanticWIDTHSSTRING}
 import typings.semanticUiReact.semanticUiReactStrings.left
-import typings.semanticUiReact.{components => Sui}
+import typings.semanticUiReact.components as Sui
 
 import scala.language.implicitConversions
 import scala.scalajs.js
@@ -103,3 +103,4 @@ object App:
         )
     )
   }
+end App

@@ -2,8 +2,8 @@ package demo
 
 import org.scalablytyped.runtime.StringDictionary
 import typings.i18next.i18nextBooleans.`false`
-import typings.i18next.mod.{InitOptions, InterpolationOptions, default => i18n}
-import typings.i18nextBrowserLanguagedetector.mod.{default => LanguageDetector}
+import typings.i18next.mod.{InitOptions, InterpolationOptions, default as i18n}
+import typings.i18nextBrowserLanguagedetector.mod.default as LanguageDetector
 import typings.reactI18next.mod.initReactI18next
 
 import scala.scalajs.js
@@ -44,3 +44,4 @@ object I18n:
           .setKeySeparator(`false`)
           .setInterpolation(InterpolationOptions().setEscapeValue(false))
       )
+end I18n

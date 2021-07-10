@@ -23,6 +23,7 @@ object ExpenseAction:
       __obj.asInstanceOf[SetExpenseAction].set("expenses", expenses)
     def unapply(a: Action[String]): Option[js.Array[Expense]] =
       if a.`type` == _type then Some(a.asInstanceOf[SetExpenseAction].expenses) else None
+  end SetExpenseAction
 
   @js.native
   trait EditExpenseAction extends ExpenseAction:
@@ -38,6 +39,7 @@ object ExpenseAction:
       __obj.asInstanceOf[EditExpenseAction].set("expense", expense)
     def unapply(a: Action[String]): Option[Expense] =
       if a.`type` == _type then Some(a.asInstanceOf[EditExpenseAction].expense) else None
+  end EditExpenseAction
 
   @js.native
   trait RemoveExpenseAction extends ExpenseAction:
@@ -54,6 +56,7 @@ object ExpenseAction:
 
     def unapply(a: Action[String]): Option[String] =
       if a.`type` == _type then Some(a.asInstanceOf[RemoveExpenseAction].id) else None
+  end RemoveExpenseAction
 
   @js.native
   trait AddExpenseAction extends ExpenseAction:
@@ -69,3 +72,5 @@ object ExpenseAction:
 
     def unapply(a: Action[String]): Option[Expense] =
       if a.`type` == _type then Some(a.asInstanceOf[AddExpenseAction].expense) else None
+  end AddExpenseAction
+end ExpenseAction

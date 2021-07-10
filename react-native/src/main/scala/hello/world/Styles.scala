@@ -22,4 +22,4 @@ object Styles:
     .setFontWeight(reactNativeStrings.bold)
     .setTextAlign(reactNativeStrings.center)
     .setColor("red")
-
+end Styles

@@ -1,6 +1,6 @@
 package demo.advanced
 
-import japgolly.scalajs.react.vdom.html_<^.{<, _}
+import japgolly.scalajs.react.vdom.html_<^.{<, *}
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import typings.redux.mod.Dispatch
 
@@ -12,7 +12,7 @@ object ExpenseContainer:
 
   @js.native
   trait Props extends js.Object:
-    val state: ExpenseState
+    val state:    ExpenseState
     val dispatch: Dispatch[ExpenseAction]
 
   val component = ScalaFnComponent[Props] { (props: Props) =>
@@ -25,7 +25,9 @@ object ExpenseContainer:
               <.p(expense.description),
               <.p(expense.amount),
               <.p(expense.note),
-              <.button(^.onClick --> Callback(props.dispatch(ExpenseAction.RemoveExpenseAction(expense.id))))("Remove Expense"),
+              <.button(^.onClick --> Callback(props.dispatch(ExpenseAction.RemoveExpenseAction(expense.id))))(
+                "Remove Expense"
+              ),
               <.button(^.onClick --> Callback(props.dispatch(ExpenseAction.EditExpenseAction(expense))))("Edit Expense")
             )
           )
@@ -37,3 +39,4 @@ object ExpenseContainer:
       <.button(^.onClick --> Callback(props.dispatch(ExpenseAction.AddExpenseAction(Expense()))))("Add Expense")
     )
   }
+end ExpenseContainer

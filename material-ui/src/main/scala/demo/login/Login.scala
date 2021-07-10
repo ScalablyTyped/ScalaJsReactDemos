@@ -1,13 +1,13 @@
 package demo.login
 
 import demo.login.Styles.styles
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import org.scalablytyped.runtime.StringDictionary
-import typings.classnames.{mod => classNames}
+import typings.classnames.mod as classNames
 import typings.materialUiCore.anon.{PartialClassNameMapInputC, PartialInputProps}
-import typings.materialUiCore.components._
-import typings.materialUiCore.materialUiCoreStrings._
+import typings.materialUiCore.components.*
+import typings.materialUiCore.materialUiCoreStrings.*
 import typings.materialUiCore.typographyTypographyMod.Style
 import typings.react.components.Fragment
 import typings.react.mod.useState
@@ -30,11 +30,11 @@ object Login:
   val component = ScalaFnComponent[Unit] { _ =>
     val classes = styles(js.undefined)
 
-    val js.Tuple2(isLoading, setIsLoading) = useState(false);
-    val js.Tuple2(error, setError) = useState(false);
-    val js.Tuple2(activeTabId, setActiveTabId) = useState(0);
-    val js.Tuple2(nameValue, setNameValue) = useState("");
-    val js.Tuple2(loginValue, setLoginValue) = useState("");
+    val js.Tuple2(isLoading, setIsLoading)         = useState(false);
+    val js.Tuple2(error, setError)                 = useState(false);
+    val js.Tuple2(activeTabId, setActiveTabId)     = useState(0);
+    val js.Tuple2(nameValue, setNameValue)         = useState("");
+    val js.Tuple2(loginValue, setLoginValue)       = useState("");
     val js.Tuple2(passwordValue, setPasswordValue) = useState("");
 
     Grid
@@ -54,7 +54,7 @@ object Login:
                 Tab.label("Login").className(classNames(StringDictionary[js.Any]("root" -> classes("tab")))),
                 Tab.label("New User").className(classNames(StringDictionary[js.Any]("root" -> classes("tab"))))
               ),
-            activeTabId match {
+            activeTabId match
               case 0 =>
                 Fragment(
                   Typography
@@ -113,14 +113,14 @@ object Login:
                     .`type`("password")
                     .fullWidth(true),
                   <.div(^.className := classes("formButtons"))(
-                    if isLoading then
-                      CircularProgress.size(26).className(classes("loginLoader"))
+                    if isLoading then CircularProgress.size(26).className(classes("loginLoader"))
                     else
                       Button
                         .disabled(loginValue.length == 0 || passwordValue.length == 0)
                         .variant(contained)
                         .color(primary)
-                        .size(large)("Login"),
+                        .size(large)("Login")
+                    ,
                     Button
                       .color(primary)
                       .size(large)
@@ -187,8 +187,7 @@ object Login:
                     .`type`("password")
                     .fullWidth(true),
                   <.div(^.className := classes("formButtons"))(
-                    if isLoading then
-                      CircularProgress.size(26).className(classes("loginLoader"))
+                    if isLoading then CircularProgress.size(26).className(classes("loginLoader"))
                     else
                       Button
                         .disabled(loginValue.length == 0 || passwordValue.length == 0)
@@ -222,7 +221,6 @@ object Login:
                       "Sign in with Google"
                     )
                 )
-            }
           ),
           Typography
             .color(primary)
@@ -230,4 +228,4 @@ object Login:
         )
       )
   }
-
+end Login

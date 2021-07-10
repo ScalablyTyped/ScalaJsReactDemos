@@ -2,13 +2,13 @@ package demo.components
 
 import demo.StyleBuilder
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalablytyped.runtime.StringDictionary
-import typings.classnames.{mod => classNames}
+import typings.classnames.mod as classNames
 import typings.csstype.csstypeStrings.absolute
 import typings.materialUiCore.colorManipulatorMod.darken
 import typings.materialUiCore.colorsMod.{blue, pink}
-import typings.materialUiCore.components._
+import typings.materialUiCore.components.*
 import typings.materialUiCore.createMuiThemeMod.{Direction, Theme, ThemeOptions}
 import typings.materialUiCore.createPaletteMod.{ColorPartial, PaletteColorOptions, PaletteOptions}
 import typings.materialUiCore.createTypographyMod.TypographyOptions
@@ -16,7 +16,7 @@ import typings.materialUiCore.materialUiCoreStrings.{center, textSecondary}
 import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.stylesMod.createMuiTheme
 import typings.materialUiStyles.makeStylesMod.StylesHook
-import typings.materialUiStyles.withStylesMod.{Styles, CSSProperties}
+import typings.materialUiStyles.withStylesMod.{CSSProperties, Styles}
 
 import scala.scalajs.js
 
@@ -48,22 +48,22 @@ object AppTheme:
 
   case class Props(description: String, hideCredit: Boolean = false, title: String)
 
-  val component = ScalaFnComponent.withChildren[Props] {
-    case (props, children) =>
-      val classes = styles(js.undefined)
-      MuiThemeProvider(theme)(
-        children,
-        Typography
-          .color(textSecondary)
-          .align(center)
-          .className(
-            classNames(StringDictionary[js.Any](classes("credit") -> true, classes("hideCredit") -> props.hideCredit))
-          )(
-            "Built with ",
-            <.span(^.role := "img", ^.aria.label := "Love")("❤️"),
-            " by the ",
-            Link.color(Color.inherit).href("www.scalablytyped.org")("ScalablyTyped Material-UI"),
-            " team."
-          )
-      )
+  val component = ScalaFnComponent.withChildren[Props] { case (props, children) =>
+    val classes = styles(js.undefined)
+    MuiThemeProvider(theme)(
+      children,
+      Typography
+        .color(textSecondary)
+        .align(center)
+        .className(
+          classNames(StringDictionary[js.Any](classes("credit") -> true, classes("hideCredit") -> props.hideCredit))
+        )(
+          "Built with ",
+          <.span(^.role := "img", ^.aria.label := "Love")("❤️"),
+          " by the ",
+          Link.color(Color.inherit).href("www.scalablytyped.org")("ScalablyTyped Material-UI"),
+          " team."
+        )
+    )
   }
+end AppTheme

@@ -3,7 +3,7 @@ package demo
 import japgolly.scalajs.react.facade.React.{Element, RefFn, RefHandle}
 import japgolly.scalajs.react.vdom.Attr.ValueType
 import japgolly.scalajs.react.vdom.TopNode
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import japgolly.scalajs.react.{Callback, CallbackTo, ScalaFnComponent}
 import org.scalajs.dom.raw.HTMLElement
 import typings.csstype.mod.{ClearProperty, FloatProperty, TextAlignProperty}
@@ -48,29 +48,28 @@ object components:
     .setLineHeight("normal")
     .setFloat(FloatProperty.left)
 
-  val Dustbin = ScalaFnComponent[Unit] {
-    case () =>
-      val js.Tuple2(Collected(canDrop, isOver), drop) =
-        useDrop(
-          DropTargetHookSpec[js.Object, DropResult, Collected](ItemTypes.BOX)
-            .setDrop((_, _) => new DropResult("Dustbin"))
-            .setCollect(monitor => Collected(monitor.isOver(), monitor.canDrop()))
-        )
-
-      val isActive = canDrop && isOver
-
-      val backgroundColor: String =
-        if isActive then "darkgreen"
-        else if canDrop then "darkkhaki"
-        else "#222"
-
-      val refFn: RefFn[TopNode] = elem => drop(elem.asInstanceOf[ConnectableElement], js.undefined)
-
-      <.div(
-        ^.untypedRef := refFn,
-        ^.style := dustbinStyles.duplicate.setBackgroundColor(backgroundColor),
-        if isActive then "Release to drop" else "Drag a box here"
+  val Dustbin = ScalaFnComponent[Unit] { case () =>
+    val js.Tuple2(Collected(canDrop, isOver), drop) =
+      useDrop(
+        DropTargetHookSpec[js.Object, DropResult, Collected](ItemTypes.BOX)
+          .setDrop((_, _) => new DropResult("Dustbin"))
+          .setCollect(monitor => Collected(monitor.isOver(), monitor.canDrop()))
       )
+
+    val isActive = canDrop && isOver
+
+    val backgroundColor: String =
+      if isActive then "darkgreen"
+      else if canDrop then "darkkhaki"
+      else "#222"
+
+    val refFn: RefFn[TopNode] = elem => drop(elem.asInstanceOf[ConnectableElement], js.undefined)
+
+    <.div(
+      ^.untypedRef := refFn,
+      ^.style := dustbinStyles.duplicate.setBackgroundColor(backgroundColor),
+      if isActive then "Release to drop" else "Drag a box here"
+    )
   }
 
   class Dragged(val name: String, val `type`: SourceType) extends js.Object
@@ -105,22 +104,21 @@ object components:
       name
     )
   }
-  val Container = ScalaFnComponent[Unit] {
-    case () =>
+  val Container = ScalaFnComponent[Unit] { case () =>
+    <.div(
+      <.div(^.style := CSSProperties().setOverflow("hidden").setClear(ClearProperty.both), Dustbin()),
       <.div(
-        <.div(^.style := CSSProperties().setOverflow("hidden").setClear(ClearProperty.both), Dustbin()),
-        <.div(
-          ^.style := CSSProperties().setOverflow("hidden").setClear(ClearProperty.both),
-          Box("Glass"),
-          Box("Banana"),
-          Box("Paper")
-        )
+        ^.style := CSSProperties().setOverflow("hidden").setClear(ClearProperty.both),
+        Box("Glass"),
+        Box("Banana"),
+        Box("Paper")
       )
+    )
   }
 
-  val App = ScalaFnComponent[Unit] {
-    case () =>
-      <.div(^.className := "App")(
-        DndProvider.Backend(HTML5Backend)(Container())
-      )
+  val App = ScalaFnComponent[Unit] { case () =>
+    <.div(^.className := "App")(
+      DndProvider.Backend(HTML5Backend)(Container())
+    )
   }
+end components

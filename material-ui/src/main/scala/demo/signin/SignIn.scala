@@ -2,13 +2,13 @@ package demo.signin
 
 import demo.StyleBuilder
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
-import typings.csstype.csstypeStrings._
-import typings.materialUiCore.components._
+import japgolly.scalajs.react.vdom.html_<^.*
+import typings.csstype.csstypeStrings.*
+import typings.materialUiCore.components.*
 import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.materialUiCore.materialUiCoreStrings.{contained, normal, primary, submit}
 import typings.materialUiCore.typographyTypographyMod.Style
-import typings.materialUiIcons.{components => Icons}
+import typings.materialUiIcons.components as Icons
 import typings.materialUiStyles.makeStylesMod.StylesHook
 import typings.materialUiStyles.withStylesMod.{CSSProperties, Styles}
 
@@ -57,38 +57,38 @@ object SignIn:
       .add("submit", theme => CSSProperties().setMarginTop(theme.spacing.unit * 3))
       .hook
 
-  val component = ScalaFnComponent[Unit] {
-    case () =>
-      val classes = styles(js.undefined)
+  val component = ScalaFnComponent[Unit] { case () =>
+    val classes = styles(js.undefined)
 
-      <.main(^.className := classes("main"))(
-        CssBaseline(),
-        Paper.className(classes("paper"))(
-          Avatar.className(classes("avatar"))(Icons.LockOutlined()),
-          Typography.variant(Style.h5).component("h1")("Sign in"),
-          <.form(^.className := classes("form"))(
-            FormControl
-              .margin(normal)
-              .required(true)
-              .fullWidth(true)(
-                InputLabel.htmlFor("email")("Email Address"),
-                Input.id("email").name("email").autoComplete("email").autoFocus(true)
-              ),
-            FormControl
-              .margin(normal)
-              .required(true)
-              .fullWidth(true)(
-                InputLabel.htmlFor("password")("Password"),
-                Input.id("password").name("password").autoComplete("current-password")
-              ),
-            FormControlLabel(Checkbox.value("remember").color(primary)).label("Remember Me"),
-            Button
-              .`type`(submit)
-              .fullWidth(true)
-              .variant(contained)
-              .color(primary)
-              .className(classes("submit"))("Sign in")
-          )
+    <.main(^.className := classes("main"))(
+      CssBaseline(),
+      Paper.className(classes("paper"))(
+        Avatar.className(classes("avatar"))(Icons.LockOutlined()),
+        Typography.variant(Style.h5).component("h1")("Sign in"),
+        <.form(^.className := classes("form"))(
+          FormControl
+            .margin(normal)
+            .required(true)
+            .fullWidth(true)(
+              InputLabel.htmlFor("email")("Email Address"),
+              Input.id("email").name("email").autoComplete("email").autoFocus(true)
+            ),
+          FormControl
+            .margin(normal)
+            .required(true)
+            .fullWidth(true)(
+              InputLabel.htmlFor("password")("Password"),
+              Input.id("password").name("password").autoComplete("current-password")
+            ),
+          FormControlLabel(Checkbox.value("remember").color(primary)).label("Remember Me"),
+          Button
+            .`type`(submit)
+            .fullWidth(true)
+            .variant(contained)
+            .color(primary)
+            .className(classes("submit"))("Sign in")
         )
       )
+    )
   }
+end SignIn

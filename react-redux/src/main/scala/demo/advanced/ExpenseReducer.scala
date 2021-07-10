@@ -1,9 +1,9 @@
 package demo.advanced
 
-import typings.redux.mod._
+import typings.redux.mod.*
 
 object ExpenseReducer:
-  val Reducer: Reducer[ExpenseState, ExpenseAction] = (stateOpt, action) => {
+  val Reducer: Reducer[ExpenseState, ExpenseAction] = (stateOpt, action) =>
     val state = stateOpt.getOrElse(ExpenseState.initial)
     action match
       case ExpenseAction.SetExpenseAction(expenses) =>
@@ -22,4 +22,5 @@ object ExpenseReducer:
         ExpenseState(state.expenses :+ expense)
       case _ =>
         state
-  }
+    end match
+end ExpenseReducer

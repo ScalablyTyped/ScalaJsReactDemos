@@ -2,17 +2,17 @@ package demo.album
 
 import demo.StyleBuilder
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalablytyped.runtime.StringDictionary
-import typings.classnames.{mod => classNames}
+import typings.classnames.mod as classNames
 import typings.csstype.csstypeStrings.{auto, column, flex, relative}
-import typings.materialUiCore.components._
+import typings.materialUiCore.components.*
 import typings.materialUiCore.createMuiThemeMod.Theme
-import typings.materialUiCore.materialUiCoreNumbers._
+import typings.materialUiCore.materialUiCoreNumbers.*
 import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.typographyTypographyMod.Style
-import typings.materialUiCore.{materialUiCoreStrings => strings}
-import typings.materialUiIcons.{components => Icons}
+import typings.materialUiCore.materialUiCoreStrings as strings
+import typings.materialUiIcons.components as Icons
 import typings.materialUiStyles.makeStylesMod.StylesHook
 import typings.materialUiStyles.withStylesMod.{CSSProperties, Styles}
 import typings.react.components.Fragment
@@ -165,3 +165,4 @@ object Album:
       )
     )
   }
+end Album

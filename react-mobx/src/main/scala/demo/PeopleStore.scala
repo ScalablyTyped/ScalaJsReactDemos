@@ -1,7 +1,7 @@
 package demo
 
 import typings.mobx.observablevalueMod.IObservableValue
-import typings.mobx.{mod => MobX}
+import typings.mobx.mod as MobX
 
 import scala.scalajs.js
 
@@ -19,4 +19,4 @@ class PeopleStore:
 
   val renamePerson: js.Function2[Int, String, Unit] =
     MobX.action("renamePerson", (index: Int, name: String) => updatePerson(index, _.changeName(name)))
-
+end PeopleStore

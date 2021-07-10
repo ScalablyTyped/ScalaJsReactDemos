@@ -1,7 +1,7 @@
 package demo
 
 import org.scalajs.dom.document
-import typings.moment.{mod => Moment}
+import typings.moment.mod as Moment
 import typings.moment.momentStrings
 import typings.reactBigCalendar.mod.{momentLocalizer, View}
 import typings.reactBigCalendar.components.Calendar
@@ -34,3 +34,4 @@ object Main:
       .defaultView(View.week)
       .viewsVarargs(View.agenda, View.day, View.week)
       .renderIntoDOM(document.getElementById("container"))
+end Main

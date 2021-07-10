@@ -1,7 +1,7 @@
 package demo
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.node.global.module
 import typings.storybookReact.mod.storiesOf
 
@@ -18,3 +18,4 @@ object Demo:
             ^.role := "img"
           )(<.span("😀😎")).rawElement
       )
+end Demo

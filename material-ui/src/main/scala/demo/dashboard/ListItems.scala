@@ -1,8 +1,8 @@
 package demo.dashboard
 
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.materialUiCore.components.{ListItem, ListItemIcon, ListItemText, ListSubheader}
-import typings.materialUiIcons.{components => Icon}
+import typings.materialUiIcons.components as Icon
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/listItems.js
 object ListItems:
@@ -47,3 +47,4 @@ object ListItems:
         ListItemText.primary("Year-end sale")
       )
     )
+end ListItems

@@ -19,3 +19,4 @@ object DarkTheme:
 
   def apply() =
     ThemeProvider(theme)(WithTheme.component(theme))
+end DarkTheme

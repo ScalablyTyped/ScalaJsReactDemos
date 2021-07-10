@@ -3,7 +3,7 @@ package demo
 import org.scalablytyped.runtime.StringDictionary
 import typings.materialUiStyles.makeStylesMod.StylesHook
 import typings.materialUiStyles.mod.makeStyles
-import typings.materialUiStyles.withStylesMod._
+import typings.materialUiStyles.withStylesMod.*
 
 import scala.scalajs.js
 
@@ -31,8 +31,8 @@ object StyleBuilder:
 
   @inline def add(key: String, withThemeProps: (T, P) => CSSProperties): StyleBuilder[T, P] =
     new StyleBuilder[T, P]({ theme =>
-      val ret: StyleRules[P, String] = this.f(theme)
-      val x: js.Function1[P, CSSProperties] = (props: P) => withThemeProps(theme, props)
+      val ret: StyleRules[P, String]          = this.f(theme)
+      val x:   js.Function1[P, CSSProperties] = (props: P) => withThemeProps(theme, props)
       ret.update(key, x)
       ret
     })
@@ -42,3 +42,4 @@ object StyleBuilder:
 
   @inline def hook(opts: WithStylesOptions): StylesHook[Styles[T, P, String]] =
     makeStyles[Styles[T, P, String]](f, opts)
+end StyleBuilder

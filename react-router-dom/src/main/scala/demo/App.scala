@@ -1,9 +1,9 @@
 package demo
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
-import typings.reactRouter.mod.{RouteProps, `match`}
-import typings.reactRouterDom.components._
+import japgolly.scalajs.react.vdom.html_<^.*
+import typings.reactRouter.mod.{`match`, RouteProps}
+import typings.reactRouterDom.components.*
 
 import scala.scalajs.js
 
@@ -36,10 +36,11 @@ object App:
       )
     )
   }
+end App
 
 object Topics:
 
-  val component = ScalaFnComponent[`match`[_]] { m =>
+  val component = ScalaFnComponent[`match`[?]] { m =>
     <.div(
       <.h2("Topics"),
       <.ul(
@@ -56,6 +57,7 @@ object Topics:
       Route(RouteProps().setExact(true).setPath(m.path).setRender(_ => <.h3("Please select a topic").rawElement))
     )
   }
+end Topics
 
 object Topic:
 
@@ -68,3 +70,4 @@ object Topic:
       <.h3("Topic: " + m.params.topicId)
     )
   }
+end Topic

@@ -1,7 +1,7 @@
 package demo.customization
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.materialUiCore.colorsMod.purple
 import typings.materialUiCore.components.{Button, MuiThemeProvider}
 import typings.materialUiCore.createMuiThemeMod.{Theme, ThemeOptions}
@@ -32,3 +32,4 @@ object Palette:
       Button.color(Color.secondary)(<.span("Secondary"))
     )
   }
+end Palette

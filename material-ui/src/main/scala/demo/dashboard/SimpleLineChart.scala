@@ -1,9 +1,9 @@
 package demo.dashboard
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalablytyped.runtime.StringDictionary
-import typings.recharts.components._
+import typings.recharts.components.*
 import typings.recharts.rechartsStrings.monotone
 
 import scala.scalajs.js
@@ -23,19 +23,19 @@ object SimpleLineChart:
     new Data("Sun", 4490, 4300)
   )
 
-  val component = ScalaFnComponent[Unit] {
-    case () =>
-      ResponsiveContainer
-        .width("99%")
-        .height(320)(
-          LineChart.data(data)(
-            XAxis.dataKey("Name"),
-            YAxis(),
-            CartesianGrid.vertical(false).strokeDasharray("3 3"),
-            Tooltip(),
-            Legend(),
-            Line("Visits").`type`(monotone).stroke("#82ca9d"),
-            Line("Orders").`type`(monotone).stroke("#8884d8").activeDot(StringDictionary("r" -> 8))
-          )
+  val component = ScalaFnComponent[Unit] { case () =>
+    ResponsiveContainer
+      .width("99%")
+      .height(320)(
+        LineChart.data(data)(
+          XAxis.dataKey("Name"),
+          YAxis(),
+          CartesianGrid.vertical(false).strokeDasharray("3 3"),
+          Tooltip(),
+          Legend(),
+          Line("Visits").`type`(monotone).stroke("#82ca9d"),
+          Line("Orders").`type`(monotone).stroke("#8884d8").activeDot(StringDictionary("r" -> 8))
         )
+      )
   }
+end SimpleLineChart

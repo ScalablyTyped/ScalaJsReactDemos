@@ -1,18 +1,18 @@
 package demo
 
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import typings.antDesignIcons.components.AntdIcon
-import typings.antDesignIconsSvg.downOutlinedMod.{default => DownOutlinedIcon}
-import typings.antDesignIconsSvg.downloadOutlinedMod.{default => DownloadOutlinedIcon}
-import typings.antDesignIconsSvg.homeOutlinedMod.{default => HomeOutlinedIcon}
-import typings.antDesignIconsSvg.lockTwoToneMod.{default => LockTwoToneIcon}
-import typings.antDesignIconsSvg.mailTwoToneMod.{default => MailTwoToneIcon}
-import typings.antDesignIconsSvg.shopOutlinedMod.{default => ShopOutlinedIcon}
-import typings.antDesignIconsSvg.userOutlinedMod.{default => UserOutlinedIcon}
+import typings.antDesignIconsSvg.downOutlinedMod.default as DownOutlinedIcon
+import typings.antDesignIconsSvg.downloadOutlinedMod.default as DownloadOutlinedIcon
+import typings.antDesignIconsSvg.homeOutlinedMod.default as HomeOutlinedIcon
+import typings.antDesignIconsSvg.lockTwoToneMod.default as LockTwoToneIcon
+import typings.antDesignIconsSvg.mailTwoToneMod.default as MailTwoToneIcon
+import typings.antDesignIconsSvg.shopOutlinedMod.default as ShopOutlinedIcon
+import typings.antDesignIconsSvg.userOutlinedMod.default as UserOutlinedIcon
 import typings.antd.antdStrings
-import typings.antd.components.{List => AntList, _}
-import typings.antd.notificationMod.{ArgsProps, IconType, default => Notification}
+import typings.antd.components.{List as AntList, *}
+import typings.antd.notificationMod.{ArgsProps, IconType, default as Notification}
 import typings.antd.tableInterfaceMod.{ColumnGroupType, ColumnType}
 import typings.react.mod.useState
 import typings.rcSelect.interfaceMod.OptionData
@@ -30,8 +30,8 @@ object App:
   private val css = CSS // touch to load
 
   val component = ScalaFnComponent[Unit] { _ =>
-    val js.Tuple2(isModalVisible, updateIsModalVisible) = useState(false)
-    val js.Tuple2(selectValue, updateSelectValue) = useState("lucy")
+    val js.Tuple2(isModalVisible, updateIsModalVisible)     = useState(false)
+    val js.Tuple2(selectValue, updateSelectValue)           = useState("lucy")
     val js.Tuple2(multiSelectValue, updateMultiSelectValue) = useState(List("a10", "c12"))
 
     val renderIntro = Row(
@@ -142,7 +142,7 @@ object App:
     val renderMultiSelect = <.section(
       <.h2("Multiple select"),
       Select[js.Array[String]]()
-        .defaultValue(js.Array(multiSelectValue: _*))
+        .defaultValue(js.Array(multiSelectValue*))
         .mode(antdStrings.multiple)
         .onChange((changedValue, _) => Callback(updateMultiSelectValue(changedValue.toList)))(
           (10 until 36).map { n =>
@@ -368,7 +368,7 @@ object App:
               .description("Description")
           ): VdomElement
 
-        AntList()(Seq.fill(3)(item): _*)
+        AntList()(Seq.fill(3)(item)*)
       }
     )
 
@@ -455,3 +455,4 @@ object App:
       )
     )
   }
+end App

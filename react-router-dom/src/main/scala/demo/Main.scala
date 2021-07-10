@@ -12,3 +12,4 @@ object Main:
     }
 
     App.component().renderIntoDOM(container)
+end Main

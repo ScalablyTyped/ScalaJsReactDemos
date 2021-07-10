@@ -16,9 +16,9 @@ object CakeReducer:
     def apply(_numOfCakes: Int): State =
       new State(_numOfCakes)
 
-  val Reducer: Reducer[State, CakeAction] = (stateOpt, action) => {
+  val Reducer: Reducer[State, CakeAction] = (stateOpt, action) =>
     val state = stateOpt.getOrElse(State.initial)
     action match
       case CakeAction.BuyCake() => State(state.numOfCakes - 1)
-      case _                     => state
-  }
+      case _                    => state
+end CakeReducer

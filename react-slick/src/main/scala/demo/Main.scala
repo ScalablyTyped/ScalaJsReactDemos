@@ -2,7 +2,7 @@ package demo
 
 import org.scalajs.dom.document
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.react.mod.useState
 import typings.reactSlick.components.ReactSlick
 
@@ -23,9 +23,8 @@ object Main:
         }
 
       val renderedImages: js.Array[VdomElement] =
-        images.zipWithIndex.map {
-          case (source, idx) =>
-            <.img(^.key := idx, ^.src := source, ^.onClick --> myOnClick(idx))
+        images.zipWithIndex.map { case (source, idx) =>
+          <.img(^.key := idx, ^.src := source, ^.onClick --> myOnClick(idx))
         }
 
       <.div(
@@ -39,7 +38,7 @@ object Main:
           .dots(true)
           .autoplay(true)
           .autoplaySpeed(1000)
-          .slidesToShow(2)(renderedImages.to(Seq): _*)
+          .slidesToShow(2)(renderedImages.to(Seq)*)
       )
     }
 
@@ -53,3 +52,4 @@ object Main:
         "https://i.chzbgr.com/full/9428254976/hD3DA6B8F/cat"
       )
     ).renderIntoDOM(document.body)
+end Main

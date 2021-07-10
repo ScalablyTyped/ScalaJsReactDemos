@@ -1,7 +1,7 @@
 package demo.login
 
 import demo.StyleBuilder
-import typings.csstype.csstypeStrings._
+import typings.csstype.csstypeStrings.*
 import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.materialUiCore.spacingMod.Spacing
 import typings.materialUiStyles.makeStylesMod.StylesHook
@@ -247,4 +247,4 @@ object Styles:
             )
       )
       .hook
-
+end Styles

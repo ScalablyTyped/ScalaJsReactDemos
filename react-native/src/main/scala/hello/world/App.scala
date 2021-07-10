@@ -2,11 +2,11 @@ package hello.world
 
 import japgolly.scalajs.react.facade.React
 import japgolly.scalajs.react.{Callback, ReactEventFrom, ScalaFnComponent}
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalajs.dom.raw.Element
 import typings.antDesignReactNative.anon.PartialLocale
 import typings.antDesignReactNative.antDesignReactNativeStrings.xl
-import typings.antDesignReactNative.components.{List => AntdList, _}
+import typings.antDesignReactNative.components.{List as AntdList, *}
 import typings.bang88ReactNativeDrawerLayout.mod.DrawerLayout
 import typings.react.mod.useState
 import typings.reactNative.mod.NodeHandle
@@ -47,15 +47,15 @@ object App:
     def checkRedirection(stayPath: String, elem: VdomElement): VdomNode =
       if redirPath != stayPath then Redirect(to = redirPath) else elem
 
-    val routeLinks: Seq[VdomElement] = RoutePath.allOrdered.zipWithIndex.map {
-      case (route, index) => ListItem.onPress(navigateTo(route))(Text(route.title)).withKey(index.toString)
+    val routeLinks: Seq[VdomElement] = RoutePath.allOrdered.zipWithIndex.map { case (route, index) =>
+      ListItem.onPress(navigateTo(route))(Text(route.title)).withKey(index.toString)
     }
 
     Provider.locale(PartialLocale().setLocale("enUS"))(
       NativeRouter(
         Drawer
           .drawerRef(nullableRef => Callback { ref = toOption(nullableRef) })
-          .sidebar(ScrollView(WhiteSpace.size(xl), AntdList(routeLinks: _*)))(
+          .sidebar(ScrollView(WhiteSpace.size(xl), AntdList(routeLinks*)))(
             AntdList.renderHeaderVdomElement(WhiteSpace.size(xl))(
               ListItem
                 .extra(Icon(name = "menu"))
@@ -81,3 +81,4 @@ object App:
       )
     )
   }
+end App

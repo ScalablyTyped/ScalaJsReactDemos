@@ -2,19 +2,18 @@ package demo
 
 import japgolly.scalajs.react.component.ScalaFn.Component
 import japgolly.scalajs.react.facade.React.{ElementType, Node}
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import japgolly.scalajs.react.{CtorType, ScalaFnComponent}
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.XMLHttpRequest
-import typings.react.mod.{EffectCallback, useEffect, useState}
+import typings.react.mod.{useEffect, useState, EffectCallback}
 import typings.reactMarkdown.components.ReactMarkdown
 import typings.reactMarkdown.mod.{ReactMarkdownProps, ReactMarkdownPropsBase}
-import typings.reactSyntaxHighlighter.components.{Light => SyntaxHighligther}
+import typings.reactSyntaxHighlighter.components.Light as SyntaxHighligther
 import typings.reactSyntaxHighlighter.mod.Light
 import typings.reactSyntaxHighlighter.{scalaMod, stylesHljsMod}
 
 import scala.scalajs.js
-
 
 object DocPage:
 
@@ -30,14 +29,15 @@ object DocPage:
   val component: Component[Unit, CtorType.Nullary] = ScalaFnComponent[Unit] { _ =>
     val js.Tuple2(document, setDocument) = useState[Option[String]](None)
 
-    useEffect((() => {
-      val xhr = new XMLHttpRequest
-      xhr.onload = _ => {
-        setDocument(Some(xhr.responseText))
-      }
-      xhr.open("GET", docFile)
-      xhr.send()
-    }): EffectCallback, js.Array(docFile))
+    useEffect(
+      (() =>
+        val xhr = new XMLHttpRequest
+        xhr.onload = _ => setDocument(Some(xhr.responseText))
+        xhr.open("GET", docFile)
+        xhr.send()
+      ): EffectCallback,
+      js.Array(docFile)
+    )
 
     val props = ReactMarkdownPropsBase()
       .setRenderers(StringDictionary("code" -> codeRender).asInstanceOf[StringDictionary[ElementType]])
@@ -46,3 +46,4 @@ object DocPage:
     ReactMarkdown(props)(document)
 
   }
+end DocPage

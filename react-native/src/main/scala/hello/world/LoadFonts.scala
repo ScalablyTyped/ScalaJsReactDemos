@@ -1,11 +1,11 @@
 package hello.world
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.Implicits._
+import japgolly.scalajs.react.vdom.Implicits.*
 import org.scalablytyped.runtime.StringDictionary
 import typings.expo.components.AppLoading
 import typings.expoFont.fontTypesMod.FontSource
-import typings.expoFont.{mod => Font}
+import typings.expoFont.mod as Font
 import typings.react.mod.{useEffect, useState}
 import typings.reactNative.components.Text
 
@@ -29,6 +29,7 @@ object LoadFonts:
       "antoutline" -> AntdIconOutline,
       "antfill" -> AntdIconFill
     )
+  end Fonts
 
   sealed trait State
   object State:
@@ -36,24 +37,24 @@ object LoadFonts:
     case class Error(msg: String) extends State
     case object Success extends State
 
-  val component = ScalaFnComponent[Unit] {
-    case () =>
-      val js.Tuple2(state, setState) = useState(State.Loading: State)
+  val component = ScalaFnComponent[Unit] { case () =>
+    val js.Tuple2(state, setState) = useState(State.Loading: State)
 
-      useEffect(
-        () =>
-          Font
-            .loadAsync(Fonts.All)
-            .toFuture
-            .onComplete {
-              case Failure(exception) => setState(State.Error(exception.getMessage))
-              case Success(_)         => setState(State.Success)
-            },
-        js.Array()
-      )
+    useEffect(
+      () =>
+        Font
+          .loadAsync(Fonts.All)
+          .toFuture
+          .onComplete {
+            case Failure(exception) => setState(State.Error(exception.getMessage))
+            case Success(_)         => setState(State.Success)
+          },
+      js.Array()
+    )
 
-      state match
-        case State.Loading    => AppLoading.AutoHideSplash()
-        case State.Error(msg) => Text(s"Could not load fonts: $msg")
-        case State.Success    => App.component()
+    state match
+      case State.Loading    => AppLoading.AutoHideSplash()
+      case State.Error(msg) => Text(s"Could not load fonts: $msg")
+      case State.Success    => App.component()
   }
+end LoadFonts

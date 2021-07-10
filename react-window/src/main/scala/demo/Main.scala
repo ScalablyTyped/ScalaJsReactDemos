@@ -2,10 +2,10 @@ package demo
 
 import japgolly.scalajs.react.facade.React.StatelessFunctionalComponent
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalajs.dom
-import typings.reactWindow.components._
-import typings.reactVirtualizedAutoSizer.components._
+import typings.reactWindow.components.*
+import typings.reactVirtualizedAutoSizer.components.*
 import typings.reactWindow.mod.ListChildComponentProps
 
 object Main:
@@ -28,3 +28,5 @@ object Main:
       itemCount = Elements.size,
       children = rawRowCasted
     ).renderIntoDOM(dom.document.getElementById("container"))
+  end main
+end Main
