@@ -11,7 +11,7 @@ import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.stylesMod
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/customization/themes/Palette.js
-object Palette {
+object Palette:
 
   val theme: Theme = stylesMod
     .createMuiTheme(
@@ -32,4 +32,3 @@ object Palette {
       Button.color(Color.secondary)(<.span("Secondary"))
     )
   }
-}

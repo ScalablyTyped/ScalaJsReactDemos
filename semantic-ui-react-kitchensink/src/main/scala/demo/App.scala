@@ -11,7 +11,7 @@ import typings.semanticUiReact.{components => Sui}
 import scala.language.implicitConversions
 import scala.scalajs.js
 
-object App {
+object App:
 
   val component = ScalaFnComponent[Unit] { _ =>
     val js.Tuple2(isModalVisible, updateIsModalVisible) = useState(false)
@@ -103,4 +103,3 @@ object App {
         )
     )
   }
-}

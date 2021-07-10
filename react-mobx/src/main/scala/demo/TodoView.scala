@@ -4,7 +4,7 @@ import japgolly.scalajs.react.{Callback, CallbackTo}
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.window
 
-object TodoView {
+object TodoView:
 
   case class Props(todo: Todo, toggle: Callback, rename: String => Callback)
 
@@ -28,4 +28,3 @@ object TodoView {
         }
       )
   }
-}

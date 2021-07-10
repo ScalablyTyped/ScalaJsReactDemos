@@ -16,7 +16,7 @@ import typings.reactSyntaxHighlighter.{scalaMod, stylesHljsMod}
 import scala.scalajs.js
 
 
-object DocPage {
+object DocPage:
 
   val docFile = "./docs/README.md"
 
@@ -46,4 +46,3 @@ object DocPage {
     ReactMarkdown(props)(document)
 
   }
-}

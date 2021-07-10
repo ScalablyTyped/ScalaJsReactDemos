@@ -25,7 +25,7 @@ import scala.scalajs.js.annotation.JSImport
 @js.native
 object CSS extends js.Any
 
-object App {
+object App:
 
   private val css = CSS // touch to load
 
@@ -455,4 +455,3 @@ object App {
       )
     )
   }
-}

@@ -8,7 +8,7 @@ import typings.reactWindow.components._
 import typings.reactVirtualizedAutoSizer.components._
 import typings.reactWindow.mod.ListChildComponentProps
 
-object Main {
+object Main:
 
   final val Elements: Vector[String] = Vector.tabulate(1000)(i => s"Element($i)")
 
@@ -17,7 +17,7 @@ object Main {
   }.toJsComponent
 
   // see https://react-window.now.sh/#/examples/list/fixed-size
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit =
     val rawRow: StatelessFunctionalComponent[ListChildComponentProps] = Row.raw
     val rawRowCasted = rawRow.asInstanceOf[typings.react.mod.FunctionComponent[ListChildComponentProps]]
 
@@ -28,5 +28,3 @@ object Main {
       itemCount = Elements.size,
       children = rawRowCasted
     ).renderIntoDOM(dom.document.getElementById("container"))
-  }
-}

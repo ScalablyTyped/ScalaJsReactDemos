@@ -6,7 +6,7 @@ import typings.reactNative.components.{Text, View}
 import typings.reactRouterNative.components._
 import typings.reactRouter.mod.{`match`, RouteProps}
 
-object ReactRouter {
+object ReactRouter:
 
   val component = ScalaFnComponent[`match`[_]] { m =>
     def link(title: String, path: String): VdomElement =
@@ -28,4 +28,3 @@ object ReactRouter {
       Route(RouteProps().setPath(m.path).setRender(_ => Text("Please select a topic").rawNode).setExact(true))
     )
   }
-}

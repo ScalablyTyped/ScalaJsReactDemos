@@ -7,7 +7,7 @@ import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.react.mod.CSSProperties
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/customization/themes/WithTheme.js
-object WithTheme {
+object WithTheme:
   val component = ScalaFnComponent[Theme] { theme =>
     val primaryText = theme.palette.text.primary;
     val primaryColor = theme.palette.primary.main;
@@ -27,4 +27,3 @@ object WithTheme {
       )(s"Primary color $primaryText")
     )
   }
-}

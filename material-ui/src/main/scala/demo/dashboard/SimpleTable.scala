@@ -12,7 +12,7 @@ import typings.materialUiStyles.withStylesMod.CSSProperties
 import scala.scalajs.js
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/SimpleTable.js
-object SimpleTable {
+object SimpleTable:
 
   lazy val styles =
     StyleBuilder[Theme, js.Object]
@@ -57,4 +57,3 @@ object SimpleTable {
         )
       )
   }
-}

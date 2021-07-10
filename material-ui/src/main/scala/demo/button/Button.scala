@@ -14,7 +14,7 @@ import typings.std.global.window
 
 import scala.scalajs.js
 
-object Button {
+object Button:
 
   val theme: Theme = stylesMod.createMuiTheme(ThemeOptions().setSpacing(SpacingOptions().setUnit(2)))
 
@@ -27,9 +27,8 @@ object Button {
       StyledButtonHooksDemo.component()
     )
   ).renderIntoDOM(dom.document.getElementById("container"))
-}
 
-object ButtonTest {
+object ButtonTest:
 
   val component = ScalaFnComponent[String] { name =>
     /* use a hook to keep state */
@@ -45,9 +44,8 @@ object ButtonTest {
       incrementButton
     )
   }
-}
 
-object SelectDemo {
+object SelectDemo:
 
   val component = ScalaFnComponent[List[String]] {
     case values =>
@@ -67,12 +65,11 @@ object SelectDemo {
           .disabled(true)
       )
   }
-}
 
-object StyledButtonDemo {
+object StyledButtonDemo:
 
   val component = ScalaFnComponent[Unit] { _ =>
-    val usingWithStyles = {
+    val usingWithStyles =
       import typings.materialUiCore.withStylesMod.{CSSProperties, WithStylesOptions}
 
       val styleInjector =
@@ -84,21 +81,18 @@ object StyledButtonDemo {
       Mui.Button
         .withComponent(c => styleInjector(c).asInstanceOf[js.Any])
         .onClick(_ => Callback(window.alert("clicked")))("using withStyles")
-    }
 
-    val usingReactCss = {
+    val usingReactCss =
       import typings.react.mod.CSSProperties
       Mui.Button
         .style(CSSProperties().setBackgroundColor(NamedColor.darkred))
         .onClick(_ => Callback(window.alert("clicked")))("direct css")
-    }
 
     <.div(usingWithStyles, usingReactCss)
   }
-}
 
 // https://v3.material-ui.com/css-in-js/basics/
-object StyledButtonHooksDemo {
+object StyledButtonHooksDemo:
 
   import typings.materialUiStyles.makeStylesMod.StylesHook
   import typings.materialUiStyles.mod.makeStyles
@@ -106,7 +100,7 @@ object StyledButtonHooksDemo {
 
   class StyleProps(val favouriteColor: ColorProperty) extends js.Object
 
-  val useStyles: StylesHook[Styles[Theme, StyleProps, String]] = {
+  val useStyles: StylesHook[Styles[Theme, StyleProps, String]] =
     val root: js.Function1[StyleProps, CSSProperties] = props =>
       CSSProperties()
         .setBackground("linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)")
@@ -125,7 +119,6 @@ object StyledButtonHooksDemo {
       )
 
     makeStyles(stylesCallback, WithStylesOptions())
-  }
 
   val component = ScalaFnComponent[Unit] { _ =>
     val classes = useStyles(new StyleProps(NamedColor.green))
@@ -136,4 +129,3 @@ object StyledButtonHooksDemo {
         .onClick(_ => Callback.alert("clicked"))("styles module with hook")
     )
   }
-}

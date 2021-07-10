@@ -7,7 +7,7 @@ import typings.reactRouterDom.components._
 
 import scala.scalajs.js
 
-object App {
+object App:
 
   def home: VdomElement = <.div(<.h2("Home"))
 
@@ -36,9 +36,8 @@ object App {
       )
     )
   }
-}
 
-object Topics {
+object Topics:
 
   val component = ScalaFnComponent[`match`[_]] { m =>
     <.div(
@@ -57,18 +56,15 @@ object Topics {
       Route(RouteProps().setExact(true).setPath(m.path).setRender(_ => <.h3("Please select a topic").rawElement))
     )
   }
-}
 
-object Topic {
+object Topic:
 
   @js.native
-  trait Param extends js.Object {
+  trait Param extends js.Object:
     val topicId: String = js.native
-  }
 
   val component = ScalaFnComponent[`match`[Topic.Param]] { m =>
     <.div(
       <.h3("Topic: " + m.params.topicId)
     )
   }
-}

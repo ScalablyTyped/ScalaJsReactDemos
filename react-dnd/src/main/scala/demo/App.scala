@@ -20,10 +20,9 @@ import scala.language.implicitConversions
 import scala.scalajs.js
 import scala.scalajs.js.|
 
-object components {
-  object ItemTypes {
+object components:
+  object ItemTypes:
     val BOX = "box"
-  }
 
   implicit def whyyyDoesItHaveToBeSoComplicated: ValueType[HTMLElement => Callback, RefFn[HTMLElement]] =
     ValueType[HTMLElement => Callback, RefFn[HTMLElement]] { (consume, f) =>
@@ -125,4 +124,3 @@ object components {
         DndProvider.Backend(HTML5Backend)(Container())
       )
   }
-}

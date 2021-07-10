@@ -9,7 +9,7 @@ import typings.reactLeaflet.mod.{MapProps, MarkerProps, PopupProps, TileLayerPro
 import scala.language.implicitConversions
 import scala.scalajs.js
 
-object App {
+object App:
   val component = ScalaFnComponent[Unit] { _ =>
     val position: LatLngExpression = js.Tuple2(51.505, -0.09)
 
@@ -23,4 +23,3 @@ object App {
       ).build
     ).build
   }
-}

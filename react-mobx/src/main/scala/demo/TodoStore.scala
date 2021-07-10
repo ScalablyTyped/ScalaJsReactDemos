@@ -6,7 +6,7 @@ import typings.mobx.{mod => MobX}
 
 import scala.scalajs.js
 
-case class Todo(task: String, completed: Boolean = false, assignee: Option[Person] = None) {
+case class Todo(task: String, completed: Boolean = false, assignee: Option[Person] = None):
 
   def renameTask(t: String): Todo = Todo(t, completed, assignee)
 
@@ -14,15 +14,13 @@ case class Todo(task: String, completed: Boolean = false, assignee: Option[Perso
 
   def changeAssignee(a: Option[Person]): Todo = Todo(task, completed, a)
 
-}
 
-object Todo {
+object Todo:
 
   def fromTask(task: String): Todo = Todo(task)
 
-}
 
-case class Todos(todos: List[Todo]) {
+case class Todos(todos: List[Todo]):
 
   def completedCount(): Int = todos.count(_.completed == true)
 
@@ -30,17 +28,15 @@ case class Todos(todos: List[Todo]) {
 
   def addNewTask(task: String): Todos = Todos(todos :+ Todo.fromTask(task))
 
-}
 
-case class PendingRequests(c: Int) {
+case class PendingRequests(c: Int):
 
   def increase: PendingRequests = PendingRequests(c + 1)
 
   def decrease: PendingRequests = PendingRequests(c - 1)
 
-}
 
-class TodoStore {
+class TodoStore:
 
   val todos: IObservableValue[Todos] =
     MobX.observable.box(Todos(List(Todo("read MobX tutorial"), Todo("try MobX"))))
@@ -81,4 +77,3 @@ class TodoStore {
 
   val decreasePending: js.Function0[Unit] =
     MobX.action("decreasePending", () => changeRequests(_.decrease))
-}

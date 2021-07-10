@@ -10,12 +10,11 @@ import scala.scalajs.js
 /* This is an example of a scala facade on top of the generated code.
  * Note that you can do all this without casting, but type inference is not perfect.
  */
-object StyleBuilder {
+object StyleBuilder:
   @inline def apply[Theme, Props <: js.Object]: StyleBuilder[Theme, Props] =
     new StyleBuilder[Theme, Props](_ => StringDictionary.empty)
-}
 
-@inline final class StyleBuilder[T, P] private (val f: StyleRulesCallback[T, P, String]) extends AnyVal {
+@inline final class StyleBuilder[T, P] private (val f: StyleRulesCallback[T, P, String]) extends AnyVal:
   @inline def add(key: String, value: CSSProperties): StyleBuilder[T, P] =
     new StyleBuilder[T, P]({ theme =>
       val ret = f(theme)
@@ -43,4 +42,3 @@ object StyleBuilder {
 
   @inline def hook(opts: WithStylesOptions): StylesHook[Styles[T, P, String]] =
     makeStyles[Styles[T, P, String]](f, opts)
-}

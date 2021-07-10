@@ -21,7 +21,7 @@ import typings.materialUiStyles.withStylesMod.{Styles, CSSProperties}
 import scala.scalajs.js
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/modules/components/AppTheme.js
-object AppTheme {
+object AppTheme:
 
   // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/modules/styles/themeInitialState.js
   val theme: Theme = createMuiTheme(
@@ -67,4 +67,3 @@ object AppTheme {
           )
       )
   }
-}

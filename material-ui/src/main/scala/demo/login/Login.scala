@@ -25,7 +25,7 @@ object Logo extends js.Object
 object GoogleLogo extends js.Object
 
 // https://github.com/flatlogic/react-material-admin/blob/master/src/pages/login/Login.js
-object Login {
+object Login:
 
   val component = ScalaFnComponent[Unit] { _ =>
     val classes = styles(js.undefined)
@@ -231,4 +231,3 @@ object Login {
       )
   }
 
-}

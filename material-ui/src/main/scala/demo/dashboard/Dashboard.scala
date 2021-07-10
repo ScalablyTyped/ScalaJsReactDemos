@@ -23,7 +23,7 @@ import scala.scalajs.js
 
 // https://v3.material-ui.com/getting-started/page-layout-examples/dashboard/
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/Dashboard.js
-object Dashboard {
+object Dashboard:
 
   val drawerWidth = 240
 
@@ -201,4 +201,3 @@ object Dashboard {
         )
       )
   }
-}

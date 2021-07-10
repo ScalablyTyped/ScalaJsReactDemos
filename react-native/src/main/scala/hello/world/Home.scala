@@ -5,7 +5,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 import typings.reactNative.mod.{TextStyle, ViewStyle}
 import typings.reactNative.components.{Text, View}
 
-object Home {
+object Home:
   type Props = Unit
 
   val component = ScalaFnComponent[Props] {
@@ -17,4 +17,3 @@ object Home {
         )
       )
   }
-}

@@ -5,7 +5,7 @@ import typings.materialUiCore.components.{ListItem, ListItemIcon, ListItemText, 
 import typings.materialUiIcons.{components => Icon}
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/listItems.js
-object ListItems {
+object ListItems:
 
   val mainListItems: VdomElement =
     <.div(
@@ -47,4 +47,3 @@ object ListItems {
         ListItemText.primary("Year-end sale")
       )
     )
-}

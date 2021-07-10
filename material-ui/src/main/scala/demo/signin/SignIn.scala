@@ -16,7 +16,7 @@ import scala.scalajs.js
 
 // https://v3.material-ui.com/getting-started/page-layout-examples/sign-in/
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/sign-in/SignIn.js
-object SignIn {
+object SignIn:
 
   lazy val styles: StylesHook[Styles[Theme, js.Object, String]] =
     StyleBuilder[Theme, js.Object]
@@ -92,4 +92,3 @@ object SignIn {
         )
       )
   }
-}

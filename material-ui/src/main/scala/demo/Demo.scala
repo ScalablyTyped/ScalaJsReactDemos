@@ -21,7 +21,7 @@ import typings.react.components.Fragment
 import typings.reactRouter.mod.RouteProps
 import typings.reactRouterDom.components.{BrowserRouter, Link, Route}
 
-object Demo {
+object Demo:
 
   val theme: Theme = createMuiTheme(
     ThemeOptions()
@@ -153,8 +153,6 @@ object Demo {
       )
   }
 
-  def main(argv: Array[String]): Unit = {
+  def main(argv: Array[String]): Unit =
     println("starting")
     Main().renderIntoDOM(dom.document.getElementById("container"))
-  }
-}

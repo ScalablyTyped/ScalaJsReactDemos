@@ -10,7 +10,7 @@ import typings.materialUiStyles.withStylesMod.{CSSProperties, Styles}
 import scala.scalajs.js
 
 // https://github.com/flatlogic/react-material-admin/blob/master/src/pages/login/styles.js
-object Styles {
+object Styles:
 
   lazy val styles: StylesHook[Styles[Theme, js.Object, String]] =
     StyleBuilder[Theme, js.Object]
@@ -248,4 +248,3 @@ object Styles {
       )
       .hook
 
-}

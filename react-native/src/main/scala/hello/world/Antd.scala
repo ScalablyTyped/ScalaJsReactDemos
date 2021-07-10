@@ -15,7 +15,7 @@ import typings.reactNative.reactNativeStrings
 
 import scala.scalajs.js
 
-object Antd {
+object Antd:
 
   val component = ScalaFnComponent[Unit] {
     case () =>
@@ -77,4 +77,3 @@ object Antd {
           )
       )(Text("Some contents..."))
   }
-}

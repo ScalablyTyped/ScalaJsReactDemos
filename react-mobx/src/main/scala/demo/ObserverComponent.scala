@@ -9,10 +9,10 @@ import typings.mobxReact.mod.observer
 
 import scala.scalajs.js
 
-object ObserverComponent {
+object ObserverComponent:
   private def create[P, C <: Children, CT[-p, +u] <: CtorType[p, u]](
       render: Box[P] with facade.PropsWithChildren => VdomElement
-  )(implicit s: CtorType.Summoner.Aux[Box[P], C, CT]): Component[P, CT] = {
+  )(implicit s: CtorType.Summoner.Aux[Box[P], C, CT]): Component[P, CT] =
 
     val jsRender = render.andThen(_.rawElement): js.Function1[Box[P] with facade.PropsWithChildren, facade.React.Element]
     val rawComponent = observer(jsRender).asInstanceOf[facade.React.StatelessFunctionalComponent[Box[P]]]
@@ -21,7 +21,6 @@ object ObserverComponent {
       .force[Box[P], C](rawComponent)(s)
       .cmapCtorProps[P](Box(_))
       .mapUnmounted(_.mapUnmountedProps(_.unbox))
-  }
 
   def apply[P](render: P => VdomElement)(implicit s: CtorType.Summoner[Box[P], Children.None]): Component[P, s.CT] =
     create[P, Children.None, s.CT](b => render(b.unbox))(s)
@@ -33,4 +32,3 @@ object ObserverComponent {
 
   def justChildren(render: PropsChildren => VdomElement): Component[Unit, CtorType.Children] =
     create(b => render(PropsChildren(b.children)))
-}

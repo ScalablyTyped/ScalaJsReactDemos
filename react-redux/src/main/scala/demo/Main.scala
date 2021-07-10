@@ -13,18 +13,16 @@ import typings.reduxDevtoolsExtension.developmentOnlyMod.composeWithDevTools
 import scala.scalajs.js
 import scala.scalajs.js.|
 
-object Main {
+object Main:
   type AppAction = ExpenseAction | CakeAction
 
-  trait AppState extends js.Object {
+  trait AppState extends js.Object:
     val expenses: ExpenseState
     val cake: CakeReducer.State
-  }
 
-  trait Reducers extends js.Object {
+  trait Reducers extends js.Object:
     val expenses: Reducer[ExpenseState, ExpenseAction]
     val cake: Reducer[CakeReducer.State, CakeAction]
-  }
 
   val rootReducer: Reducer[AppState, AppAction] =
     combineReducers(new Reducers {
@@ -32,7 +30,7 @@ object Main {
       override val cake: Reducer[CakeReducer.State, CakeAction] = CakeReducer.Reducer
     }).asInstanceOf[Reducer[AppState, AppAction]]
 
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit =
     val Empty = js.Object
 
     val store = createStore(rootReducer, composeWithDevTools(applyMiddleware()))
@@ -54,6 +52,4 @@ object Main {
       ConnectedExpenses(Empty),
       ConnectedCakes(Empty)
     ).renderIntoDOM(dom.document.getElementById("container"))
-  }
 
-}

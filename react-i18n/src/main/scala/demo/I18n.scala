@@ -8,7 +8,7 @@ import typings.reactI18next.mod.initReactI18next
 
 import scala.scalajs.js
 
-object I18n {
+object I18n:
 
   val namespace = "translations"
 
@@ -44,4 +44,3 @@ object I18n {
           .setKeySeparator(`false`)
           .setInterpolation(InterpolationOptions().setEscapeValue(false))
       )
-}

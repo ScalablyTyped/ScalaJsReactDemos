@@ -18,16 +18,15 @@ import typings.reactRouterNative.components.{NativeRouter, Redirect}
 import scala.scalajs.js
 import scala.scalajs.js.|
 
-object App {
+object App:
   sealed abstract class RoutePath(val path: String, val title: String)
 
-  object RoutePath {
+  object RoutePath:
     object Home extends RoutePath("/", "Home")
     object Antd extends RoutePath("/antd", "Antd")
     object ReactRouter extends RoutePath("/react_router", "React Router")
 
     val allOrdered: List[RoutePath] = List(Home, Antd, ReactRouter)
-  }
 
   type Props = Unit
 
@@ -82,4 +81,3 @@ object App {
       )
     )
   }
-}

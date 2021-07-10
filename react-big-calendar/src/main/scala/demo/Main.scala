@@ -15,7 +15,7 @@ object BigCalendarCss extends js.Object
 
 class Event(val start: js.Date, val end: js.Date, val title: js.UndefOr[String]) extends js.Object
 
-object Main {
+object Main:
 
   BigCalendarCss // touch to load css
 
@@ -34,4 +34,3 @@ object Main {
       .defaultView(View.week)
       .viewsVarargs(View.agenda, View.day, View.week)
       .renderIntoDOM(document.getElementById("container"))
-}

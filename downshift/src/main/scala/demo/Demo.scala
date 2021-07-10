@@ -14,7 +14,7 @@ import typings.react.mod.CSSProperties
 import scala.scalajs.js.|
 
 // https://codesandbox.io/s/github/kentcdodds/downshift-examples/tree/master/?module=/src/ordered-examples/01-basic-autocomplete.js&moduleview=1&file=/src/downshift/ordered-examples/00-get-root-props-example.js
-object Demo {
+object Demo:
   def asOpt[T](t: T | Null): Option[T] = Option(t.asInstanceOf[T])
 
   val menuStyles = CSSProperties()
@@ -85,4 +85,3 @@ object Demo {
 
   def main(argv: Array[String]): Unit =
     Main().renderIntoDOM(dom.document.getElementById("container"))
-}

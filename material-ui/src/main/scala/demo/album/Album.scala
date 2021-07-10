@@ -21,7 +21,7 @@ import scala.scalajs.js
 
 // https://v3.material-ui.com/getting-started/page-layout-examples/album/
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/album/Album.js
-object Album {
+object Album:
   lazy val styles: StylesHook[Styles[Theme, js.Object, String]] =
     StyleBuilder[Theme, js.Object]
       .add("appBar", CSSProperties().setPosition(relative))
@@ -165,4 +165,3 @@ object Album {
       )
     )
   }
-}

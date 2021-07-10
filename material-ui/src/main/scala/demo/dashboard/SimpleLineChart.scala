@@ -9,7 +9,7 @@ import typings.recharts.rechartsStrings.monotone
 import scala.scalajs.js
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/SimpleLineChart.js
-object SimpleLineChart {
+object SimpleLineChart:
 
   class Data(val Name: String, val Visits: Int, val Orders: Int) extends js.Object
 
@@ -39,4 +39,3 @@ object SimpleLineChart {
           )
         )
   }
-}

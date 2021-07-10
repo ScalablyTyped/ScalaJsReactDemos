@@ -8,7 +8,7 @@ import typings.reactSlick.components.ReactSlick
 
 import scala.scalajs.js
 
-object Main {
+object Main:
 
   case class State(selectedIdx: Option[Int])
 
@@ -53,4 +53,3 @@ object Main {
         "https://i.chzbgr.com/full/9428254976/hD3DA6B8F/cat"
       )
     ).renderIntoDOM(document.body)
-}

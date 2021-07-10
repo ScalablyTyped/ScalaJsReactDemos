@@ -9,7 +9,7 @@ import typings.reactI18next.mod.useTranslation
 
 import scala.scalajs.js
 
-object App {
+object App:
   val component = ScalaFnComponent[Unit] { _ =>
     val js.Tuple3(t, i18n, _) = useTranslation()
     val index = 11
@@ -35,4 +35,3 @@ object App {
       )
     )
   }
-}

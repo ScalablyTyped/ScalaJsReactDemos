@@ -5,7 +5,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 import typings.node.global.module
 import typings.storybookReact.mod.storiesOf
 
-object Demo {
+object Demo:
   def main(args: Array[String]): Unit =
     storiesOf("Button", module)
       .add("with text", ctx => <.button("Hello Button").rawElement)
@@ -18,4 +18,3 @@ object Demo {
             ^.role := "img"
           )(<.span("😀😎")).rawElement
       )
-}

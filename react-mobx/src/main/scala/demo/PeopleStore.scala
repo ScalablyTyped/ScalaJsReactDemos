@@ -5,11 +5,10 @@ import typings.mobx.{mod => MobX}
 
 import scala.scalajs.js
 
-case class Person(name: String) {
+case class Person(name: String):
   def changeName(n: String): Person = Person(n)
-}
 
-class PeopleStore {
+class PeopleStore:
 
   val people: IObservableValue[List[Person]] =
     MobX.observable.box(List(Person("Michel"), Person("Me")))
@@ -21,4 +20,3 @@ class PeopleStore {
   val renamePerson: js.Function2[Int, String, Unit] =
     MobX.action("renamePerson", (index: Int, name: String) => updatePerson(index, _.changeName(name)))
 
-}

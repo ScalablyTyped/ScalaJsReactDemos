@@ -7,7 +7,7 @@ import typings.react.mod.useEffect
 
 import scala.scalajs.js
 
-object TodoList {
+object TodoList:
 
   case class Props(store: TodoStore, peopleStore: PeopleStore)
 
@@ -67,4 +67,3 @@ object TodoList {
         )
       )
   }
-}

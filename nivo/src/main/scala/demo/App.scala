@@ -17,7 +17,7 @@ import typings.nivoScales.nivoScalesStrings.auto
 import scala.scalajs.js
 
 // ported from https://nivo.rocks/line
-object App {
+object App:
   //// make sure parent container have a defined height when using
   //// responsive component, otherwise height will be 0 and
   //// no chart will be rendered.
@@ -78,4 +78,3 @@ object App {
           )
       )
   }
-}

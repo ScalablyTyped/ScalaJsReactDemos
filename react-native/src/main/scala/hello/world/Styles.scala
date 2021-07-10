@@ -3,7 +3,7 @@ package hello.world
 import typings.reactNative.mod.TextStyle
 import typings.reactNative.reactNativeStrings
 
-object Styles {
+object Styles:
   val headerStyle = TextStyle()
     .setPadding(10)
     .setFontSize(20)
@@ -23,4 +23,3 @@ object Styles {
     .setTextAlign(reactNativeStrings.center)
     .setColor("red")
 
-}

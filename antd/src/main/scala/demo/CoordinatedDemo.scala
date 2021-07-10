@@ -10,7 +10,7 @@ import typings.antd.gridColMod.ColProps
 import typings.rcFieldForm.interfaceMod.BaseRule
 import typings.std.global.console
 
-object CoordinatedDemo {
+object CoordinatedDemo:
   val component = ScalaFnComponent[String] { noteTitle =>
     val form = useForm().head
     Form
@@ -49,4 +49,3 @@ object CoordinatedDemo {
         )
       )
   }
-}

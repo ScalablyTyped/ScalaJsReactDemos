@@ -8,13 +8,12 @@ import scala.scalajs.js
 
 // https://www.youtube.com/watch?v=OXxul6AvXNs
 // https://github.com/cmcaboy/redux-typed/tree/typed
-object ExpenseContainer {
+object ExpenseContainer:
 
   @js.native
-  trait Props extends js.Object {
+  trait Props extends js.Object:
     val state: ExpenseState
     val dispatch: Dispatch[ExpenseAction]
-  }
 
   val component = ScalaFnComponent[Props] { (props: Props) =>
     <.div(
@@ -38,4 +37,3 @@ object ExpenseContainer {
       <.button(^.onClick --> Callback(props.dispatch(ExpenseAction.AddExpenseAction(Expense()))))("Add Expense")
     )
   }
-}
