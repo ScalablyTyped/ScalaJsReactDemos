@@ -9,10 +9,10 @@ import scala.scalajs.js.annotation.JSImport
 @js.native
 object Css extends js.Object
 
-object Main:
-  def main(args: Array[String]): Unit =
-    /* touch to load */
-    typings.leaflet.leafletRequire
-    Css
+@main
+def main: Unit =
+  /* touch to load */
+  typings.leaflet.leafletRequire
+  Css
 
-    App.component().renderIntoDOM(dom.document.getElementById("container"))
+  App().renderIntoDOM(dom.document.getElementById("container"))

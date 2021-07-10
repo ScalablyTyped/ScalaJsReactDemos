@@ -15,35 +15,29 @@ import typings.reactSyntaxHighlighter.{scalaMod, stylesHljsMod}
 
 import scala.scalajs.js
 
-object DocPage:
+val docFile = "./docs/README.md"
 
-  val docFile = "./docs/README.md"
+class LanguageValue(val language: String, val value: String) extends js.Object
 
-  Light.registerLanguage("scala", scalaMod.default)
+val codeRender: js.Function1[LanguageValue, Node] =
+  rp => SyntaxHighligther.style(stylesHljsMod.darcula).language(rp.language)(rp.value).build.rawElement
 
-  class LanguageValue(val language: String, val value: String) extends js.Object
+val DocPage: Component[Unit, CtorType.Nullary] = ScalaFnComponent { case () =>
+  val js.Tuple2(document, setDocument) = useState[Option[String]](None)
 
-  val codeRender: js.Function1[LanguageValue, Node] =
-    rp => SyntaxHighligther.style(stylesHljsMod.darcula).language(rp.language)(rp.value).build.rawElement
+  useEffect(
+    (() =>
+      val xhr = new XMLHttpRequest
+      xhr.onload = _ => setDocument(Some(xhr.responseText))
+      xhr.open("GET", docFile)
+      xhr.send()
+    ): EffectCallback,
+    js.Array(docFile)
+  )
 
-  val component: Component[Unit, CtorType.Nullary] = ScalaFnComponent[Unit] { _ =>
-    val js.Tuple2(document, setDocument) = useState[Option[String]](None)
+  val props = ReactMarkdownPropsBase()
+    .setRenderers(StringDictionary("code" -> codeRender).asInstanceOf[StringDictionary[ElementType]])
+    .asInstanceOf[ReactMarkdownProps]
 
-    useEffect(
-      (() =>
-        val xhr = new XMLHttpRequest
-        xhr.onload = _ => setDocument(Some(xhr.responseText))
-        xhr.open("GET", docFile)
-        xhr.send()
-      ): EffectCallback,
-      js.Array(docFile)
-    )
-
-    val props = ReactMarkdownPropsBase()
-      .setRenderers(StringDictionary("code" -> codeRender).asInstanceOf[StringDictionary[ElementType]])
-      .asInstanceOf[ReactMarkdownProps]
-
-    ReactMarkdown(props)(document)
-
-  }
-end DocPage
+  ReactMarkdown(props)(document)
+}

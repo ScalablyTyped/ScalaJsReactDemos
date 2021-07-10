@@ -15,8 +15,8 @@ object BigCalendarCss extends js.Object
 
 class Event(val start: js.Date, val end: js.Date, val title: js.UndefOr[String]) extends js.Object
 
-object Main:
-
+@main
+def main: Unit =
   BigCalendarCss // touch to load css
 
   val Localizer = momentLocalizer(Moment.^)
@@ -26,12 +26,10 @@ object Main:
     end = Moment.apply(new js.Date).add(1, momentStrings.day).toDate(),
     title = "My amazing event"
   )
-
-  def main(argv: Array[String]): Unit =
-    Calendar[Event, js.Object](Localizer)
-      .eventsVarargs(someEvent)
-      .defaultDate(new js.Date)
-      .defaultView(View.week)
-      .viewsVarargs(View.agenda, View.day, View.week)
-      .renderIntoDOM(document.getElementById("container"))
-end Main
+  Calendar[Event, js.Object](Localizer)
+    .eventsVarargs(someEvent)
+    .defaultDate(new js.Date)
+    .defaultView(View.week)
+    .viewsVarargs(View.agenda, View.day, View.week)
+    .renderIntoDOM(document.getElementById("container"))
+end main
