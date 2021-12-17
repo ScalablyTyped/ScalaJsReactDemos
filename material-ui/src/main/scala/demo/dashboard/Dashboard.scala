@@ -1,20 +1,20 @@
 package demo.dashboard
 
 import demo.StyleBuilder
-import org.scalablytyped.runtime.StringDictionary
+import japgolly.scalajs.react.vdom.html_<^.*
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
-import japgolly.scalajs.react.vdom.html_<^._
-import typings.classnames.{mod => classNames}
-import typings.csstype.csstypeStrings._
+import org.scalablytyped.runtime.StringDictionary
+import typings.classnames.mod as classNames
+import typings.csstype.csstypeStrings.*
 import typings.csstype.mod.OverflowXProperty
 import typings.materialUiCore.anon.{PartialClassNameMapDrawer, Partialdurationnumberstri}
-import typings.materialUiCore.components._
+import typings.materialUiCore.components.*
 import typings.materialUiCore.createBreakpointsMod.Breakpoint
 import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.materialUiCore.materialUiCoreStrings.{absolute, permanent}
 import typings.materialUiCore.mod.PropTypes
 import typings.materialUiCore.typographyTypographyMod.Style
-import typings.materialUiIcons.{components => Icons}
+import typings.materialUiIcons.components as Icons
 import typings.materialUiStyles.makeStylesMod.StylesHook
 import typings.materialUiStyles.withStylesMod.{CSSProperties, Styles}
 import typings.react.mod.useState
@@ -23,7 +23,7 @@ import scala.scalajs.js
 
 // https://v3.material-ui.com/getting-started/page-layout-examples/dashboard/
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/Dashboard.js
-object Dashboard {
+object Dashboard:
 
   val drawerWidth = 240
 
@@ -120,85 +120,84 @@ object Dashboard {
       .add("h5", theme => CSSProperties().setMarginBottom(theme.spacing.unit * 2))
       .hook
 
-  val component = ScalaFnComponent[Unit] {
-    case () =>
-      val classes = styles(js.undefined)
-      val js.Tuple2(isOpen, setIsOpen) = useState(true)
-      val handleDrawerOpen = Callback(setIsOpen(true))
-      val handleDrawerClose = Callback(setIsOpen(false))
+  val component = ScalaFnComponent[Unit] { case () =>
+    val classes                      = styles(js.undefined)
+    val js.Tuple2(isOpen, setIsOpen) = useState(true)
+    val handleDrawerOpen             = Callback(setIsOpen(true))
+    val handleDrawerClose            = Callback(setIsOpen(false))
 
-      <.div(
-        ^.className := classes("root"),
-        CssBaseline(),
-        AppBar
-          .position(absolute)
-          .className(classNames(StringDictionary[js.Any](classes("appBar") -> true, classes("appBarShift") -> isOpen)))(
-            Toolbar
-              .disableGutters(!isOpen)
-              .className(classes("toolbar"))(
-                IconButton
-                  .color(PropTypes.Color.inherit)
-                  .`aria-label`("Open drawer")
-                  .onClick(_ => handleDrawerOpen)
-                  .className(
-                    classNames(
-                      StringDictionary[js.Any](classes("menuButton") -> true, classes("menuButtonHidden") -> isOpen)
-                    )
-                  )(Icons.Menu()),
-                Typography()
-                  .component("h1")
-                  .variant(Style.h6)
-                  .color(PropTypes.Color.inherit)
-                  .noWrap(true)
-                  .className(classes("title"))(
-                    "Dashboard"
-                  ),
-                IconButton.color(PropTypes.Color.inherit)(
-                  Badge.badgeContent(4).color(PropTypes.Color.secondary)(Icons.Notifications())
-                )
-              )
-          ),
-        Drawer
-          .variant(permanent)
-          .classes(
-            PartialClassNameMapDrawer().setPaper(
-              classNames(
-                StringDictionary[js.Any](classes("drawerPaper") -> true, classes("drawerPaperClose") -> !isOpen)
+    <.div(
+      ^.className := classes("root"),
+      CssBaseline(),
+      AppBar
+        .position(absolute)
+        .className(classNames(StringDictionary[js.Any](classes("appBar") -> true, classes("appBarShift") -> isOpen)))(
+          Toolbar
+            .disableGutters(!isOpen)
+            .className(classes("toolbar"))(
+              IconButton
+                .color(PropTypes.Color.inherit)
+                .`aria-label`("Open drawer")
+                .onClick(_ => handleDrawerOpen)
+                .className(
+                  classNames(
+                    StringDictionary[js.Any](classes("menuButton") -> true, classes("menuButtonHidden") -> isOpen)
+                  )
+                )(Icons.Menu()),
+              Typography()
+                .component("h1")
+                .variant(Style.h6)
+                .color(PropTypes.Color.inherit)
+                .noWrap(true)
+                .className(classes("title"))(
+                  "Dashboard"
+                ),
+              IconButton.color(PropTypes.Color.inherit)(
+                Badge.badgeContent(4).color(PropTypes.Color.secondary)(Icons.Notifications())
               )
             )
+        ),
+      Drawer
+        .variant(permanent)
+        .classes(
+          PartialClassNameMapDrawer().setPaper(
+            classNames(
+              StringDictionary[js.Any](classes("drawerPaper") -> true, classes("drawerPaperClose") -> !isOpen)
+            )
           )
-          .open(isOpen)(
-            <.div(^.className := classes("toolbarIcon"))(
-              IconButton.onClick(_ => handleDrawerClose)(Icons.ChevronLeft())
-            ),
-            Divider(),
-            List(ListItems.mainListItems),
-            Divider(),
-            List(ListItems.secondaryListItems)
-          ),
-        <.main(^.className := classes("content"))(
-          <.div(^.className := classes("appBarSpacer")),
-          Typography
-            .variant(Style.h4)
-            .gutterBottom(true)
-            .component("h2")(
-              "Orders"
-            ),
-          Typography()
-            .component("div")
-            .className(classes("chartContainer"))(
-              SimpleLineChart.component()
-            ),
-          Typography()
-            .variant(Style.h4)
-            .gutterBottom(true)
-            .component("h2")(
-              "Products"
-            ),
-          Typography()
-            .component("div")
-            .className(classes("tableContainer"))(SimpleTable.component())
         )
+        .open(isOpen)(
+          <.div(^.className := classes("toolbarIcon"))(
+            IconButton.onClick(_ => handleDrawerClose)(Icons.ChevronLeft())
+          ),
+          Divider(),
+          List(ListItems.mainListItems),
+          Divider(),
+          List(ListItems.secondaryListItems)
+        ),
+      <.main(^.className := classes("content"))(
+        <.div(^.className := classes("appBarSpacer")),
+        Typography
+          .variant(Style.h4)
+          .gutterBottom(true)
+          .component("h2")(
+            "Orders"
+          ),
+        Typography()
+          .component("div")
+          .className(classes("chartContainer"))(
+            SimpleLineChart.component()
+          ),
+        Typography()
+          .variant(Style.h4)
+          .gutterBottom(true)
+          .component("h2")(
+            "Products"
+          ),
+        Typography()
+          .component("div")
+          .className(classes("tableContainer"))(SimpleTable.component())
       )
+    )
   }
-}
+end Dashboard

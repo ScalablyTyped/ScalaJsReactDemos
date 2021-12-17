@@ -1,17 +1,17 @@
 package demo.advanced
 
-import typings.redux.mod._
+import typings.redux.mod.*
 
-object ExpenseReducer {
-  val Reducer: Reducer[ExpenseState, ExpenseAction] = (stateOpt, action) => {
+object ExpenseReducer:
+  val Reducer: Reducer[ExpenseState, ExpenseAction] = (stateOpt, action) =>
     val state = stateOpt.getOrElse(ExpenseState.initial)
-    action match {
+    action match
       case ExpenseAction.SetExpenseAction(expenses) =>
         ExpenseState(expenses)
 
       case ExpenseAction.EditExpenseAction(editedExpense) =>
         ExpenseState(state.expenses.map { expense =>
-          if (expense.id.equals(editedExpense.id)) editedExpense
+          if expense.id.equals(editedExpense.id) then editedExpense
           else expense
         })
 
@@ -22,6 +22,5 @@ object ExpenseReducer {
         ExpenseState(state.expenses :+ expense)
       case _ =>
         state
-    }
-  }
-}
+    end match
+end ExpenseReducer

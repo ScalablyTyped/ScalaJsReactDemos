@@ -1,7 +1,7 @@
 package demo.customization
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.materialUiCore.colorsMod.purple
 import typings.materialUiCore.components.{Button, MuiThemeProvider}
 import typings.materialUiCore.createMuiThemeMod.{Theme, ThemeOptions}
@@ -11,7 +11,7 @@ import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.stylesMod
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/customization/themes/Palette.js
-object Palette {
+object Palette:
 
   val theme: Theme = stylesMod
     .createMuiTheme(
@@ -32,4 +32,4 @@ object Palette {
       Button.color(Color.secondary)(<.span("Secondary"))
     )
   }
-}
+end Palette

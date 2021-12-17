@@ -7,78 +7,70 @@ import scala.scalajs.js
 @js.native
 sealed trait ExpenseAction extends Action[String]
 
-object ExpenseAction {
+object ExpenseAction:
 
   @js.native
-  trait SetExpenseAction extends ExpenseAction {
+  trait SetExpenseAction extends ExpenseAction:
     val expenses: js.Array[Expense] = js.native
-  }
 
-  object SetExpenseAction {
+  object SetExpenseAction:
     def _type = "SET_EXPENSE"
 
     @scala.inline
-    def apply(expenses: js.Array[Expense]): SetExpenseAction = {
+    def apply(expenses: js.Array[Expense]): SetExpenseAction =
       val __obj = js.Dynamic.literal()
       __obj.updateDynamic("type")(_type)
       __obj.asInstanceOf[SetExpenseAction].set("expenses", expenses)
-    }
     def unapply(a: Action[String]): Option[js.Array[Expense]] =
-      if (a.`type` == _type) Some(a.asInstanceOf[SetExpenseAction].expenses) else None
-  }
+      if a.`type` == _type then Some(a.asInstanceOf[SetExpenseAction].expenses) else None
+  end SetExpenseAction
 
   @js.native
-  trait EditExpenseAction extends ExpenseAction {
+  trait EditExpenseAction extends ExpenseAction:
     val expense: Expense = js.native
-  }
 
-  object EditExpenseAction {
+  object EditExpenseAction:
     def _type = "EDIT_EXPENSE"
 
     @scala.inline
-    def apply(expense: Expense): EditExpenseAction = {
+    def apply(expense: Expense): EditExpenseAction =
       val __obj = js.Dynamic.literal()
       __obj.updateDynamic("type")(_type)
       __obj.asInstanceOf[EditExpenseAction].set("expense", expense)
-    }
     def unapply(a: Action[String]): Option[Expense] =
-      if (a.`type` == _type) Some(a.asInstanceOf[EditExpenseAction].expense) else None
-  }
+      if a.`type` == _type then Some(a.asInstanceOf[EditExpenseAction].expense) else None
+  end EditExpenseAction
 
   @js.native
-  trait RemoveExpenseAction extends ExpenseAction {
+  trait RemoveExpenseAction extends ExpenseAction:
     val id: String = js.native
-  }
 
-  object RemoveExpenseAction {
+  object RemoveExpenseAction:
     def _type = "REMOVE_EXPENSE"
 
     @scala.inline
-    def apply(id: String): RemoveExpenseAction = {
+    def apply(id: String): RemoveExpenseAction =
       val __obj = js.Dynamic.literal("id" -> id)
       __obj.updateDynamic("type")(_type)
       __obj.asInstanceOf[RemoveExpenseAction]
-    }
 
     def unapply(a: Action[String]): Option[String] =
-      if (a.`type` == _type) Some(a.asInstanceOf[RemoveExpenseAction].id) else None
-  }
+      if a.`type` == _type then Some(a.asInstanceOf[RemoveExpenseAction].id) else None
+  end RemoveExpenseAction
 
   @js.native
-  trait AddExpenseAction extends ExpenseAction {
+  trait AddExpenseAction extends ExpenseAction:
     val expense: Expense = js.native
-  }
 
-  object AddExpenseAction {
+  object AddExpenseAction:
     def _type = "ADD_EXPENSE"
     @scala.inline
-    def apply(expense: Expense): AddExpenseAction = {
+    def apply(expense: Expense): AddExpenseAction =
       val __obj = js.Dynamic.literal("expense" -> expense)
       __obj.updateDynamic("type")(_type)
       __obj.asInstanceOf[AddExpenseAction]
-    }
 
     def unapply(a: Action[String]): Option[Expense] =
-      if (a.`type` == _type) Some(a.asInstanceOf[AddExpenseAction].expense) else None
-  }
-}
+      if a.`type` == _type then Some(a.asInstanceOf[AddExpenseAction].expense) else None
+  end AddExpenseAction
+end ExpenseAction

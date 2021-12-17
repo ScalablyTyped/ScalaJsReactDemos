@@ -1,14 +1,14 @@
 package demo
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalablytyped.runtime.StringDictionary
 import typings.nivoAxes.mod.{AxisProps, Orient}
 import typings.nivoAxes.nivoAxesStrings.middle
 import typings.nivoColors.mod.{ColorSchemeId, OrdinalColorsInstruction, SchemeColorInstruction}
 import typings.nivoCore.mod.Box
 import typings.nivoLegends.anon.PartialitemTextColorstrin
-import typings.nivoLegends.mod._
+import typings.nivoLegends.mod.*
 import typings.nivoLine.components.Line
 import typings.nivoLine.mod.Serie
 import typings.nivoScales.mod.{LinearScale, Scale}
@@ -17,7 +17,7 @@ import typings.nivoScales.nivoScalesStrings.auto
 import scala.scalajs.js
 
 // ported from https://nivo.rocks/line
-object App {
+object App:
   //// make sure parent container have a defined height when using
   //// responsive component, otherwise height will be 0 and
   //// no chart will be rendered.
@@ -50,7 +50,7 @@ object App {
           .setLegendOffset(-40)
           .setLegendPosition(middle)
       )
-      .colors(SchemeColorInstruction(ColorSchemeId.nivo): OrdinalColorsInstruction[js.Any])
+      .colors(SchemeColorInstruction(ColorSchemeId.nivo): OrdinalColorsInstruction[Any])
       .pointSize(10)
       .pointColor(StringDictionary("theme" -> "background"))
       .pointBorderWidth(2)
@@ -78,4 +78,4 @@ object App {
           )
       )
   }
-}
+end App

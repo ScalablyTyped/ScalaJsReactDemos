@@ -8,7 +8,7 @@ import typings.materialUiCore.stylesMod.createMuiTheme
 import typings.materialUiStyles.components.ThemeProvider
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/customization/themes/DarkTheme.js
-object DarkTheme {
+object DarkTheme:
   val theme: Theme = createMuiTheme(
     ThemeOptions()
       .setTypography(TypographyOptions().setUseNextVariants(true))
@@ -19,4 +19,4 @@ object DarkTheme {
 
   def apply() =
     ThemeProvider(theme)(WithTheme.component(theme))
-}
+end DarkTheme

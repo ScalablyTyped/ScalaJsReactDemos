@@ -1,10 +1,9 @@
 package demo
 
 import org.scalajs.dom.document
-import typings.moment.{mod => Moment}
-import typings.moment.momentStrings
-import typings.reactBigCalendar.mod.{momentLocalizer, View}
+import typings.moment.{momentStrings, mod as Moment}
 import typings.reactBigCalendar.components.Calendar
+import typings.reactBigCalendar.mod.{momentLocalizer, View}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -15,8 +14,8 @@ object BigCalendarCss extends js.Object
 
 class Event(val start: js.Date, val end: js.Date, val title: js.UndefOr[String]) extends js.Object
 
-object Main {
-
+@main
+def main: Unit =
   BigCalendarCss // touch to load css
 
   val Localizer = momentLocalizer(Moment.^)
@@ -26,12 +25,10 @@ object Main {
     end = Moment.apply(new js.Date).add(1, momentStrings.day).toDate(),
     title = "My amazing event"
   )
-
-  def main(argv: Array[String]): Unit =
-    Calendar[Event, js.Object](Localizer)
-      .eventsVarargs(someEvent)
-      .defaultDate(new js.Date)
-      .defaultView(View.week)
-      .viewsVarargs(View.agenda, View.day, View.week)
-      .renderIntoDOM(document.getElementById("container"))
-}
+  Calendar[Event, js.Object](Localizer)
+    .eventsVarargs(someEvent)
+    .defaultDate(new js.Date)
+    .defaultView(View.week)
+    .viewsVarargs(View.agenda, View.day, View.week)
+    .renderIntoDOM(document.getElementById("container"))
+end main

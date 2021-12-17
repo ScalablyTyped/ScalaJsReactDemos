@@ -1,15 +1,15 @@
 package demo.customization
 
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.materialUiCore.components.Typography
 import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.react.mod.CSSProperties
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/customization/themes/WithTheme.js
-object WithTheme {
+object WithTheme:
   val component = ScalaFnComponent[Theme] { theme =>
-    val primaryText = theme.palette.text.primary;
+    val primaryText  = theme.palette.text.primary;
     val primaryColor = theme.palette.primary.main;
 
     <.div(^.style := CSSProperties().setWidth(300))(
@@ -27,4 +27,4 @@ object WithTheme {
       )(s"Primary color $primaryText")
     )
   }
-}
+end WithTheme

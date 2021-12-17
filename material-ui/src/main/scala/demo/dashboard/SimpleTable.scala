@@ -2,9 +2,9 @@ package demo.dashboard
 
 import demo.StyleBuilder
 import japgolly.scalajs.react.ScalaFnComponent
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.html_<^.*
 import typings.csstype.csstypeStrings.auto
-import typings.materialUiCore.components._
+import typings.materialUiCore.components.*
 import typings.materialUiCore.createMuiThemeMod.Theme
 import typings.materialUiCore.materialUiCoreStrings.right
 import typings.materialUiStyles.withStylesMod.CSSProperties
@@ -12,7 +12,7 @@ import typings.materialUiStyles.withStylesMod.CSSProperties
 import scala.scalajs.js
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/getting-started/page-layout-examples/dashboard/SimpleTable.js
-object SimpleTable {
+object SimpleTable:
 
   lazy val styles =
     StyleBuilder[Theme, js.Object]
@@ -30,31 +30,31 @@ object SimpleTable {
     Data(5, "Gingerbread", 356, 16.0, 49, 3.9)
   )
 
-  val component = ScalaFnComponent[Unit] {
-    case () =>
-      val classes = styles(js.undefined)
-      Paper.className(classes("root"))(
-        Table.className(classes("table"))(
-          TableHead(
-            TableRow(
-              TableCell("Dessert (100g serving)"),
-              TableCell.align(right)("Calories"),
-              TableCell.align(right)("Fat (g)"),
-              TableCell.align(right)("Carbs (g)"),
-              TableCell.align(right)("Protein (g)")
+  val component = ScalaFnComponent[Unit] { case () =>
+    val classes = styles(js.undefined)
+    Paper.className(classes("root"))(
+      Table.className(classes("table"))(
+        TableHead(
+          TableRow(
+            TableCell("Dessert (100g serving)"),
+            TableCell.align(right)("Calories"),
+            TableCell.align(right)("Fat (g)"),
+            TableCell.align(right)("Carbs (g)"),
+            TableCell.align(right)("Protein (g)")
+          )
+        ),
+        TableBody(data.map { n =>
+          TableRow
+            .withKey(n.id.toString)(
+              TableCell.set("component", "th").scope("row")(n.name),
+              TableCell.align(right)(n.calories),
+              TableCell.align(right)(n.fat),
+              TableCell.align(right)(n.carbs),
+              TableCell.align(right)(n.protein)
             )
-          ),
-          TableBody(data.map { n =>
-            TableRow
-              .withKey(n.id.toString)(
-                TableCell.set("component", "th").scope("row")(n.name),
-                TableCell.align(right)(n.calories),
-                TableCell.align(right)(n.fat),
-                TableCell.align(right)(n.carbs),
-                TableCell.align(right)(n.protein)
-              )
-          }.toVdomArray)
-        )
+            .build
+        }.toVdomArray)
       )
+    )
   }
-}
+end SimpleTable
