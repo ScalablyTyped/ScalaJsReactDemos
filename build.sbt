@@ -125,8 +125,7 @@ lazy val `storybook-react` = project
       */
     start := {
       (Compile / fastOptJS).value
-      if (scala.util.Properties.isWin) Process("yarn storybook", baseDirectory.value).run()
-      else Process("bash -ci 'yarn storybook'", baseDirectory.value).run()
+      Process("yarn storybook", baseDirectory.value).run()
     },
     dist := {
       val distFolder = (ThisBuild / baseDirectory).value / "docs" / moduleName.value
