@@ -273,7 +273,8 @@ lazy val `react-redux` = project
       "react-redux" -> "7.1",
       "redux-devtools-extension" -> "2.13.8",
       "@types/react-redux" -> "7.1.5"
-    )
+    ),
+    libraryDependencies += ("org.scala-js" %%% "scalajs-java-securerandom" % "1.0.0").cross(CrossVersion.for3Use2_13)
   )
   
 lazy val `react-window` = project
