@@ -23,6 +23,6 @@ val ReactRouter = ScalaFnComponent[`match`[?]] { m =>
         .setPath(m.path + "/:topicId")
         .setRender(props => Topic(props.`match`.asInstanceOf[`match`[Param]]).rawNode)
     ),
-    Route(RouteProps().setPath(m.path).setRender(_ => Text("Please select a topic").rawNode).setExact(true))
+    Route(RouteProps().setPath(m.path).setRender(_ => Text("Please select a topic").rawNode))
   )
 }

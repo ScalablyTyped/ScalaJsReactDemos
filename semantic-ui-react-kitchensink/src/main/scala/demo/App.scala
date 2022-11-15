@@ -6,7 +6,7 @@ import org.scalajs.dom
 import typings.react.mod.useState
 import typings.react.reactStrings.submit
 import typings.semanticUiReact.components as Sui
-import typings.semanticUiReact.genericMod.{SemanticICONS, SemanticSIZES, SemanticWIDTHSSTRING}
+import typings.semanticUiReact.distCommonjsGenericMod.{SemanticICONS, SemanticSIZES, SemanticWIDTHSSTRING}
 import typings.semanticUiReact.semanticUiReactStrings.left
 
 import scala.language.implicitConversions

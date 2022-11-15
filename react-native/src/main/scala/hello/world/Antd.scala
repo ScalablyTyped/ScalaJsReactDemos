@@ -7,7 +7,7 @@ import typings.antDesignIconsReactNative.components.{IconFill, IconOutline}
 import typings.antDesignReactNative.antDesignReactNativeStrings as antdStrings
 import typings.antDesignReactNative.components.{List as AntdList, *}
 import typings.antDesignReactNative.mod.Toast
-import typings.antDesignReactNative.modalPropsTypeMod.Action
+import typings.antDesignReactNative.libModalPropsTypeMod.Action
 import typings.react.mod.useState
 import typings.reactNative.components.ScrollView
 import typings.reactNative.mod.{FlexAlignType, ViewStyle}

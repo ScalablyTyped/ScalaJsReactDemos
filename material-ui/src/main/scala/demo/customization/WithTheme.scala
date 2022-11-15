@@ -3,7 +3,7 @@ package demo.customization
 import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.html_<^.*
 import typings.materialUiCore.components.Typography
-import typings.materialUiCore.createMuiThemeMod.Theme
+import typings.materialUiCore.stylesCreateMuiThemeMod.Theme
 import typings.react.mod.CSSProperties
 
 // https://github.com/mui-org/material-ui/blob/v3.x/docs/src/pages/customization/themes/WithTheme.js

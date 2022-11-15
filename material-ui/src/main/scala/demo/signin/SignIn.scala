@@ -5,7 +5,7 @@ import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.html_<^.*
 import typings.csstype.csstypeStrings.*
 import typings.materialUiCore.components.*
-import typings.materialUiCore.createMuiThemeMod.Theme
+import typings.materialUiCore.stylesCreateMuiThemeMod.Theme
 import typings.materialUiCore.materialUiCoreStrings.{contained, normal, primary, submit}
 import typings.materialUiCore.typographyTypographyMod.Style
 import typings.materialUiIcons.components as Icons

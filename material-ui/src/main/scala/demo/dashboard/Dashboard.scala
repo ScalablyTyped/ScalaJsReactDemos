@@ -9,8 +9,8 @@ import typings.csstype.csstypeStrings.*
 import typings.csstype.mod.OverflowXProperty
 import typings.materialUiCore.anon.{PartialClassNameMapDrawer, Partialdurationnumberstri}
 import typings.materialUiCore.components.*
-import typings.materialUiCore.createBreakpointsMod.Breakpoint
-import typings.materialUiCore.createMuiThemeMod.Theme
+import typings.materialUiCore.stylesCreateBreakpointsMod.Breakpoint
+import typings.materialUiCore.stylesCreateMuiThemeMod.Theme
 import typings.materialUiCore.materialUiCoreStrings.{absolute, permanent}
 import typings.materialUiCore.mod.PropTypes
 import typings.materialUiCore.typographyTypographyMod.Style

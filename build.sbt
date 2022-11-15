@@ -346,6 +346,7 @@ lazy val reactNpmDeps: Project => Project =
 
 lazy val bundlerSettings: Project => Project =
   _.settings(
+    webpackCliVersion := "4.10.0",
     Compile / fastOptJS / webpackExtraArgs += "--mode=development",
     Compile / fullOptJS / webpackExtraArgs += "--mode=production",
     Compile / fastOptJS / webpackDevServerExtraArgs += "--mode=development",
@@ -357,11 +358,11 @@ lazy val withCssLoading: Project => Project =
     /* custom webpack file to include css */
     webpackConfigFile := Some((ThisBuild / baseDirectory).value / "custom.webpack.config.js"),
     Compile / npmDevDependencies ++= Seq(
-      "webpack-merge" -> "4.2.2",
-      "css-loader" -> "3.4.2",
-      "style-loader" -> "1.1.3",
-      "file-loader" -> "5.1.0",
-      "url-loader" -> "4.1.0"
+      "webpack-merge" -> "5.8.0",
+      "css-loader" -> "6.7.2",
+      "style-loader" -> "3.3.1",
+      "file-loader" -> "6.2.0",
+      "url-loader" -> "4.1.1"
     )
   )
 

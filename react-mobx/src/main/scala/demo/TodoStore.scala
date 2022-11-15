@@ -1,8 +1,8 @@
 package demo
 
-import typings.mobx.computedvalueMod.IComputedValue
+import typings.mobx.libCoreComputedvalueMod.IComputedValue
 import typings.mobx.mod as MobX
-import typings.mobx.observablevalueMod.IObservableValue
+import typings.mobx.libTypesObservablevalueMod.IObservableValue
 
 import scala.scalajs.js
 

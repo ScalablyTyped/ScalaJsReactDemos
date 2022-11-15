@@ -3,18 +3,18 @@ package demo
 import japgolly.scalajs.react.vdom.html_<^.*
 import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import typings.antDesignIcons.components.AntdIcon
-import typings.antDesignIconsSvg.downOutlinedMod.default as DownOutlinedIcon
-import typings.antDesignIconsSvg.downloadOutlinedMod.default as DownloadOutlinedIcon
-import typings.antDesignIconsSvg.homeOutlinedMod.default as HomeOutlinedIcon
-import typings.antDesignIconsSvg.lockTwoToneMod.default as LockTwoToneIcon
-import typings.antDesignIconsSvg.mailTwoToneMod.default as MailTwoToneIcon
-import typings.antDesignIconsSvg.shopOutlinedMod.default as ShopOutlinedIcon
-import typings.antDesignIconsSvg.userOutlinedMod.default as UserOutlinedIcon
+import typings.antDesignIconsSvg.esAsnDownOutlinedMod.default as DownOutlinedIcon
+import typings.antDesignIconsSvg.esAsnDownloadOutlinedMod.default as DownloadOutlinedIcon
+import typings.antDesignIconsSvg.esAsnHomeOutlinedMod.default as HomeOutlinedIcon
+import typings.antDesignIconsSvg.esAsnLockTwoToneMod.default as LockTwoToneIcon
+import typings.antDesignIconsSvg.esAsnMailTwoToneMod.default as MailTwoToneIcon
+import typings.antDesignIconsSvg.esAsnShopOutlinedMod.default as ShopOutlinedIcon
+import typings.antDesignIconsSvg.esAsnUserOutlinedMod.default as UserOutlinedIcon
 import typings.antd.antdStrings
 import typings.antd.components.{List as AntList, *}
-import typings.antd.notificationMod.{ArgsProps, IconType, default as Notification}
-import typings.antd.tableInterfaceMod.{ColumnGroupType, ColumnType}
-import typings.rcSelect.interfaceMod.OptionData
+import typings.antd.libNotificationMod.{ArgsProps, IconType, default as Notification}
+import typings.antd.libTableInterfaceMod.{ColumnGroupType, ColumnType}
+import typings.rcSelect.libInterfaceMod.OptionData
 import typings.react.mod.{useState, CSSProperties}
 
 import scala.scalajs.js
@@ -66,7 +66,7 @@ object App:
       <.section(
         <.h2("Tag"),
         Tag("Tag 1"),
-        Tag.color(antdStrings.red)("red"),
+        Tag.set("color", antdStrings.red)("red"),
         Tag.CheckableTag(true)("Checkable")
       )
 

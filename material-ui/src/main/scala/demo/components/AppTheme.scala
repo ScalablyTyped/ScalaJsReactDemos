@@ -6,12 +6,12 @@ import japgolly.scalajs.react.vdom.html_<^.*
 import org.scalablytyped.runtime.StringDictionary
 import typings.classnames.mod as classNames
 import typings.csstype.csstypeStrings.absolute
-import typings.materialUiCore.colorManipulatorMod.darken
+import typings.materialUiCore.stylesColorManipulatorMod.darken
 import typings.materialUiCore.colorsMod.{blue, pink}
 import typings.materialUiCore.components.*
-import typings.materialUiCore.createMuiThemeMod.{Direction, Theme, ThemeOptions}
-import typings.materialUiCore.createPaletteMod.{ColorPartial, PaletteColorOptions, PaletteOptions}
-import typings.materialUiCore.createTypographyMod.TypographyOptions
+import typings.materialUiCore.stylesCreateMuiThemeMod.{Direction, Theme, ThemeOptions}
+import typings.materialUiCore.stylesCreatePaletteMod.{ColorPartial, PaletteColorOptions, PaletteOptions}
+import typings.materialUiCore.stylesCreateTypographyMod.TypographyOptions
 import typings.materialUiCore.materialUiCoreStrings.{center, textSecondary}
 import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.stylesMod.createMuiTheme

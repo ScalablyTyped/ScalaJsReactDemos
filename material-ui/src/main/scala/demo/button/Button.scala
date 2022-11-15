@@ -5,8 +5,8 @@ import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom
 import typings.csstype.mod.{ColorProperty, NamedColor}
-import typings.materialUiCore.createMuiThemeMod.{Theme, ThemeOptions}
-import typings.materialUiCore.spacingMod.SpacingOptions
+import typings.materialUiCore.stylesCreateMuiThemeMod.{Theme, ThemeOptions}
+import typings.materialUiCore.stylesSpacingMod.SpacingOptions
 import typings.materialUiCore.{stylesMod, components as Mui}
 import typings.materialUiStyles.components.ThemeProvider
 import typings.react.mod.useState
@@ -72,7 +72,7 @@ object StyledButtonDemo:
 
   val component = ScalaFnComponent[Unit] { _ =>
     val usingWithStyles =
-      import typings.materialUiCore.withStylesMod.{CSSProperties, WithStylesOptions}
+      import typings.materialUiCore.stylesWithStylesMod.{CSSProperties, WithStylesOptions}
 
       val styleInjector =
         stylesMod.withStyles(

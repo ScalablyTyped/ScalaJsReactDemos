@@ -11,8 +11,7 @@ import typings.reactMarkdown.components.ReactMarkdown
 import typings.reactMarkdown.mod.{ReactMarkdownProps, ReactMarkdownPropsBase}
 import typings.reactSyntaxHighlighter.components.Light as SyntaxHighligther
 import typings.reactSyntaxHighlighter.mod.Light
-import typings.reactSyntaxHighlighter.{scalaMod, stylesHljsMod}
-
+import typings.reactSyntaxHighlighter.distEsmStylesHljsMod.darcula
 import scala.scalajs.js
 
 val docFile = "./docs/README.md"
@@ -20,7 +19,7 @@ val docFile = "./docs/README.md"
 class LanguageValue(val language: String, val value: String) extends js.Object
 
 val codeRender: js.Function1[LanguageValue, Node] =
-  rp => SyntaxHighligther.style(stylesHljsMod.darcula).language(rp.language)(rp.value).build.rawElement
+  rp => SyntaxHighligther.style(darcula).language(rp.language)(rp.value).build.rawElement
 
 val DocPage: Component[Unit, CtorType.Nullary] = ScalaFnComponent { case () =>
   val js.Tuple2(document, setDocument) = useState[Option[String]](None)

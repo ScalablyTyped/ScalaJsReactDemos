@@ -13,7 +13,7 @@ import typings.react.mod.useState
 import typings.reactNative.components.ScrollView
 import typings.reactNative.mod.NodeHandle
 import typings.reactRouter.components.Route
-import typings.reactRouter.mod.RouteProps
+import typings.reactRouter.mod.{ExtractRouteParams, RouteProps}
 import typings.reactRouterNative.components.{NativeRouter, Redirect}
 
 import scala.scalajs.js
@@ -61,7 +61,7 @@ val App: Component[Unit, CtorType.Nullary] = ScalaFnComponent { case () =>
           )
         ),
       Route(
-        RouteProps()
+        RouteProps[String, ExtractRouteParams[String, String]]()
           .setPath(RoutePath.Home.path)
           .setRender(props => checkRedirection(props.`match`.path, Home()).rawNode)
           .setExact(true)
@@ -72,9 +72,10 @@ val App: Component[Unit, CtorType.Nullary] = ScalaFnComponent { case () =>
           .setRender(props => checkRedirection(props.`match`.path, Antd()).rawNode)
       ),
       Route(
-        RouteProps()
+        RouteProps[String, ExtractRouteParams[String, String]]()
           .setPath(RoutePath.ReactRouter.path)
           .setRender(props => checkRedirection(props.`match`.path, ReactRouter(props.`match`)).rawNode)
+          .setExact(true)
       )
     )
   )

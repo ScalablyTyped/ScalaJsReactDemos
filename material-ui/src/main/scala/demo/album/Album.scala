@@ -7,8 +7,8 @@ import org.scalablytyped.runtime.StringDictionary
 import typings.classnames.mod as classNames
 import typings.csstype.csstypeStrings.{auto, column, flex, relative}
 import typings.materialUiCore.components.*
-import typings.materialUiCore.createMuiThemeMod.Theme
-import typings.materialUiCore.materialUiCoreNumbers.*
+import typings.materialUiCore.stylesCreateMuiThemeMod.Theme
+import typings.materialUiCore.materialUiCoreInts.*
 import typings.materialUiCore.materialUiCoreStrings as strings
 import typings.materialUiCore.mod.PropTypes.Color
 import typings.materialUiCore.typographyTypographyMod.Style

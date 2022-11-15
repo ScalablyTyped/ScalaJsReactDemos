@@ -5,9 +5,9 @@ import japgolly.scalajs.react.{Callback, ScalaFnComponent}
 import org.scalablytyped.runtime.StringDictionary
 import typings.antd.antdStrings
 import typings.antd.components.*
-import typings.antd.formFormMod.useForm
-import typings.antd.gridColMod.ColProps
-import typings.rcFieldForm.interfaceMod.BaseRule
+import typings.antd.libFormFormMod.useForm
+import typings.antd.libGridColMod.ColProps
+import typings.rcFieldForm.esInterfaceMod.BaseRule
 import typings.std.global.console
 
 object CoordinatedDemo:

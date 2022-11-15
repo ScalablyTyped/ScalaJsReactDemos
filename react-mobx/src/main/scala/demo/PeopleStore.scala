@@ -1,7 +1,7 @@
 package demo
 
 import typings.mobx.mod as MobX
-import typings.mobx.observablevalueMod.IObservableValue
+import typings.mobx.libTypesObservablevalueMod.IObservableValue
 
 import scala.scalajs.js
 

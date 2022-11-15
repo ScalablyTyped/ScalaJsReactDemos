@@ -4,7 +4,7 @@ import japgolly.scalajs.react.ScalaFnComponent
 import japgolly.scalajs.react.vdom.Implicits.*
 import org.scalablytyped.runtime.StringDictionary
 import typings.expo.components.AppLoading
-import typings.expoFont.fontTypesMod.FontSource
+import typings.expoFont.buildFontDottypesMod.FontSource
 import typings.expoFont.mod as Font
 import typings.react.mod.{useEffect, useState}
 import typings.reactNative.components.Text

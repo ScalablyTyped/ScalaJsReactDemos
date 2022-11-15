@@ -7,11 +7,11 @@ import japgolly.scalajs.react.vdom.html_<^.*
 import japgolly.scalajs.react.{Callback, CallbackTo, ScalaFnComponent}
 import org.scalajs.dom.HTMLElement
 import typings.csstype.mod.{ClearProperty, FloatProperty, TextAlignProperty}
-import typings.dndCore.interfacesMod.SourceType
+import typings.dndCore.libInterfacesMod.SourceType
 import typings.react.mod.CSSProperties
 import typings.reactDnd.components.DndProvider
-import typings.reactDnd.connectorsMod.{ConnectDropTarget, ConnectableElement}
-import typings.reactDnd.hooksApiMod.{DragSourceHookSpec, DropTargetHookSpec}
+import typings.reactDnd.libInterfacesConnectorsMod.{ConnectDropTarget, ConnectableElement}
+import typings.reactDnd.libInterfacesHooksApiMod.{DragSourceHookSpec, DropTargetHookSpec}
 import typings.reactDnd.mod.{useDrag, useDrop}
 import typings.reactDndHtml5Backend.mod.HTML5Backend
 import typings.std.global.alert
