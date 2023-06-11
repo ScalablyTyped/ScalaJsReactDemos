@@ -43,7 +43,7 @@ lazy val baseSettings: Project => Project =
   _.enablePlugins(ScalaJSPlugin)
     .settings(
       version := "0.1-SNAPSHOT",
-      scalaVersion := "3.1.0",
+      scalaVersion := "3.3.0",
       scalacOptions ++= ScalacOptions.flags,
       scalaJSUseMainModuleInitializer := true,
       /* disabled because it somehow triggers many warnings */
