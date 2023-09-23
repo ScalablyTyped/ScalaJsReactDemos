@@ -43,7 +43,7 @@ lazy val baseSettings: Project => Project =
   _.enablePlugins(ScalaJSPlugin)
     .settings(
       version := "0.1-SNAPSHOT",
-      scalaVersion := "3.1.0",
+      scalaVersion := "3.3.0",
       scalacOptions ++= ScalacOptions.flags,
       scalaJSUseMainModuleInitializer := true,
       /* disabled because it somehow triggers many warnings */
@@ -347,6 +347,7 @@ lazy val reactNpmDeps: Project => Project =
 lazy val bundlerSettings: Project => Project =
   _.settings(
     webpackCliVersion := "4.10.0",
+    webpack / version := "5.88.2",
     Compile / fastOptJS / webpackExtraArgs += "--mode=development",
     Compile / fullOptJS / webpackExtraArgs += "--mode=production",
     Compile / fastOptJS / webpackDevServerExtraArgs += "--mode=development",
@@ -358,9 +359,9 @@ lazy val withCssLoading: Project => Project =
     /* custom webpack file to include css */
     webpackConfigFile := Some((ThisBuild / baseDirectory).value / "custom.webpack.config.js"),
     Compile / npmDevDependencies ++= Seq(
-      "webpack-merge" -> "5.8.0",
-      "css-loader" -> "6.7.2",
-      "style-loader" -> "3.3.1",
+      "webpack-merge" -> "5.9.0",
+      "css-loader" -> "6.8.1",
+      "style-loader" -> "3.3.3",
       "file-loader" -> "6.2.0",
       "url-loader" -> "4.1.1"
     )
